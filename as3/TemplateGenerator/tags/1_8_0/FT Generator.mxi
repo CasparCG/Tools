@@ -1,0 +1,42 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+<macromedia-extension name="FT Generator" version="1.8.0" type="flash panel" requires-restart="true">
+
+	<!-- Describe the author -->
+
+	<author name="CasparCG.com" />
+
+	<!-- List the required/compatible products -->
+
+	<products>
+		<product name="Flash" version="10" primary="true" />
+	</products>
+
+	<!-- Describe the extension -->
+
+	<description>
+		<![CDATA[Panel used to generate .ft files for playback in CasparCG, the free and open sourced Flash and video play-out server. Documentation can be found at http://casparcg.com/wiki/FT_Generator and the latest version and licenses can be found at http://casparcg.com/ ]]>
+	</description>
+
+	<!-- Describe where the extension shows in the UI of the product -->
+
+	<ui-access>
+		<![CDATA[You can find the panel in Flash->Window->Other Panels->FT Generator. Choose you settings to the right and then click "Generate" to create a .ft file. ]]>
+	</ui-access>
+
+	<!-- Describe the files that comprise the extension -->
+
+	<files>
+		<file name="brew1_8.jsfl" destination="$flash/WindowSWF" />
+		<file name="FT Generator.swf" destination="$flash/WindowSWF" />
+		<file name="720 25p.fla" destination="$flash/Templates/Caspar" />
+		<file name="720 50p.fla" destination="$flash/Templates/Caspar" />
+		<file name="1080 25p.fla" destination="$flash/Templates/Caspar" />
+		<file name="1080 50i.fla" destination="$flash/Templates/Caspar" />
+		<file name="PAL SD 25 (frames).fla" destination="$flash/Templates/Caspar" />
+		<file name="PAL SD 50 (fields).fla" destination="$flash/Templates/Caspar" />
+		<file name="PAL WIDESCREEN 25 (frames).fla" destination="$flash/Templates/Caspar" />
+		<file name="PAL WIDESCREEN 50 (fields).fla" destination="$flash/Templates/Caspar" />
+		<file name="se/" destination="$flash/Classes/Caspar" />
+	</files>
+
+</macromedia-extension>

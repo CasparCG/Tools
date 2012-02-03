@@ -1,0 +1,4 @@
+<servers>
+  <server name="Home" host="localhost" channel="1" port="5250" path="C:\Program Files\CasparCG 2.0 Beta 3\server\templates\"/>
+  <server name="test:1" host="test" channel="1" port="5250" path="test/"/>
+</servers>
