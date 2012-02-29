@@ -9,6 +9,7 @@ namespace CasparCGConfigurator
 {
     [XmlInclude(typeof(decklinkConsumer))]
     [XmlInclude(typeof(screenConsumer))]
+    [XmlInclude(typeof(systemaudioConsumer))]
     public abstract class AbstractConsumer : INotifyPropertyChanged
     {
 

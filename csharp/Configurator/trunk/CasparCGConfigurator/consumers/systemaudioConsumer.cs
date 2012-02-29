@@ -9,7 +9,7 @@ namespace CasparCGConfigurator
 {
     public class systemaudioConsumer : AbstractConsumer, INotifyPropertyChanged
     {
-        [XmlElement(ElementName = "system-audio")]
+        
         public systemaudioConsumer()
         {
 
