@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using TKLib;
 using System.ComponentModel;
 using System.Xml.Serialization;
 
@@ -10,8 +9,6 @@ namespace CasparCGConfigurator
 {
     public class paths : INotifyPropertyChanged
     {
-        private PropertyChangeManager<paths> propertyChanges;
-
         private string _mediapath;
         private string _logpath;
         private string _datapath;
@@ -19,7 +16,6 @@ namespace CasparCGConfigurator
 
         public paths()
         {
-            propertyChanges = new PropertyChangeManager<paths>(this);
             
             mediapath = "media\\";
             logpath = "log\\";
@@ -31,34 +27,38 @@ namespace CasparCGConfigurator
         public string mediapath
         {
             get { return _mediapath; }
-            set { _mediapath = value; this.propertyChanges.NotifyChanged(x => x.mediapath); }
+            set { _mediapath = value; NotifyChanged("mediapath"); }
         }
 
         [XmlElement(ElementName = "log-path")]
         public string logpath
         {
             get { return _logpath; }
-            set { _logpath = value; this.propertyChanges.NotifyChanged(x => x.logpath); }
+            set { _logpath = value; NotifyChanged("logpath"); }
         }
 
         [XmlElement(ElementName = "data-path")]
         public string datapath
         {
             get { return _datapath; }
-            set { _datapath = value; this.propertyChanges.NotifyChanged(x => x.datapath); }
+            set { _datapath = value; NotifyChanged("datapath"); }
         }
 
         [XmlElement(ElementName = "template-path")]
         public string templatepath
         {
             get { return _templatepath; }
-            set { _templatepath = value; this.propertyChanges.NotifyChanged(x => x.templatepath); }
+            set { _templatepath = value; NotifyChanged("templatepath"); }
         }
 
-        public event PropertyChangedEventHandler PropertyChanged
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private void NotifyChanged(String info)
         {
-            add { this.propertyChanges.AddHandler(value); }
-            remove { this.propertyChanges.RemoveHandler(value); }
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(info));
+            }
         }
     }
 }

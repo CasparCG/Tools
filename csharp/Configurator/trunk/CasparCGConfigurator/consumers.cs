@@ -3,15 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.ComponentModel;
-using TKLib;
 using System.Xml.Serialization;
 
 namespace CasparCGConfigurator
 {
     public class decklinkConsumer : AConsumer, INotifyPropertyChanged
     {
-        private PropertyChangeManager<decklinkConsumer> propertyChanges;
-
         private int _device;
         private Boolean _embeddedaudio;
         private string _latency;
@@ -21,7 +18,6 @@ namespace CasparCGConfigurator
 
         public decklinkConsumer()
         {
-            propertyChanges = new PropertyChangeManager<decklinkConsumer>(this);
             device = 1;
             embeddedaudio = false;
             latency = "normal";
@@ -33,40 +29,40 @@ namespace CasparCGConfigurator
         public int device
         {
             get { return _device; }
-            set { _device = value; this.propertyChanges.NotifyChanged(x => x.device); }
+            set { _device = value; NotifyChanged("device"); }
         }
 
         [XmlElement(ElementName = "embedded-audio")]
         public Boolean embeddedaudio
         {
             get { return _embeddedaudio; }
-            set { _embeddedaudio = value; this.propertyChanges.NotifyChanged(x => x.embeddedaudio); }
+            set { _embeddedaudio = value; NotifyChanged("embeddedaudio"); }
         }
 
         public string latency
         {
             get { return _latency; }
-            set { _latency = value; this.propertyChanges.NotifyChanged(x => x.latency); }
+            set { _latency = value; NotifyChanged("latency"); }
         }
 
         public string keyer
         {
             get { return _keyer; }
-            set { _keyer = value; this.propertyChanges.NotifyChanged(x => x.keyer); }
+            set { _keyer = value; NotifyChanged("keyer"); }
         }
 
         [XmlElement(ElementName = "key-only")]
         public Boolean keyonly
         {
             get { return _keyonly; }
-            set { _keyonly = value; this.propertyChanges.NotifyChanged(x => x.keyonly); }
+            set { _keyonly = value; NotifyChanged("keyonly"); }
         }
 
         [XmlElement(ElementName = "buffer-depth")]
         public int bufferdepth
         {
             get { return _bufferdepth; }
-            set { _bufferdepth = value; this.propertyChanges.NotifyChanged(x => x.bufferdepth); }
+            set { _bufferdepth = value; NotifyChanged("bufferdepth"); }
         }
 
         public override string ToString()
@@ -74,28 +70,30 @@ namespace CasparCGConfigurator
             return "Decklink";
         }
 
-        public event PropertyChangedEventHandler PropertyChanged
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private void NotifyChanged(String info)
         {
-            add { this.propertyChanges.AddHandler(value); }
-            remove { this.propertyChanges.RemoveHandler(value); }
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(info));
+            }
         }
     }
 
     public class screenConsumer : AConsumer, INotifyPropertyChanged
     {
-        private PropertyChangeManager<screenConsumer> propertyChanges;
-
         private int _device;
 
         public screenConsumer()
         {
-            propertyChanges = new PropertyChangeManager<screenConsumer>(this);
+            device = 0;
         }
 
         public int device
         {
             get { return _device; }
-            set { _device = value; this.propertyChanges.NotifyChanged(x => x.device); }
+            set { _device = value; NotifyChanged("device"); }
         }
 
         public override string ToString()
@@ -103,10 +101,14 @@ namespace CasparCGConfigurator
             return "Screen";
         }
 
-        public event PropertyChangedEventHandler PropertyChanged
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private void NotifyChanged(String info)
         {
-            add { this.propertyChanges.AddHandler(value); }
-            remove { this.propertyChanges.RemoveHandler(value); }
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(info));
+            }
         }
     }
 
@@ -115,10 +117,14 @@ namespace CasparCGConfigurator
     public abstract class AConsumer : INotifyPropertyChanged
     {
 
-        event PropertyChangedEventHandler INotifyPropertyChanged.PropertyChanged
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private void NotifyChanged(String info)
         {
-            add { throw new NotImplementedException(); }
-            remove { throw new NotImplementedException(); }
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(info));
+            }
         }
     }
 }

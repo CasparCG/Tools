@@ -3,15 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.ComponentModel;
-using TKLib;
 using System.Xml.Serialization;
 
 namespace CasparCGConfigurator
 {
     public class configuration : INotifyPropertyChanged
     {
-        private PropertyChangeManager<configuration> propertyChanges;
-
         private paths _paths;
         private BindingList<channel> _channels;
         private string _loglevel; // [trace|debug|info|warning|error]</log-level>
@@ -23,8 +20,7 @@ namespace CasparCGConfigurator
 
         public configuration()
         {
-            propertyChanges = new PropertyChangeManager<configuration>(this);
-            
+
             paths = new paths();
             loglevel = "trace";
             channelgrid = false;
@@ -38,61 +34,65 @@ namespace CasparCGConfigurator
         public paths paths
         {
             get { return _paths; }
-            set { _paths = value; this.propertyChanges.NotifyChanged(x => x.paths); }
+            set { _paths = value; NotifyChanged("paths"); }
         }
 
         [XmlElement(ElementName = "log-level")]
         public string loglevel
         {
             get { return _loglevel; }
-            set { _loglevel = value; this.propertyChanges.NotifyChanged(x => x.loglevel); }
+            set { _loglevel = value; NotifyChanged("loglevel"); }
         }
 
         [XmlElement(ElementName = "channel-grid")]
         public Boolean channelgrid
         {
             get { return _channelgrid; }
-            set { _channelgrid = value; this.propertyChanges.NotifyChanged(x => x.channelgrid); }
+            set { _channelgrid = value; NotifyChanged("channelgrid"); }
         }
 
         [XmlElement(ElementName = "blend-modes")]
         public Boolean blendmodes
         {
             get { return _blendmodes; }
-            set { _blendmodes = value; this.propertyChanges.NotifyChanged(x => x.blendmodes); }
+            set { _blendmodes = value; NotifyChanged("blendmodes"); }
         }
 
         [XmlElement(ElementName = "auto-deinterlace")]
         public Boolean autodeinterlace
         {
             get { return _autodeinterlace; }
-            set { _autodeinterlace = value; this.propertyChanges.NotifyChanged(x => x.autodeinterlace); }
+            set { _autodeinterlace = value; NotifyChanged("autodeinterlace"); }
         }
 
         [XmlElement(ElementName = "auto-transcode")]
         public Boolean autotranscode
         {
             get { return _autotranscode; }
-            set { _autotranscode = value; this.propertyChanges.NotifyChanged(x => x.autotranscode); }
+            set { _autotranscode = value; NotifyChanged("autotranscode"); }
         }
 
         [XmlElement(ElementName = "pipeline-tokens")]
         public int pipelinetokens
         {
             get { return _pipelinetokens; }
-            set { _pipelinetokens = value; this.propertyChanges.NotifyChanged(x => x.pipelinetokens); }
+            set { _pipelinetokens = value; NotifyChanged("pipelinetokens"); }
         }
 
         public BindingList<channel> channels
         {
             get { return _channels; }
-            set { _channels = value; this.propertyChanges.NotifyChanged(x => x.channels); }
+            set { _channels = value; NotifyChanged("channels"); }
         }
 
-        public event PropertyChangedEventHandler PropertyChanged
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private void NotifyChanged(String info)
         {
-            add { this.propertyChanges.AddHandler(value); }
-            remove { this.propertyChanges.RemoveHandler(value); }
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(info));
+            }
         }
     }
 }

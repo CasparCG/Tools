@@ -87,7 +87,6 @@
     <Compile Include="paths.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="PropertyChangeManager.cs" />
     <EmbeddedResource Include="ConsumerControlBase.resx">
       <DependentUpon>ConsumerControlBase.cs</DependentUpon>
     </EmbeddedResource>
