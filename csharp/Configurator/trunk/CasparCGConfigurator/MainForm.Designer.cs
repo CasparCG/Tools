@@ -46,11 +46,11 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.PathsTabPage = new System.Windows.Forms.TabPage();
             this.datapathTextBox = new System.Windows.Forms.TextBox();
-            this.pathsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.logpathTextBox = new System.Windows.Forms.TextBox();
             this.mediapathTextBox = new System.Windows.Forms.TextBox();
             this.templatepathTextBox = new System.Windows.Forms.TextBox();
             this.ChannelsTabPage = new System.Windows.Forms.TabPage();
+            this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label7 = new System.Windows.Forms.Label();
@@ -71,14 +71,18 @@
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.AdvancedTabPage = new System.Windows.Forms.TabPage();
             this.comboBox2 = new System.Windows.Forms.ComboBox();
-            this.configurationBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.autodeinterlaceCheckBox = new System.Windows.Forms.CheckBox();
             this.autotranscodeCheckBox = new System.Windows.Forms.CheckBox();
             this.blendmodesCheckBox = new System.Windows.Forms.CheckBox();
             this.channelgridCheckBox = new System.Windows.Forms.CheckBox();
             this.pipelinetokensTextBox = new System.Windows.Forms.TextBox();
+            this.button8 = new System.Windows.Forms.Button();
+            this.button9 = new System.Windows.Forms.Button();
+            this.button10 = new System.Windows.Forms.Button();
+            this.button11 = new System.Windows.Forms.Button();
+            this.pathsBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.configurationBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.channelBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.button2 = new System.Windows.Forms.Button();
             datapathLabel = new System.Windows.Forms.Label();
             logpathLabel = new System.Windows.Forms.Label();
             mediapathLabel = new System.Windows.Forms.Label();
@@ -92,9 +96,9 @@
             this.menuStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.PathsTabPage.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pathsBindingSource)).BeginInit();
             this.ChannelsTabPage.SuspendLayout();
             this.AdvancedTabPage.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pathsBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.configurationBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.channelBindingSource)).BeginInit();
             this.SuspendLayout();
@@ -234,6 +238,10 @@
             // 
             // PathsTabPage
             // 
+            this.PathsTabPage.Controls.Add(this.button11);
+            this.PathsTabPage.Controls.Add(this.button10);
+            this.PathsTabPage.Controls.Add(this.button9);
+            this.PathsTabPage.Controls.Add(this.button8);
             this.PathsTabPage.Controls.Add(datapathLabel);
             this.PathsTabPage.Controls.Add(this.datapathTextBox);
             this.PathsTabPage.Controls.Add(logpathLabel);
@@ -255,19 +263,15 @@
             this.datapathTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.pathsBindingSource, "datapath", true));
             this.datapathTextBox.Location = new System.Drawing.Point(109, 20);
             this.datapathTextBox.Name = "datapathTextBox";
-            this.datapathTextBox.Size = new System.Drawing.Size(100, 20);
+            this.datapathTextBox.Size = new System.Drawing.Size(398, 20);
             this.datapathTextBox.TabIndex = 1;
-            // 
-            // pathsBindingSource
-            // 
-            this.pathsBindingSource.DataSource = typeof(CasparCGConfigurator.paths);
             // 
             // logpathTextBox
             // 
             this.logpathTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.pathsBindingSource, "logpath", true));
             this.logpathTextBox.Location = new System.Drawing.Point(109, 46);
             this.logpathTextBox.Name = "logpathTextBox";
-            this.logpathTextBox.Size = new System.Drawing.Size(100, 20);
+            this.logpathTextBox.Size = new System.Drawing.Size(398, 20);
             this.logpathTextBox.TabIndex = 3;
             // 
             // mediapathTextBox
@@ -275,7 +279,7 @@
             this.mediapathTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.pathsBindingSource, "mediapath", true));
             this.mediapathTextBox.Location = new System.Drawing.Point(109, 72);
             this.mediapathTextBox.Name = "mediapathTextBox";
-            this.mediapathTextBox.Size = new System.Drawing.Size(100, 20);
+            this.mediapathTextBox.Size = new System.Drawing.Size(398, 20);
             this.mediapathTextBox.TabIndex = 5;
             // 
             // templatepathTextBox
@@ -283,7 +287,7 @@
             this.templatepathTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.pathsBindingSource, "templatepath", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.templatepathTextBox.Location = new System.Drawing.Point(109, 98);
             this.templatepathTextBox.Name = "templatepathTextBox";
-            this.templatepathTextBox.Size = new System.Drawing.Size(100, 20);
+            this.templatepathTextBox.Size = new System.Drawing.Size(398, 20);
             this.templatepathTextBox.TabIndex = 7;
             // 
             // ChannelsTabPage
@@ -315,6 +319,16 @@
             this.ChannelsTabPage.TabIndex = 1;
             this.ChannelsTabPage.Text = "Channels";
             this.ChannelsTabPage.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(291, 303);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(128, 23);
+            this.button2.TabIndex = 18;
+            this.button2.Text = "Add Bluefish";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // button1
             // 
@@ -543,10 +557,6 @@
             this.comboBox2.Size = new System.Drawing.Size(121, 21);
             this.comboBox2.TabIndex = 12;
             // 
-            // configurationBindingSource
-            // 
-            this.configurationBindingSource.DataSource = typeof(CasparCGConfigurator.configuration);
-            // 
             // autodeinterlaceCheckBox
             // 
             this.autodeinterlaceCheckBox.DataBindings.Add(new System.Windows.Forms.Binding("CheckState", this.configurationBindingSource, "autodeinterlace", true));
@@ -591,19 +601,61 @@
             this.pipelinetokensTextBox.Size = new System.Drawing.Size(104, 20);
             this.pipelinetokensTextBox.TabIndex = 11;
             // 
+            // button8
+            // 
+            this.button8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button8.Location = new System.Drawing.Point(513, 20);
+            this.button8.Name = "button8";
+            this.button8.Size = new System.Drawing.Size(29, 20);
+            this.button8.TabIndex = 8;
+            this.button8.Text = "...";
+            this.button8.UseVisualStyleBackColor = true;
+            this.button8.Click += new System.EventHandler(this.button8_Click);
+            // 
+            // button9
+            // 
+            this.button9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button9.Location = new System.Drawing.Point(513, 45);
+            this.button9.Name = "button9";
+            this.button9.Size = new System.Drawing.Size(29, 20);
+            this.button9.TabIndex = 9;
+            this.button9.Text = "...";
+            this.button9.UseVisualStyleBackColor = true;
+            this.button9.Click += new System.EventHandler(this.button9_Click);
+            // 
+            // button10
+            // 
+            this.button10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button10.Location = new System.Drawing.Point(513, 72);
+            this.button10.Name = "button10";
+            this.button10.Size = new System.Drawing.Size(29, 20);
+            this.button10.TabIndex = 10;
+            this.button10.Text = "...";
+            this.button10.UseVisualStyleBackColor = true;
+            this.button10.Click += new System.EventHandler(this.button10_Click);
+            // 
+            // button11
+            // 
+            this.button11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button11.Location = new System.Drawing.Point(513, 98);
+            this.button11.Name = "button11";
+            this.button11.Size = new System.Drawing.Size(29, 20);
+            this.button11.TabIndex = 11;
+            this.button11.Text = "...";
+            this.button11.UseVisualStyleBackColor = true;
+            this.button11.Click += new System.EventHandler(this.button11_Click);
+            // 
+            // pathsBindingSource
+            // 
+            this.pathsBindingSource.DataSource = typeof(CasparCGConfigurator.paths);
+            // 
+            // configurationBindingSource
+            // 
+            this.configurationBindingSource.DataSource = typeof(CasparCGConfigurator.configuration);
+            // 
             // channelBindingSource
             // 
             this.channelBindingSource.DataSource = typeof(CasparCGConfigurator.channel);
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(291, 303);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(128, 23);
-            this.button2.TabIndex = 18;
-            this.button2.Text = "Add Bluefish";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // MainForm
             // 
@@ -622,11 +674,11 @@
             this.tabControl1.ResumeLayout(false);
             this.PathsTabPage.ResumeLayout(false);
             this.PathsTabPage.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pathsBindingSource)).EndInit();
             this.ChannelsTabPage.ResumeLayout(false);
             this.ChannelsTabPage.PerformLayout();
             this.AdvancedTabPage.ResumeLayout(false);
             this.AdvancedTabPage.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pathsBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.configurationBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.channelBindingSource)).EndInit();
             this.ResumeLayout(false);
@@ -676,6 +728,10 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button button8;
+        private System.Windows.Forms.Button button11;
+        private System.Windows.Forms.Button button10;
+        private System.Windows.Forms.Button button9;
     }
 }
 

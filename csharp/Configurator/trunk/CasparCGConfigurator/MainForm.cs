@@ -235,5 +235,49 @@ namespace CasparCGConfigurator
             ((BindingList<AbstractConsumer>)listBox2.DataSource).Add(d);
             refreshconsumerpanel();
         }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            var fd = new FolderBrowserDialog();
+
+            if (fd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                datapathTextBox.Text = fd.SelectedPath;
+            }
+            fd.Dispose();
+        }
+
+        private void button9_Click(object sender, EventArgs e)
+        {
+            var fd = new FolderBrowserDialog();
+
+            if (fd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                logpathTextBox.Text = fd.SelectedPath;
+            }
+            fd.Dispose();
+        }
+
+        private void button10_Click(object sender, EventArgs e)
+        {
+            var fd = new FolderBrowserDialog();
+
+            if (fd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                mediapathTextBox.Text = fd.SelectedPath;
+            }
+            fd.Dispose();
+        }
+
+        private void button11_Click(object sender, EventArgs e)
+        {
+            var fd = new FolderBrowserDialog();
+
+            if (fd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                templatepathTextBox.Text = fd.SelectedPath;
+            }
+            fd.Dispose();
+        }
     }
 }
