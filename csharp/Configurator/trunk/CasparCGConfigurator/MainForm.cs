@@ -15,6 +15,7 @@ namespace CasparCGConfigurator
     public partial class MainForm : Form
     {
         public configuration config;
+        private ConsumerControlBase consumereditorcontrol;
         
         public MainForm()
         {
@@ -158,7 +159,6 @@ namespace CasparCGConfigurator
 
         private void button7_Click(object sender, EventArgs e)
         {
-            //panel1.Controls.Clear();
             if (listBox2.SelectedItems.Count > 0)
             {
                 ((channel)listBox1.SelectedItem).consumers.Remove((AbstractConsumer)listBox2.SelectedItem);
@@ -178,16 +178,24 @@ namespace CasparCGConfigurator
 
         private void refreshconsumerpanel()
         {
-            //foreach (Control c in panel1.Controls)
-            //{
-            //    c.Dispose();
-            //}
+            if (consumereditorcontrol != null)
+            {
+                consumereditorcontrol.Dispose();
+            }
             panel1.Controls.Clear();
+            consumereditorcontrol = null;
+
             if (listBox2.SelectedItems.Count > 0)
             {
                 if (listBox2.SelectedItem.GetType() == typeof(decklinkConsumer))
                 {
-                    panel1.Controls.Add(new decklinkConsumerControl((decklinkConsumer)listBox2.SelectedItem));
+                    consumereditorcontrol = new decklinkConsumerControl((decklinkConsumer)listBox2.SelectedItem);
+                    panel1.Controls.Add(consumereditorcontrol);
+                }
+                else if (listBox2.SelectedItem.GetType() == typeof(screenConsumer))
+                {
+                    consumereditorcontrol = new screenConsumerControl((screenConsumer)listBox2.SelectedItem);
+                    panel1.Controls.Add(consumereditorcontrol);
                 }
             }
         }

@@ -188,6 +188,7 @@
             this.Controls.Add(this.keyonlyCheckBox);
             this.Controls.Add(latencyLabel);
             this.Name = "decklinkConsumerControl";
+            this.Size = new System.Drawing.Size(261, 240);
             ((System.ComponentModel.ISupportInitialize)(this.decklinkConsumerBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

@@ -72,6 +72,12 @@
     <Compile Include="consumers\ConsumerControlBase.Designer.cs">
       <DependentUpon>ConsumerControlBase.cs</DependentUpon>
     </Compile>
+    <Compile Include="consumers\screenConsumerControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="consumers\screenConsumerControl.Designer.cs">
+      <DependentUpon>screenConsumerControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="consumers\decklinkConsumer.cs" />
     <Compile Include="consumers\decklinkConsumerControl.cs">
       <SubType>UserControl</SubType>
@@ -91,6 +97,9 @@
     <Compile Include="consumers\screenConsumer.cs" />
     <EmbeddedResource Include="consumers\ConsumerControlBase.resx">
       <DependentUpon>ConsumerControlBase.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="consumers\screenConsumerControl.resx">
+      <DependentUpon>screenConsumerControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="consumers\decklinkConsumerControl.resx">
       <DependentUpon>decklinkConsumerControl.cs</DependentUpon>
@@ -112,6 +121,7 @@
     <None Include="Properties\DataSources\configuration.datasource" />
     <None Include="Properties\DataSources\decklinkConsumer.datasource" />
     <None Include="Properties\DataSources\paths.datasource" />
+    <None Include="Properties\DataSources\screenConsumer.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
