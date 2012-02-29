@@ -1,9 +1,0 @@
-C:\Users\Thomas\Dropbox\CasparCGConfigurator\CasparCGConfigurator\bin\Release\CasparCGConfigurator.exe
-C:\Users\Thomas\Dropbox\CasparCGConfigurator\CasparCGConfigurator\obj\x86\Release\ResolveAssemblyReference.cache
-C:\Users\Thomas\Dropbox\CasparCGConfigurator\CasparCGConfigurator\obj\x86\Release\CasparCGConfigurator.ConsumerControlBase.resources
-C:\Users\Thomas\Dropbox\CasparCGConfigurator\CasparCGConfigurator\obj\x86\Release\CasparCGConfigurator.decklinkConsumerControl.resources
-C:\Users\Thomas\Dropbox\CasparCGConfigurator\CasparCGConfigurator\obj\x86\Release\CasparCGConfigurator.MainForm.resources
-C:\Users\Thomas\Dropbox\CasparCGConfigurator\CasparCGConfigurator\obj\x86\Release\CasparCGConfigurator.Properties.Resources.resources
-C:\Users\Thomas\Dropbox\CasparCGConfigurator\CasparCGConfigurator\obj\x86\Release\GenerateResource.read.1.tlog
-C:\Users\Thomas\Dropbox\CasparCGConfigurator\CasparCGConfigurator\obj\x86\Release\GenerateResource.write.1.tlog
-C:\Users\Thomas\Dropbox\CasparCGConfigurator\CasparCGConfigurator\obj\x86\Release\CasparCGConfigurator.exe
