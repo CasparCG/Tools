@@ -35,6 +35,7 @@ namespace CasparCGConfigurator
         [XmlArrayItem("decklink", Type = typeof(decklinkConsumer))]
         [XmlArrayItem("screen", Type = typeof(screenConsumer))]
         [XmlArrayItem("system-audio", Type = typeof(systemaudioConsumer))]
+        [XmlArrayItem("bluefish", Type = typeof(bluefishConsumer))]
         public BindingList<AbstractConsumer> consumers
         {
             get { return _consumers; }

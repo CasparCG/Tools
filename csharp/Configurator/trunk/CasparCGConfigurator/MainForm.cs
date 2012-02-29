@@ -197,6 +197,11 @@ namespace CasparCGConfigurator
                     consumereditorcontrol = new screenConsumerControl((screenConsumer)listBox2.SelectedItem);
                     panel1.Controls.Add(consumereditorcontrol);
                 }
+                else if (listBox2.SelectedItem.GetType() == typeof(bluefishConsumer))
+                {
+                    consumereditorcontrol = new bluefishConsumerControl((bluefishConsumer)listBox2.SelectedItem);
+                    panel1.Controls.Add(consumereditorcontrol);
+                }
             }
         }
 
@@ -218,6 +223,14 @@ namespace CasparCGConfigurator
         private void button1_Click(object sender, EventArgs e)
         {
             var d = new systemaudioConsumer();
+
+            ((BindingList<AbstractConsumer>)listBox2.DataSource).Add(d);
+            refreshconsumerpanel();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            var d = new bluefishConsumer();
 
             ((BindingList<AbstractConsumer>)listBox2.DataSource).Add(d);
             refreshconsumerpanel();

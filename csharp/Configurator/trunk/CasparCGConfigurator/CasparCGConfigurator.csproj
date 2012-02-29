@@ -72,6 +72,13 @@
     <Compile Include="consumers\ConsumerControlBase.Designer.cs">
       <DependentUpon>ConsumerControlBase.cs</DependentUpon>
     </Compile>
+    <Compile Include="consumers\bluefishConsumer.cs" />
+    <Compile Include="consumers\bluefishConsumerControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="consumers\bluefishConsumerControl.Designer.cs">
+      <DependentUpon>bluefishConsumerControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="consumers\systemaudioConsumer.cs" />
     <Compile Include="consumers\screenConsumerControl.cs">
       <SubType>UserControl</SubType>
@@ -99,6 +106,9 @@
     <EmbeddedResource Include="consumers\ConsumerControlBase.resx">
       <DependentUpon>ConsumerControlBase.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="consumers\bluefishConsumerControl.resx">
+      <DependentUpon>bluefishConsumerControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="consumers\screenConsumerControl.resx">
       <DependentUpon>screenConsumerControl.cs</DependentUpon>
     </EmbeddedResource>
@@ -118,6 +128,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <None Include="casparcg.config" />
+    <None Include="Properties\DataSources\bluefishConsumer.datasource" />
     <None Include="Properties\DataSources\channel.datasource" />
     <None Include="Properties\DataSources\configuration.datasource" />
     <None Include="Properties\DataSources\decklinkConsumer.datasource" />

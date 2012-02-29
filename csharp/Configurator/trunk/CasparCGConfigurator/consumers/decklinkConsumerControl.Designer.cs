@@ -65,9 +65,9 @@
             deviceLabel.AutoSize = true;
             deviceLabel.Location = new System.Drawing.Point(13, 38);
             deviceLabel.Name = "deviceLabel";
-            deviceLabel.Size = new System.Drawing.Size(84, 13);
+            deviceLabel.Size = new System.Drawing.Size(54, 13);
             deviceLabel.TabIndex = 3;
-            deviceLabel.Text = "Device Number:";
+            deviceLabel.Text = "Device #:";
             // 
             // embeddedaudioLabel
             // 
@@ -188,7 +188,6 @@
             this.Controls.Add(this.keyonlyCheckBox);
             this.Controls.Add(latencyLabel);
             this.Name = "decklinkConsumerControl";
-            this.Size = new System.Drawing.Size(261, 240);
             ((System.ComponentModel.ISupportInitialize)(this.decklinkConsumerBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

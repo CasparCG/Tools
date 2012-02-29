@@ -51,6 +51,7 @@
             this.mediapathTextBox = new System.Windows.Forms.TextBox();
             this.templatepathTextBox = new System.Windows.Forms.TextBox();
             this.ChannelsTabPage = new System.Windows.Forms.TabPage();
+            this.button1 = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
@@ -77,7 +78,7 @@
             this.channelgridCheckBox = new System.Windows.Forms.CheckBox();
             this.pipelinetokensTextBox = new System.Windows.Forms.TextBox();
             this.channelBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.button1 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
             datapathLabel = new System.Windows.Forms.Label();
             logpathLabel = new System.Windows.Forms.Label();
             mediapathLabel = new System.Windows.Forms.Label();
@@ -288,6 +289,7 @@
             // ChannelsTabPage
             // 
             this.ChannelsTabPage.AutoScroll = true;
+            this.ChannelsTabPage.Controls.Add(this.button2);
             this.ChannelsTabPage.Controls.Add(this.button1);
             this.ChannelsTabPage.Controls.Add(this.panel1);
             this.ChannelsTabPage.Controls.Add(this.label7);
@@ -313,6 +315,16 @@
             this.ChannelsTabPage.TabIndex = 1;
             this.ChannelsTabPage.Text = "Channels";
             this.ChannelsTabPage.UseVisualStyleBackColor = true;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(291, 278);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(128, 23);
+            this.button1.TabIndex = 17;
+            this.button1.Text = "Add System Audio";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // panel1
             // 
@@ -445,7 +457,7 @@
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(291, 257);
+            this.button5.Location = new System.Drawing.Point(291, 253);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(128, 23);
             this.button5.TabIndex = 4;
@@ -583,15 +595,15 @@
             // 
             this.channelBindingSource.DataSource = typeof(CasparCGConfigurator.channel);
             // 
-            // button1
+            // button2
             // 
-            this.button1.Location = new System.Drawing.Point(291, 286);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(128, 23);
-            this.button1.TabIndex = 17;
-            this.button1.Text = "Add System Audio";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.button2.Location = new System.Drawing.Point(291, 303);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(128, 23);
+            this.button2.TabIndex = 18;
+            this.button2.Text = "Add Bluefish";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // MainForm
             // 
@@ -663,6 +675,7 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button2;
     }
 }
 
