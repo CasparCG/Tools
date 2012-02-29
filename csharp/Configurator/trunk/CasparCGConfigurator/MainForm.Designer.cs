@@ -77,6 +77,7 @@
             this.channelgridCheckBox = new System.Windows.Forms.CheckBox();
             this.pipelinetokensTextBox = new System.Windows.Forms.TextBox();
             this.channelBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.button1 = new System.Windows.Forms.Button();
             datapathLabel = new System.Windows.Forms.Label();
             logpathLabel = new System.Windows.Forms.Label();
             mediapathLabel = new System.Windows.Forms.Label();
@@ -287,6 +288,7 @@
             // ChannelsTabPage
             // 
             this.ChannelsTabPage.AutoScroll = true;
+            this.ChannelsTabPage.Controls.Add(this.button1);
             this.ChannelsTabPage.Controls.Add(this.panel1);
             this.ChannelsTabPage.Controls.Add(this.label7);
             this.ChannelsTabPage.Controls.Add(this.label8);
@@ -581,6 +583,16 @@
             // 
             this.channelBindingSource.DataSource = typeof(CasparCGConfigurator.channel);
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(291, 286);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(128, 23);
+            this.button1.TabIndex = 17;
+            this.button1.Text = "Add System Audio";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -650,6 +662,7 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Button button1;
     }
 }
 

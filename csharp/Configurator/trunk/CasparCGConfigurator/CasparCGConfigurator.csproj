@@ -72,6 +72,7 @@
     <Compile Include="consumers\ConsumerControlBase.Designer.cs">
       <DependentUpon>ConsumerControlBase.cs</DependentUpon>
     </Compile>
+    <Compile Include="consumers\systemaudioConsumer.cs" />
     <Compile Include="consumers\screenConsumerControl.cs">
       <SubType>UserControl</SubType>
     </Compile>

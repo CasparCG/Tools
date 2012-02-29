@@ -214,5 +214,13 @@ namespace CasparCGConfigurator
             }
 
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            var d = new systemaudioConsumer();
+
+            ((BindingList<AbstractConsumer>)listBox2.DataSource).Add(d);
+            refreshconsumerpanel();
+        }
     }
 }
