@@ -10,13 +10,13 @@ namespace CasparCGConfigurator
     public class channel : INotifyPropertyChanged
     {
         private string _videomode;
-        private BindingList<AConsumer> _consumers;
+        private BindingList<AbstractConsumer> _consumers;
 
         public channel()
         {
             
             videomode = "PAL";
-            consumers = new BindingList<AConsumer>();
+            consumers = new BindingList<AbstractConsumer>();
 
         }
 
@@ -34,7 +34,7 @@ namespace CasparCGConfigurator
         [XmlArray("consumers")]
         [XmlArrayItem("decklink", Type = typeof(decklinkConsumer))]
         [XmlArrayItem("screen", Type = typeof(screenConsumer))]
-        public BindingList<AConsumer> consumers
+        public BindingList<AbstractConsumer> consumers
         {
             get { return _consumers; }
             set { _consumers = value; NotifyChanged("consumers");}

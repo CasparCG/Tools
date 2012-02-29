@@ -52,7 +52,7 @@ namespace CasparCGConfigurator
         {
             var extraTypes = new Type[2];
             extraTypes[0] = typeof(decklinkConsumer);
-            extraTypes[1] = typeof(AConsumer);
+            extraTypes[1] = typeof(AbstractConsumer);
 
             var x = new XmlSerializer(typeof(configuration), extraTypes);
 
@@ -126,7 +126,7 @@ namespace CasparCGConfigurator
         {
             var d = new decklinkConsumer();
             
-            ((BindingList<AConsumer>)listBox2.DataSource).Add(d);
+            ((BindingList<AbstractConsumer>)listBox2.DataSource).Add(d);
 
             refreshconsumerpanel();
         }
@@ -135,7 +135,7 @@ namespace CasparCGConfigurator
         {
             var d = new screenConsumer();
 
-            ((BindingList<AConsumer>)listBox2.DataSource).Add(d);
+            ((BindingList<AbstractConsumer>)listBox2.DataSource).Add(d);
             refreshconsumerpanel();
         }
 
@@ -161,7 +161,7 @@ namespace CasparCGConfigurator
             //panel1.Controls.Clear();
             if (listBox2.SelectedItems.Count > 0)
             {
-                ((channel)listBox1.SelectedItem).consumers.Remove((AConsumer)listBox2.SelectedItem);
+                ((channel)listBox1.SelectedItem).consumers.Remove((AbstractConsumer)listBox2.SelectedItem);
             }
             refreshconsumerpanel();
         }

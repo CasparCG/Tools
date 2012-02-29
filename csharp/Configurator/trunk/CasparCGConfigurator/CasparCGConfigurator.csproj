@@ -65,17 +65,18 @@
   <ItemGroup>
     <Compile Include="channel.cs" />
     <Compile Include="configuration.cs" />
-    <Compile Include="consumers.cs" />
-    <Compile Include="ConsumerControlBase.cs">
+    <Compile Include="consumers\AbstractConsumer.cs" />
+    <Compile Include="consumers\ConsumerControlBase.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="ConsumerControlBase.Designer.cs">
+    <Compile Include="consumers\ConsumerControlBase.Designer.cs">
       <DependentUpon>ConsumerControlBase.cs</DependentUpon>
     </Compile>
-    <Compile Include="decklinkConsumerControl.cs">
+    <Compile Include="consumers\decklinkConsumer.cs" />
+    <Compile Include="consumers\decklinkConsumerControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="decklinkConsumerControl.Designer.cs">
+    <Compile Include="consumers\decklinkConsumerControl.Designer.cs">
       <DependentUpon>decklinkConsumerControl.cs</DependentUpon>
     </Compile>
     <Compile Include="MainForm.cs">
@@ -87,10 +88,11 @@
     <Compile Include="paths.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="ConsumerControlBase.resx">
+    <Compile Include="consumers\screenConsumer.cs" />
+    <EmbeddedResource Include="consumers\ConsumerControlBase.resx">
       <DependentUpon>ConsumerControlBase.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="decklinkConsumerControl.resx">
+    <EmbeddedResource Include="consumers\decklinkConsumerControl.resx">
       <DependentUpon>decklinkConsumerControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
