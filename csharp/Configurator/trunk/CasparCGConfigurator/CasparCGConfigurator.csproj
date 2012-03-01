@@ -63,57 +63,57 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="channel.cs" />
-    <Compile Include="configuration.cs" />
-    <Compile Include="consumers\AbstractConsumer.cs" />
-    <Compile Include="consumers\ConsumerControlBase.cs">
+    <Compile Include="Channel.cs" />
+    <Compile Include="Configuration.cs" />
+    <Compile Include="Consumers\AbstractConsumer.cs" />
+    <Compile Include="Consumers\BluefishConsumer.cs" />
+    <Compile Include="Consumers\BluefishConsumerControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="consumers\ConsumerControlBase.Designer.cs">
+    <Compile Include="Consumers\BluefishConsumerControl.designer.cs">
+      <DependentUpon>BluefishConsumerControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Consumers\ConsumerControlBase.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Consumers\ConsumerControlBase.designer.cs">
       <DependentUpon>ConsumerControlBase.cs</DependentUpon>
     </Compile>
-    <Compile Include="consumers\bluefishConsumer.cs" />
-    <Compile Include="consumers\bluefishConsumerControl.cs">
+    <Compile Include="Consumers\DecklinkConsumer.cs" />
+    <Compile Include="Consumers\DecklinkConsumerControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="consumers\bluefishConsumerControl.Designer.cs">
-      <DependentUpon>bluefishConsumerControl.cs</DependentUpon>
+    <Compile Include="Consumers\DecklinkConsumerControl.designer.cs">
+      <DependentUpon>DecklinkConsumerControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="consumers\systemaudioConsumer.cs" />
-    <Compile Include="consumers\screenConsumerControl.cs">
+    <Compile Include="Consumers\ScreenConsumer.cs" />
+    <Compile Include="Consumers\ScreenConsumerControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="consumers\screenConsumerControl.Designer.cs">
-      <DependentUpon>screenConsumerControl.cs</DependentUpon>
+    <Compile Include="Consumers\ScreenConsumerControl.designer.cs">
+      <DependentUpon>ScreenConsumerControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="consumers\decklinkConsumer.cs" />
-    <Compile Include="consumers\decklinkConsumerControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="consumers\decklinkConsumerControl.Designer.cs">
-      <DependentUpon>decklinkConsumerControl.cs</DependentUpon>
-    </Compile>
+    <Compile Include="Consumers\SystemaudioConsumer.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="paths.cs" />
+    <Compile Include="Paths.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="consumers\screenConsumer.cs" />
-    <EmbeddedResource Include="consumers\ConsumerControlBase.resx">
+    <EmbeddedResource Include="Consumers\BluefishConsumerControl.resx">
+      <DependentUpon>BluefishConsumerControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Consumers\ConsumerControlBase.resx">
       <DependentUpon>ConsumerControlBase.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="consumers\bluefishConsumerControl.resx">
-      <DependentUpon>bluefishConsumerControl.cs</DependentUpon>
+    <EmbeddedResource Include="Consumers\DecklinkConsumerControl.resx">
+      <DependentUpon>DecklinkConsumerControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="consumers\screenConsumerControl.resx">
-      <DependentUpon>screenConsumerControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="consumers\decklinkConsumerControl.resx">
-      <DependentUpon>decklinkConsumerControl.cs</DependentUpon>
+    <EmbeddedResource Include="Consumers\ScreenConsumerControl.resx">
+      <DependentUpon>ScreenConsumerControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
@@ -166,6 +166,7 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

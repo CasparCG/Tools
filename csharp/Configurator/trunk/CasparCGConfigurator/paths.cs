@@ -7,58 +7,49 @@ using System.Xml.Serialization;
 
 namespace CasparCGConfigurator
 {
-    public class paths : INotifyPropertyChanged
+    public class Paths : INotifyPropertyChanged
     {
-        private string _mediapath;
-        private string _logpath;
-        private string _datapath;
-        private string _templatepath;
-
-        public paths()
-        {
-            
-            mediapath = "media\\";
-            logpath = "log\\";
-            datapath = "data\\";
-            templatepath = "templates\\";
+        public Paths()
+        {            
         }
 
+        private string mediaPath = "media\\";
         [XmlElement(ElementName = "media-path")]
-        public string mediapath
+        public string MediaPath
         {
-            get { return _mediapath; }
-            set { _mediapath = value; NotifyChanged("mediapath"); }
+            get { return this.mediaPath; }
+            set { this.mediaPath = value; NotifyChanged("mediapath"); }
         }
 
+        private string logPath = "log\\";
         [XmlElement(ElementName = "log-path")]
-        public string logpath
+        public string LogPath
         {
-            get { return _logpath; }
-            set { _logpath = value; NotifyChanged("logpath"); }
+            get { return this.logPath; }
+            set { this.logPath = value; NotifyChanged("logpath"); }
         }
 
+        private string dataPath = "data\\";
         [XmlElement(ElementName = "data-path")]
-        public string datapath
+        public string DataPath
         {
-            get { return _datapath; }
-            set { _datapath = value; NotifyChanged("datapath"); }
+            get { return this.dataPath; }
+            set { this.dataPath = value; NotifyChanged("datapath"); }
         }
 
+        private string templatePath = "templates\\";
         [XmlElement(ElementName = "template-path")]
-        public string templatepath
+        public string TemplatePath
         {
-            get { return _templatepath; }
-            set { _templatepath = value; NotifyChanged("templatepath"); }
+            get { return this.templatePath; }
+            set { this.templatePath = value; NotifyChanged("templatepath"); }
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler PropertyChanged = delegate {};
 
         private void NotifyChanged(String info)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(info));
-            }
+        {           
+            PropertyChanged(this, new PropertyChangedEventArgs(info));            
         }
     }
 }

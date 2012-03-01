@@ -9,15 +9,15 @@ using System.Windows.Forms;
 
 namespace CasparCGConfigurator
 {
-    public partial class screenConsumerControl : ConsumerControlBase
+    public partial class ScreenConsumerControl : ConsumerControlBase
     {
-        public screenConsumerControl(screenConsumer consumer)
+        public ScreenConsumerControl(ScreenConsumer consumer)
         {
             InitializeComponent();
             screenConsumerBindingSource.DataSource = consumer;
         }
 
-        ~screenConsumerControl()
+        ~ScreenConsumerControl()
         {
             screenConsumerBindingSource.Dispose();
         }

@@ -1,6 +1,6 @@
 ﻿namespace CasparCGConfigurator
 {
-    partial class bluefishConsumerControl
+    partial class BluefishConsumerControl
     {
         /// <summary> 
         /// Required designer variable.
@@ -44,7 +44,7 @@
             // 
             // bluefishConsumerBindingSource
             // 
-            this.bluefishConsumerBindingSource.DataSource = typeof(CasparCGConfigurator.bluefishConsumer);
+            this.bluefishConsumerBindingSource.DataSource = typeof(CasparCGConfigurator.BluefishConsumer);
             // 
             // deviceLabel
             // 

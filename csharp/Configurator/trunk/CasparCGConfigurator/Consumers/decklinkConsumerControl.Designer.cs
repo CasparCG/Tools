@@ -1,6 +1,6 @@
 ﻿namespace CasparCGConfigurator
 {
-    partial class decklinkConsumerControl
+    partial class DecklinkConsumerControl
     {
         /// <summary> 
         /// Required designer variable.
@@ -115,7 +115,7 @@
             // 
             // decklinkConsumerBindingSource
             // 
-            this.decklinkConsumerBindingSource.DataSource = typeof(CasparCGConfigurator.decklinkConsumer);
+            this.decklinkConsumerBindingSource.DataSource = typeof(CasparCGConfigurator.DecklinkConsumer);
             // 
             // deviceTextBox
             // 

@@ -7,12 +7,10 @@ using System.Xml.Serialization;
 
 namespace CasparCGConfigurator
 {
-    public class systemaudioConsumer : AbstractConsumer, INotifyPropertyChanged
-    {
-        
-        public systemaudioConsumer()
+    public class SystemAudioConsumer : AbstractConsumer, INotifyPropertyChanged
+    {        
+        public SystemAudioConsumer()
         {
-
         }
 
         public override string ToString()
@@ -20,14 +18,11 @@ namespace CasparCGConfigurator
             return "System Audio";
         }
 
-        public override event PropertyChangedEventHandler PropertyChanged;
+        public override event PropertyChangedEventHandler PropertyChanged = delegate { };
 
         private void NotifyChanged(String info)
         {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(info));
-            }
+            PropertyChanged(this, new PropertyChangedEventArgs(info));
         }
     }
 }

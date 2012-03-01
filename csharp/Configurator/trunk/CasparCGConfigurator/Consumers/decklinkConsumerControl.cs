@@ -9,15 +9,15 @@ using System.Windows.Forms;
 
 namespace CasparCGConfigurator
 {
-    public partial class decklinkConsumerControl : ConsumerControlBase
+    public partial class DecklinkConsumerControl : ConsumerControlBase
     {
-        public decklinkConsumerControl(decklinkConsumer consumer)
+        public DecklinkConsumerControl(DecklinkConsumer consumer)
         {
             InitializeComponent();
             decklinkConsumerBindingSource.DataSource = consumer;
         }
 
-        ~decklinkConsumerControl()
+        ~DecklinkConsumerControl()
         {
             decklinkConsumerBindingSource.Dispose();
         }

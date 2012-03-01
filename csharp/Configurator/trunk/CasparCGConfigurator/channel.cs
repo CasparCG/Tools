@@ -7,49 +7,37 @@ using System.Xml.Serialization;
 
 namespace CasparCGConfigurator
 {
-    public class channel : INotifyPropertyChanged
+    public class Channel : INotifyPropertyChanged
     {
-        private string _videomode;
-        private BindingList<AbstractConsumer> _consumers;
-
-        public channel()
-        {
-            
-            videomode = "PAL";
-            consumers = new BindingList<AbstractConsumer>();
-
+        public Channel()
+        {            
         }
 
+        private string videoMode = "PAL";
         [XmlElement(ElementName = "video-mode")]
-        public string videomode
+        public string VideoMode
         {
-            get { return _videomode; }
-            set 
-            {
-                    _videomode = value;
-                    NotifyChanged("videomode"); 
-            }
+            get { return this.videoMode; }
+            set { this.videoMode = value; NotifyChanged("videomode"); }
         }
 
+        private BindingList<AbstractConsumer> consumers = new BindingList<AbstractConsumer>();
         [XmlArray("consumers")]
-        [XmlArrayItem("decklink", Type = typeof(decklinkConsumer))]
-        [XmlArrayItem("screen", Type = typeof(screenConsumer))]
-        [XmlArrayItem("system-audio", Type = typeof(systemaudioConsumer))]
-        [XmlArrayItem("bluefish", Type = typeof(bluefishConsumer))]
-        public BindingList<AbstractConsumer> consumers
+        [XmlArrayItem("decklink", Type = typeof(DecklinkConsumer))]
+        [XmlArrayItem("screen", Type = typeof(ScreenConsumer))]
+        [XmlArrayItem("system-audio", Type = typeof(SystemAudioConsumer))]
+        [XmlArrayItem("bluefish", Type = typeof(BluefishConsumer))]
+        public BindingList<AbstractConsumer> Consumers
         {
-            get { return _consumers; }
-            set { _consumers = value; NotifyChanged("consumers");}
+            get { return this.consumers; }
+            set { this.consumers = value; NotifyChanged("consumers");}
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler PropertyChanged = delegate {};
 
         private void NotifyChanged(String info)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(info));
-            }
+        {        
+            PropertyChanged(this, new PropertyChangedEventArgs(info));            
         }
     }
 }

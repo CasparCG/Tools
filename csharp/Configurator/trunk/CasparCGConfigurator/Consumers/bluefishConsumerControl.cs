@@ -9,15 +9,15 @@ using System.Windows.Forms;
 
 namespace CasparCGConfigurator
 {
-    public partial class bluefishConsumerControl : ConsumerControlBase
+    public partial class BluefishConsumerControl : ConsumerControlBase
     {
-        public bluefishConsumerControl(bluefishConsumer consumer)
+        public BluefishConsumerControl(BluefishConsumer consumer)
         {
             InitializeComponent();
             bluefishConsumerBindingSource.DataSource = consumer;
         }
 
-        ~bluefishConsumerControl()
+        ~BluefishConsumerControl()
         {
             bluefishConsumerBindingSource.Dispose();
         }

@@ -647,7 +647,7 @@
             // 
             // pathsBindingSource
             // 
-            this.pathsBindingSource.DataSource = typeof(CasparCGConfigurator.paths);
+            this.pathsBindingSource.DataSource = typeof(CasparCGConfigurator.Paths);
             // 
             // configurationBindingSource
             // 
@@ -655,7 +655,7 @@
             // 
             // channelBindingSource
             // 
-            this.channelBindingSource.DataSource = typeof(CasparCGConfigurator.channel);
+            this.channelBindingSource.DataSource = typeof(CasparCGConfigurator.Channel);
             // 
             // MainForm
             // 

@@ -9,90 +9,77 @@ namespace CasparCGConfigurator
 {
     public class configuration : INotifyPropertyChanged
     {
-        private paths _paths;
-        private BindingList<channel> _channels;
-        private string _loglevel; // [trace|debug|info|warning|error]</log-level>
-        private Boolean _channelgrid;
-        private Boolean _blendmodes;
-        private Boolean _autodeinterlace;
-        private Boolean _autotranscode;
-        private int _pipelinetokens;
-
         public configuration()
         {
-
-            paths = new paths();
-            loglevel = "trace";
-            channelgrid = false;
-            blendmodes = false;
-            autodeinterlace = true;
-            autotranscode = true;
-            pipelinetokens = 2;
-            channels = new BindingList<channel>();
         }
 
-        public paths paths
+        private Paths path = new Paths();
+        public Paths Paths
         {
-            get { return _paths; }
-            set { _paths = value; NotifyChanged("paths"); }
+            get { return this.path; }
+            set { this.path = value; NotifyChanged("paths"); }
         }
 
+        private string logLevel = "trace"; // [trace|debug|info|warning|error]</log-level>
         [XmlElement(ElementName = "log-level")]
-        public string loglevel
+        public string LogLevel
         {
-            get { return _loglevel; }
-            set { _loglevel = value; NotifyChanged("loglevel"); }
+            get { return this.logLevel; }
+            set { this.logLevel = value; NotifyChanged("loglevel"); }
         }
 
+        private Boolean channelGrid = false;
         [XmlElement(ElementName = "channel-grid")]
-        public Boolean channelgrid
+        public Boolean ChannelGrid
         {
-            get { return _channelgrid; }
-            set { _channelgrid = value; NotifyChanged("channelgrid"); }
+            get { return this.channelGrid; }
+            set { this.channelGrid = value; NotifyChanged("channelgrid"); }
         }
 
+        private Boolean blendModes = true;
         [XmlElement(ElementName = "blend-modes")]
-        public Boolean blendmodes
+        public Boolean BlendModes
         {
-            get { return _blendmodes; }
-            set { _blendmodes = value; NotifyChanged("blendmodes"); }
+            get { return this.blendModes; }
+            set { this.blendModes = value; NotifyChanged("blendmodes"); }
         }
 
+        private Boolean autoDeinterlace = false;
         [XmlElement(ElementName = "auto-deinterlace")]
-        public Boolean autodeinterlace
+        public Boolean AutoDeinterlace
         {
-            get { return _autodeinterlace; }
-            set { _autodeinterlace = value; NotifyChanged("autodeinterlace"); }
+            get { return this.autoDeinterlace; }
+            set { this.autoDeinterlace = value; NotifyChanged("autodeinterlace"); }
         }
 
+        private Boolean autoTranscode = true;
         [XmlElement(ElementName = "auto-transcode")]
-        public Boolean autotranscode
+        public Boolean AutoTranscode
         {
-            get { return _autotranscode; }
-            set { _autotranscode = value; NotifyChanged("autotranscode"); }
+            get { return this.autoTranscode; }
+            set { this.autoTranscode = value; NotifyChanged("autotranscode"); }
         }
 
+        private int pipelineTokens = 2;
         [XmlElement(ElementName = "pipeline-tokens")]
-        public int pipelinetokens
+        public int PipelineTokens
         {
-            get { return _pipelinetokens; }
-            set { _pipelinetokens = value; NotifyChanged("pipelinetokens"); }
+            get { return this.pipelineTokens; }
+            set { this.pipelineTokens = value; NotifyChanged("pipelinetokens"); }
         }
 
-        public BindingList<channel> channels
+        private BindingList<Channel> channels = new BindingList<Channel>();
+        public BindingList<Channel> Channels
         {
-            get { return _channels; }
-            set { _channels = value; NotifyChanged("channels"); }
+            get { return this.channels; }
+            set { this.channels = value; NotifyChanged("channels"); }
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler PropertyChanged = delegate { };
 
         private void NotifyChanged(String info)
         {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(info));
-            }
+            PropertyChanged(this, new PropertyChangedEventArgs(info));            
         }
     }
 }

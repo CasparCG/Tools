@@ -1,6 +1,6 @@
 ﻿namespace CasparCGConfigurator
 {
-    partial class screenConsumerControl
+    partial class ScreenConsumerControl
     {
         /// <summary> 
         /// Required designer variable.
@@ -131,7 +131,7 @@
             // 
             // screenConsumerBindingSource
             // 
-            this.screenConsumerBindingSource.DataSource = typeof(CasparCGConfigurator.screenConsumer);
+            this.screenConsumerBindingSource.DataSource = typeof(CasparCGConfigurator.ScreenConsumer);
             // 
             // autodeinterlaceCheckBox
             // 
