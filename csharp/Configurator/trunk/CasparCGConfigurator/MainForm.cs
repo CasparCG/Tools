@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using System.IO;
 using System.Xml.Serialization;
 using System.Xml;
+using System.Xml.Linq;
 
 namespace CasparCGConfigurator
 {
@@ -44,34 +45,35 @@ namespace CasparCGConfigurator
         {
             pathsBindingSource.DataSource = config.paths;
             configurationBindingSource.DataSource = config;
-            listBox1.DataSource = config.channels;
-           
+            listBox1.DataSource = config.channels;           
         }
-
 
         private void SerializeConfig()
         {
-            var extraTypes = new Type[2];
-            extraTypes[0] = typeof(decklinkConsumer);
-            extraTypes[1] = typeof(AbstractConsumer);
+            var extraTypes = new Type[2]{typeof(decklinkConsumer), typeof(AbstractConsumer)};
 
-            var x = new XmlSerializer(typeof(configuration), extraTypes);
-
-            var st = new StringWriter();
+            XDocument doc = new XDocument(new XDeclaration("1.0", "utf-8", "yes"));
             XmlSerializerNamespaces namespaces = new XmlSerializerNamespaces();
             namespaces.Add(string.Empty, string.Empty);
 
-            x.Serialize(st, config, namespaces);
-            var doc = new XmlDocument();
-            doc.LoadXml(st.ToString());
+            using(var writer = doc.CreateWriter())
+            {
+                new XmlSerializer(typeof(configuration), extraTypes).Serialize(writer, config, namespaces);
+            }
 
-            var xc = doc.SelectSingleNode("configuration");
-            var xe = doc.CreateElement("controllers");
-            xe.InnerXml = "<tcp><port>5250</port><protocol>AMCP</protocol></tcp>";
-            xc.AppendChild(xe);
+            doc.Element("configuration").Add(
+                new XElement("controllers",
+                    new XElement("tcp",
+                        new XElement[2]
+                        {
+                            new XElement("port", 5220),
+                            new XElement("protocol", "AMCP")
+                        })));
 
-            doc.Save("casparcg.config");
-
+            using (var writer = new XmlTextWriter("casparcg.config", new UTF8Encoding(false, false))) // No BOM
+            {
+                doc.Save(writer);
+            }
         }
 
 
