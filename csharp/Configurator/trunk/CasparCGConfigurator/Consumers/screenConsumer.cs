@@ -13,18 +13,20 @@ namespace CasparCGConfigurator
         {
         }
 
-        private int device = 0;
-        public int Device
+        private String device = "0";
+        [XmlElement(ElementName = "device")]
+        public String Device
         {
             get { return this.device; }
-            set { this.device = value; NotifyChanged("device"); }
+            set { this.device = value; NotifyChanged("Device"); }
         }
 
         private string name;
+        [XmlElement(ElementName = "name")]
         public string Name
         {
             get { return this.name; }
-            set { this.name = value; NotifyChanged("name"); }
+            set { this.name = value; NotifyChanged("Name"); }
         }
 
         private string aspectratio = "default";
@@ -32,21 +34,23 @@ namespace CasparCGConfigurator
         public string AspectRatio
         {
             get { return this.aspectratio; }
-            set { this.aspectratio = value; NotifyChanged("aspectratio"); }
+            set { this.aspectratio = value; NotifyChanged("AspectRatio"); }
         }
 
         private string stretch = "fill";
+        [XmlElement(ElementName = "stretch")]
         public string Stretch
         {
             get { return this.stretch; }
-            set { this.stretch = value; NotifyChanged("stretch"); }
+            set { this.stretch = value; NotifyChanged("Stretch"); }
         }
 
         private Boolean windowed = true;
+        [XmlElement(ElementName = "windowed")]
         public Boolean Windowed
         {
             get { return this.windowed; }
-            set { this.windowed = value; NotifyChanged("windowed"); }
+            set { this.windowed = value; NotifyChanged("Windowed"); }
         }
 
         private Boolean keyonly = false;
@@ -54,7 +58,7 @@ namespace CasparCGConfigurator
         public Boolean KeyOnly
         {
             get { return this.keyonly; }
-            set { this.keyonly = value; NotifyChanged("keyonly"); }
+            set { this.keyonly = value; NotifyChanged("KeyOnly"); }
         }
 
         private Boolean autodeinterlace = true;
@@ -62,10 +66,11 @@ namespace CasparCGConfigurator
         public Boolean AutoDeinterlace
         {
             get { return this.autodeinterlace; }
-            set { this.autodeinterlace = value; NotifyChanged("autodeinterlace"); }
+            set { this.autodeinterlace = value; NotifyChanged("AutoDeinterlace"); }
         }
 
         private Boolean vsync = false;
+        [XmlElement(ElementName = "vsync")]
         public Boolean VSync
         {
             get { return this.vsync; }

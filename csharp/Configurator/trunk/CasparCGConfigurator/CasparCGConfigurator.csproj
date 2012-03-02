@@ -128,12 +128,13 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <None Include="casparcg.config" />
-    <None Include="Properties\DataSources\bluefishConsumer.datasource" />
-    <None Include="Properties\DataSources\channel.datasource" />
+    <None Include="Properties\DataSources\BluefishConsumer.datasource" />
+    <None Include="Properties\DataSources\Channel.datasource" />
     <None Include="Properties\DataSources\configuration.datasource" />
-    <None Include="Properties\DataSources\decklinkConsumer.datasource" />
-    <None Include="Properties\DataSources\paths.datasource" />
-    <None Include="Properties\DataSources\screenConsumer.datasource" />
+    <None Include="Properties\DataSources\DecklinkConsumer.datasource" />
+    <None Include="Properties\DataSources\Paths.datasource" />
+    <None Include="Properties\DataSources\ScreenConsumer.datasource" />
+    <None Include="Properties\DataSources\SystemAudioConsumer.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

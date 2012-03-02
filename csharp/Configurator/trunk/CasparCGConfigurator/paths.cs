@@ -18,7 +18,7 @@ namespace CasparCGConfigurator
         public string MediaPath
         {
             get { return this.mediaPath; }
-            set { this.mediaPath = value; NotifyChanged("mediapath"); }
+            set { this.mediaPath = value; NotifyChanged("MediaPath"); }
         }
 
         private string logPath = "log\\";
@@ -26,7 +26,7 @@ namespace CasparCGConfigurator
         public string LogPath
         {
             get { return this.logPath; }
-            set { this.logPath = value; NotifyChanged("logpath"); }
+            set { this.logPath = value; NotifyChanged("LogPath"); }
         }
 
         private string dataPath = "data\\";
@@ -42,7 +42,7 @@ namespace CasparCGConfigurator
         public string TemplatePath
         {
             get { return this.templatePath; }
-            set { this.templatePath = value; NotifyChanged("templatepath"); }
+            set { this.templatePath = value; NotifyChanged("TemplatePath"); }
         }
 
         public event PropertyChangedEventHandler PropertyChanged = delegate {};

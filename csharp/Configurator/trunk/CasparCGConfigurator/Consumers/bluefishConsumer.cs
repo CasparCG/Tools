@@ -14,11 +14,12 @@ namespace CasparCGConfigurator
         {
         }
 
-        private int device = 1;
-        public int Device
+        private String device = "1";
+        [XmlElement(ElementName = "device")]
+        public String Device
         {
             get { return this.device; }
-            set { this.device = value; NotifyChanged("device"); }
+            set { this.device = value; NotifyChanged("Device"); }
         }
 
         private Boolean embeddedaudio = false;
@@ -26,7 +27,7 @@ namespace CasparCGConfigurator
         public Boolean EmbeddedAudio
         {
             get { return this.embeddedaudio; }
-            set { this.embeddedaudio = value; NotifyChanged("embeddedaudio"); }
+            set { this.embeddedaudio = value; NotifyChanged("EmbeddedAudio"); }
         }
 
         private Boolean keyonly = false;
@@ -34,7 +35,7 @@ namespace CasparCGConfigurator
         public Boolean KeyOnly
         {
             get { return this.keyonly; }
-            set { this.keyonly = value; NotifyChanged("keyonly"); }
+            set { this.keyonly = value; NotifyChanged("KeyOnly"); }
         }
 
         public override string ToString()

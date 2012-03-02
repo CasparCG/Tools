@@ -18,7 +18,7 @@ namespace CasparCGConfigurator
         public string VideoMode
         {
             get { return this.videoMode; }
-            set { this.videoMode = value; NotifyChanged("videomode"); }
+            set { this.videoMode = value; NotifyChanged("VideoMode"); }
         }
 
         private BindingList<AbstractConsumer> consumers = new BindingList<AbstractConsumer>();
@@ -30,7 +30,7 @@ namespace CasparCGConfigurator
         public BindingList<AbstractConsumer> Consumers
         {
             get { return this.consumers; }
-            set { this.consumers = value; NotifyChanged("consumers");}
+            set { this.consumers = value; NotifyChanged("Consumers");}
         }
 
         public event PropertyChangedEventHandler PropertyChanged = delegate {};

@@ -13,19 +13,20 @@ namespace CasparCGConfigurator
         {
         }
 
-        private Paths path = new Paths();
+        private Paths paths = new Paths();
+        [XmlElement(ElementName = "paths")]
         public Paths Paths
         {
-            get { return this.path; }
-            set { this.path = value; NotifyChanged("paths"); }
+            get { return this.paths; }
+            set { this.paths = value; NotifyChanged("Paths"); }
         }
 
-        private string logLevel = "trace"; // [trace|debug|info|warning|error]</log-level>
+        private string logLevel = "trace";
         [XmlElement(ElementName = "log-level")]
         public string LogLevel
         {
             get { return this.logLevel; }
-            set { this.logLevel = value; NotifyChanged("loglevel"); }
+            set { this.logLevel = value; NotifyChanged("LogLevel"); }
         }
 
         private Boolean channelGrid = false;
@@ -33,7 +34,7 @@ namespace CasparCGConfigurator
         public Boolean ChannelGrid
         {
             get { return this.channelGrid; }
-            set { this.channelGrid = value; NotifyChanged("channelgrid"); }
+            set { this.channelGrid = value; NotifyChanged("ChannelGrid"); }
         }
 
         private Boolean blendModes = true;
@@ -41,15 +42,15 @@ namespace CasparCGConfigurator
         public Boolean BlendModes
         {
             get { return this.blendModes; }
-            set { this.blendModes = value; NotifyChanged("blendmodes"); }
+            set { this.blendModes = value; NotifyChanged("BlendModes"); }
         }
 
-        private Boolean autoDeinterlace = false;
+        private Boolean autoDeinterlace = true;
         [XmlElement(ElementName = "auto-deinterlace")]
         public Boolean AutoDeinterlace
         {
             get { return this.autoDeinterlace; }
-            set { this.autoDeinterlace = value; NotifyChanged("autodeinterlace"); }
+            set { this.autoDeinterlace = value; NotifyChanged("AutoDeinterlace"); }
         }
 
         private Boolean autoTranscode = true;
@@ -57,7 +58,7 @@ namespace CasparCGConfigurator
         public Boolean AutoTranscode
         {
             get { return this.autoTranscode; }
-            set { this.autoTranscode = value; NotifyChanged("autotranscode"); }
+            set { this.autoTranscode = value; NotifyChanged("AutoTranscode"); }
         }
 
         private int pipelineTokens = 2;
@@ -65,14 +66,16 @@ namespace CasparCGConfigurator
         public int PipelineTokens
         {
             get { return this.pipelineTokens; }
-            set { this.pipelineTokens = value; NotifyChanged("pipelinetokens"); }
+            set { this.pipelineTokens = value; NotifyChanged("PipelineTokens"); }
         }
 
         private BindingList<Channel> channels = new BindingList<Channel>();
+        [XmlArray("channels")]
+        [XmlArrayItem("channel", Type = typeof(Channel))]
         public BindingList<Channel> Channels
         {
             get { return this.channels; }
-            set { this.channels = value; NotifyChanged("channels"); }
+            set { this.channels = value; NotifyChanged("Channels"); }
         }
 
         public event PropertyChangedEventHandler PropertyChanged = delegate { };

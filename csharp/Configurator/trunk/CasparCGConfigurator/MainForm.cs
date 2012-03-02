@@ -17,6 +17,7 @@ namespace CasparCGConfigurator
     {
         public configuration config = new configuration();
         private ConsumerControlBase consumerEditorControl;
+        private AbstractConsumer lastConsumer;
         
         public MainForm()
         {
@@ -29,7 +30,6 @@ namespace CasparCGConfigurator
                 DeSerializeConfig(System.IO.File.ReadAllText("casparcg.config"));
             else
                 SerializeConfig();   
-
             this.WireBindings();
             this.Updatechannel();
         }
@@ -43,7 +43,7 @@ namespace CasparCGConfigurator
 
         private void SerializeConfig()
         {
-            var extraTypes = new Type[2]{typeof(DecklinkConsumer), typeof(AbstractConsumer)};
+            var extraTypes = new Type[1]{typeof(AbstractConsumer)};
 
             XDocument doc = new XDocument(new XDeclaration("1.0", "utf-8", "yes"));
             XmlSerializerNamespaces namespaces = new XmlSerializerNamespaces();
@@ -85,30 +85,35 @@ namespace CasparCGConfigurator
 
         private void RefreshConsumerPanel()
         {
-            if (consumerEditorControl != null)
-                this.consumerEditorControl.Dispose();
-
-            this.panel1.Controls.Clear();
-            this.consumerEditorControl = null;
-
-            if (listBox2.SelectedItems.Count > 0)
+            if (lastConsumer != listBox2.SelectedItem)
             {
-                if (listBox2.SelectedItem.GetType() == typeof(DecklinkConsumer))
+
+                this.panel1.Controls.Clear();
+                if (consumerEditorControl != null)
+                    consumerEditorControl.Dispose();
+
+                this.consumerEditorControl = null;
+
+                if (listBox2.SelectedItems.Count > 0)
                 {
-                    this.consumerEditorControl = new DecklinkConsumerControl(listBox2.SelectedItem as DecklinkConsumer);
-                    this.panel1.Controls.Add(consumerEditorControl);
-                }
-                else if (listBox2.SelectedItem.GetType() == typeof(ScreenConsumer))
-                {
-                    this.consumerEditorControl = new ScreenConsumerControl(listBox2.SelectedItem as ScreenConsumer);
-                    this.panel1.Controls.Add(consumerEditorControl);
-                }
-                else if (listBox2.SelectedItem.GetType() == typeof(BluefishConsumer))
-                {
-                    this.consumerEditorControl = new BluefishConsumerControl(listBox2.SelectedItem as BluefishConsumer);
-                    this.panel1.Controls.Add(consumerEditorControl);
+                    if (listBox2.SelectedItem.GetType() == typeof(DecklinkConsumer))
+                    {
+                        this.consumerEditorControl = new DecklinkConsumerControl(listBox2.SelectedItem as DecklinkConsumer);
+                        this.panel1.Controls.Add(consumerEditorControl);
+                    }
+                    else if (listBox2.SelectedItem.GetType() == typeof(ScreenConsumer))
+                    {
+                        this.consumerEditorControl = new ScreenConsumerControl(listBox2.SelectedItem as ScreenConsumer);
+                        this.panel1.Controls.Add(consumerEditorControl);
+                    }
+                    else if (listBox2.SelectedItem.GetType() == typeof(BluefishConsumer))
+                    {
+                        this.consumerEditorControl = new BluefishConsumerControl(listBox2.SelectedItem as BluefishConsumer);
+                        this.panel1.Controls.Add(consumerEditorControl);
+                    }
                 }
             }
+            lastConsumer = (AbstractConsumer)listBox2.SelectedItem;
         }
 
         private void Updatechannel()
@@ -198,7 +203,7 @@ namespace CasparCGConfigurator
                 SerializeConfig();
             //else if(res == System.Windows.Forms.DialogResult.No)           
             else if(res == System.Windows.Forms.DialogResult.Cancel)            
-                e.Cancel = true ; 
+                e.Cancel = true; 
         }
 
         private void button1_Click(object sender, EventArgs e)

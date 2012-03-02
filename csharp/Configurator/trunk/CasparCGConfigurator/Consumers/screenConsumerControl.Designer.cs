@@ -39,13 +39,13 @@
             System.Windows.Forms.Label windowedLabel;
             this.screenConsumerBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.autodeinterlaceCheckBox = new System.Windows.Forms.CheckBox();
-            this.deviceTextBox = new System.Windows.Forms.TextBox();
             this.keyonlyCheckBox = new System.Windows.Forms.CheckBox();
             this.nameTextBox = new System.Windows.Forms.TextBox();
             this.vsyncCheckBox = new System.Windows.Forms.CheckBox();
             this.windowedCheckBox = new System.Windows.Forms.CheckBox();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.comboBox3 = new System.Windows.Forms.ComboBox();
             aspectratioLabel = new System.Windows.Forms.Label();
             autodeinterlaceLabel = new System.Windows.Forms.Label();
             deviceLabel = new System.Windows.Forms.Label();
@@ -135,24 +135,16 @@
             // 
             // autodeinterlaceCheckBox
             // 
-            this.autodeinterlaceCheckBox.DataBindings.Add(new System.Windows.Forms.Binding("CheckState", this.screenConsumerBindingSource, "autodeinterlace", true));
+            this.autodeinterlaceCheckBox.DataBindings.Add(new System.Windows.Forms.Binding("CheckState", this.screenConsumerBindingSource, "AutoDeinterlace", true));
             this.autodeinterlaceCheckBox.Location = new System.Drawing.Point(102, 33);
             this.autodeinterlaceCheckBox.Name = "autodeinterlaceCheckBox";
             this.autodeinterlaceCheckBox.Size = new System.Drawing.Size(104, 24);
             this.autodeinterlaceCheckBox.TabIndex = 4;
             this.autodeinterlaceCheckBox.UseVisualStyleBackColor = true;
             // 
-            // deviceTextBox
-            // 
-            this.deviceTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.screenConsumerBindingSource, "device", true));
-            this.deviceTextBox.Location = new System.Drawing.Point(102, 63);
-            this.deviceTextBox.Name = "deviceTextBox";
-            this.deviceTextBox.Size = new System.Drawing.Size(104, 20);
-            this.deviceTextBox.TabIndex = 6;
-            // 
             // keyonlyCheckBox
             // 
-            this.keyonlyCheckBox.DataBindings.Add(new System.Windows.Forms.Binding("CheckState", this.screenConsumerBindingSource, "keyonly", true));
+            this.keyonlyCheckBox.DataBindings.Add(new System.Windows.Forms.Binding("CheckState", this.screenConsumerBindingSource, "KeyOnly", true));
             this.keyonlyCheckBox.Location = new System.Drawing.Point(102, 89);
             this.keyonlyCheckBox.Name = "keyonlyCheckBox";
             this.keyonlyCheckBox.Size = new System.Drawing.Size(104, 24);
@@ -161,7 +153,7 @@
             // 
             // nameTextBox
             // 
-            this.nameTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.screenConsumerBindingSource, "name", true));
+            this.nameTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.screenConsumerBindingSource, "Name", true));
             this.nameTextBox.Location = new System.Drawing.Point(102, 119);
             this.nameTextBox.Name = "nameTextBox";
             this.nameTextBox.Size = new System.Drawing.Size(104, 20);
@@ -169,7 +161,7 @@
             // 
             // vsyncCheckBox
             // 
-            this.vsyncCheckBox.DataBindings.Add(new System.Windows.Forms.Binding("CheckState", this.screenConsumerBindingSource, "vsync", true));
+            this.vsyncCheckBox.DataBindings.Add(new System.Windows.Forms.Binding("CheckState", this.screenConsumerBindingSource, "VSync", true));
             this.vsyncCheckBox.Location = new System.Drawing.Point(102, 171);
             this.vsyncCheckBox.Name = "vsyncCheckBox";
             this.vsyncCheckBox.Size = new System.Drawing.Size(104, 24);
@@ -178,7 +170,7 @@
             // 
             // windowedCheckBox
             // 
-            this.windowedCheckBox.DataBindings.Add(new System.Windows.Forms.Binding("CheckState", this.screenConsumerBindingSource, "windowed", true));
+            this.windowedCheckBox.DataBindings.Add(new System.Windows.Forms.Binding("CheckState", this.screenConsumerBindingSource, "Windowed", true));
             this.windowedCheckBox.Location = new System.Drawing.Point(102, 201);
             this.windowedCheckBox.Name = "windowedCheckBox";
             this.windowedCheckBox.Size = new System.Drawing.Size(104, 24);
@@ -187,7 +179,7 @@
             // 
             // comboBox1
             // 
-            this.comboBox1.DataBindings.Add(new System.Windows.Forms.Binding("SelectedItem", this.screenConsumerBindingSource, "aspectratio", true));
+            this.comboBox1.DataBindings.Add(new System.Windows.Forms.Binding("SelectedItem", this.screenConsumerBindingSource, "AspectRatio", true));
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Items.AddRange(new object[] {
             "default",
@@ -200,7 +192,7 @@
             // 
             // comboBox2
             // 
-            this.comboBox2.DataBindings.Add(new System.Windows.Forms.Binding("SelectedItem", this.screenConsumerBindingSource, "stretch", true));
+            this.comboBox2.DataBindings.Add(new System.Windows.Forms.Binding("SelectedItem", this.screenConsumerBindingSource, "Stretch", true));
             this.comboBox2.FormattingEnabled = true;
             this.comboBox2.Items.AddRange(new object[] {
             "none",
@@ -212,17 +204,32 @@
             this.comboBox2.Size = new System.Drawing.Size(121, 21);
             this.comboBox2.TabIndex = 18;
             // 
-            // screenConsumerControl
+            // comboBox3
+            // 
+            this.comboBox3.DataBindings.Add(new System.Windows.Forms.Binding("SelectedItem", this.screenConsumerBindingSource, "Device", true));
+            this.comboBox3.FormattingEnabled = true;
+            this.comboBox3.Items.AddRange(new object[] {
+            "0",
+            "1",
+            "2",
+            "3",
+            "4"});
+            this.comboBox3.Location = new System.Drawing.Point(102, 62);
+            this.comboBox3.Name = "comboBox3";
+            this.comboBox3.Size = new System.Drawing.Size(121, 21);
+            this.comboBox3.TabIndex = 19;
+            // 
+            // ScreenConsumerControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.comboBox3);
             this.Controls.Add(this.comboBox2);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(aspectratioLabel);
             this.Controls.Add(autodeinterlaceLabel);
             this.Controls.Add(this.autodeinterlaceCheckBox);
             this.Controls.Add(deviceLabel);
-            this.Controls.Add(this.deviceTextBox);
             this.Controls.Add(keyonlyLabel);
             this.Controls.Add(this.keyonlyCheckBox);
             this.Controls.Add(nameLabel);
@@ -232,7 +239,7 @@
             this.Controls.Add(this.vsyncCheckBox);
             this.Controls.Add(windowedLabel);
             this.Controls.Add(this.windowedCheckBox);
-            this.Name = "screenConsumerControl";
+            this.Name = "ScreenConsumerControl";
             ((System.ComponentModel.ISupportInitialize)(this.screenConsumerBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -243,13 +250,13 @@
 
         private System.Windows.Forms.BindingSource screenConsumerBindingSource;
         private System.Windows.Forms.CheckBox autodeinterlaceCheckBox;
-        private System.Windows.Forms.TextBox deviceTextBox;
         private System.Windows.Forms.CheckBox keyonlyCheckBox;
         private System.Windows.Forms.TextBox nameTextBox;
         private System.Windows.Forms.CheckBox vsyncCheckBox;
         private System.Windows.Forms.CheckBox windowedCheckBox;
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.ComboBox comboBox3;
 
     }
 }
