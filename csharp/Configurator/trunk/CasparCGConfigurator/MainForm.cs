@@ -125,6 +125,8 @@ namespace CasparCGConfigurator
                 this.button4.Enabled = true;
                 this.button5.Enabled = true;
                 this.button7.Enabled = true;
+                this.button1.Enabled = true;
+                this.button2.Enabled = true;
                 this.listBox2.DataSource = ((Channel)listBox1.SelectedItem).Consumers;
                 this.comboBox1.SelectedItem = ((Channel)listBox1.SelectedItem).VideoMode;
             }
@@ -135,6 +137,8 @@ namespace CasparCGConfigurator
                 this.button4.Enabled = false;
                 this.button5.Enabled = false;
                 this.button7.Enabled = false;
+                this.button1.Enabled = false;
+                this.button2.Enabled = false;
                 this.listBox2.DataSource = null;
                 this.comboBox1.SelectedItem = null;
             }
