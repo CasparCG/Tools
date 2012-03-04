@@ -11,6 +11,12 @@ namespace CasparCGConfigurator
     {
         public Channel()
         {            
+            Consumers.ListChanged += new ListChangedEventHandler(Consumers_ListChanged);
+        }
+
+        private void Consumers_ListChanged(object sender, ListChangedEventArgs e)
+        {
+            NotifyChanged("Consumers");
         }
 
         private string videoMode = "PAL";

@@ -11,6 +11,12 @@ namespace CasparCGConfigurator
     {
         public configuration()
         {
+            Channels.ListChanged +=new ListChangedEventHandler(Channels_ListChanged);
+        }
+
+        private void Channels_ListChanged(object sender, ListChangedEventArgs e)
+        {
+            NotifyChanged("Channels");
         }
 
         private Paths paths = new Paths();
@@ -76,6 +82,50 @@ namespace CasparCGConfigurator
         {
             get { return this.channels; }
             set { this.channels = value; NotifyChanged("Channels"); }
+        }
+
+        private List<String> defaultDecklinkIDs = new List<string>() { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
+        [XmlIgnore]
+        public List<String> AvailableDecklinkIDs
+        {
+            get
+            {
+                List<String> availableDecklinkIDs = new List<String>();
+                defaultDecklinkIDs.ForEach(id => availableDecklinkIDs.Add(id));
+                foreach (Channel ch in this.Channels)
+                {
+                    foreach (AbstractConsumer cs in ch.Consumers)
+                    {
+                        if (cs.GetType() == typeof(DecklinkConsumer))
+                        {
+                            availableDecklinkIDs.Remove(((DecklinkConsumer)cs).Device);
+                        }
+                    }
+                }
+                return availableDecklinkIDs;
+            }
+        }
+
+        private List<String> defaultBluefishIDs = new List<string>() { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
+        [XmlIgnore]
+        public List<String> AvailableBluefishIDs
+        {
+            get
+            {
+                List<String> availableBluefishIDs = new List<String>();
+                defaultBluefishIDs.ForEach(id => availableBluefishIDs.Add(id));
+                foreach (Channel ch in this.Channels)
+                {
+                    foreach (AbstractConsumer cs in ch.Consumers)
+                    {
+                        if (cs.GetType() == typeof(BluefishConsumer))
+                        {
+                            availableBluefishIDs.Remove(((BluefishConsumer)cs).Device);
+                        }
+                    }
+                }
+                return availableBluefishIDs;
+            }
         }
 
         public event PropertyChangedEventHandler PropertyChanged = delegate { };

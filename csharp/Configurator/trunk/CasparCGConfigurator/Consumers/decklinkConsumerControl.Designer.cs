@@ -42,6 +42,7 @@
             this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.comboBox3 = new System.Windows.Forms.ComboBox();
             this.comboBox4 = new System.Windows.Forms.ComboBox();
+            this.availableIDsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             bufferdepthLabel = new System.Windows.Forms.Label();
             deviceLabel = new System.Windows.Forms.Label();
             embeddedaudioLabel = new System.Windows.Forms.Label();
@@ -49,6 +50,7 @@
             keyonlyLabel = new System.Windows.Forms.Label();
             latencyLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.decklinkConsumerBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.availableIDsBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // bufferdepthLabel
@@ -182,21 +184,15 @@
             this.comboBox4.DataBindings.Add(new System.Windows.Forms.Binding("SelectedItem", this.decklinkConsumerBindingSource, "Device", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.comboBox4.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox4.FormattingEnabled = true;
-            this.comboBox4.Items.AddRange(new object[] {
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8",
-            "9",
-            "10"});
             this.comboBox4.Location = new System.Drawing.Point(105, 35);
             this.comboBox4.Name = "comboBox4";
             this.comboBox4.Size = new System.Drawing.Size(121, 21);
             this.comboBox4.TabIndex = 16;
+            // 
+            // availableIDsBindingSource
+            // 
+            this.availableIDsBindingSource.DataMember = "AvailableIDs";
+            this.availableIDsBindingSource.DataSource = this.decklinkConsumerBindingSource;
             // 
             // DecklinkConsumerControl
             // 
@@ -230,5 +226,6 @@
         private System.Windows.Forms.ComboBox comboBox2;
         private System.Windows.Forms.ComboBox comboBox3;
         private System.Windows.Forms.ComboBox comboBox4;
+        private System.Windows.Forms.BindingSource availableIDsBindingSource;
     }
 }

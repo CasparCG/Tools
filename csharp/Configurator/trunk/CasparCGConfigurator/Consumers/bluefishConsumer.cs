@@ -14,6 +14,11 @@ namespace CasparCGConfigurator
         {
         }
 
+        public BluefishConsumer(List<string> IDs)
+        {
+            this.device = IDs.First();
+        }
+
         private String device = "1";
         [XmlElement(ElementName = "device")]
         public String Device

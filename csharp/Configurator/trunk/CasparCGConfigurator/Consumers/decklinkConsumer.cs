@@ -14,7 +14,12 @@ namespace CasparCGConfigurator
         {
         }
 
-        private String device = "1";
+        public DecklinkConsumer(List<string> IDs)
+        {
+            this.device = IDs.First();
+        }
+
+        private String device ="1";
         [XmlElement(ElementName = "device")]
         public String Device
         {
@@ -62,7 +67,7 @@ namespace CasparCGConfigurator
             set { this.bufferdepth = value; NotifyChanged("BufferDepth"); }
         }
 
-        public override string ToString()
+        public override String ToString()
         {
             return "Decklink";
         }

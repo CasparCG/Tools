@@ -18,6 +18,7 @@ namespace CasparCGConfigurator
         public configuration config = new configuration();
         private ConsumerControlBase consumerEditorControl;
         private AbstractConsumer lastConsumer;
+        public List<String> availableDecklinkIDs = new List<string>();
         
         public MainForm()
         {
@@ -33,7 +34,7 @@ namespace CasparCGConfigurator
             this.WireBindings();
             this.Updatechannel();
         }
-        
+
         private void WireBindings()
         {
             this.pathsBindingSource.DataSource = this.config.Paths;
@@ -59,12 +60,13 @@ namespace CasparCGConfigurator
                     new XElement("tcp",
                         new XElement[2]
                         {
-                            new XElement("port", 5220),
+                            new XElement("port", 5250),
                             new XElement("protocol", "AMCP")
                         })));
 
             using (var writer = new XmlTextWriter("casparcg.config", new UTF8Encoding(false, false))) // No BOM
             {
+                writer.Formatting = Formatting.Indented;
                 doc.Save(writer);
             }
         }
@@ -98,7 +100,7 @@ namespace CasparCGConfigurator
                 {
                     if (listBox2.SelectedItem.GetType() == typeof(DecklinkConsumer))
                     {
-                        this.consumerEditorControl = new DecklinkConsumerControl(listBox2.SelectedItem as DecklinkConsumer);
+                        this.consumerEditorControl = new DecklinkConsumerControl(listBox2.SelectedItem as DecklinkConsumer,config.AvailableDecklinkIDs);
                         this.panel1.Controls.Add(consumerEditorControl);
                     }
                     else if (listBox2.SelectedItem.GetType() == typeof(ScreenConsumer))
@@ -108,7 +110,7 @@ namespace CasparCGConfigurator
                     }
                     else if (listBox2.SelectedItem.GetType() == typeof(BluefishConsumer))
                     {
-                        this.consumerEditorControl = new BluefishConsumerControl(listBox2.SelectedItem as BluefishConsumer);
+                        this.consumerEditorControl = new BluefishConsumerControl(listBox2.SelectedItem as BluefishConsumer,config.AvailableBluefishIDs);
                         this.panel1.Controls.Add(consumerEditorControl);
                     }
                 }
@@ -157,7 +159,7 @@ namespace CasparCGConfigurator
 
         private void button4_Click(object sender, EventArgs e)
         {
-            (listBox2.DataSource as BindingList<AbstractConsumer>).Add(new DecklinkConsumer());
+            (listBox2.DataSource as BindingList<AbstractConsumer>).Add(new DecklinkConsumer(config.AvailableDecklinkIDs));
 
             RefreshConsumerPanel();
         }
@@ -218,7 +220,7 @@ namespace CasparCGConfigurator
 
         private void button2_Click(object sender, EventArgs e)
         {
-            (listBox2.DataSource as BindingList<AbstractConsumer>).Add(new BluefishConsumer());
+            (listBox2.DataSource as BindingList<AbstractConsumer>).Add(new BluefishConsumer(config.AvailableBluefishIDs));
             RefreshConsumerPanel();
         }
 
