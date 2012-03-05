@@ -67,9 +67,9 @@ namespace CasparCGConfigurator
             set { this.autoTranscode = value; NotifyChanged("AutoTranscode"); }
         }
 
-        private int pipelineTokens = 2;
+        private String pipelineTokens = "2";
         [XmlElement(ElementName = "pipeline-tokens")]
-        public int PipelineTokens
+        public String PipelineTokens
         {
             get { return this.pipelineTokens; }
             set { this.pipelineTokens = value; NotifyChanged("PipelineTokens"); }

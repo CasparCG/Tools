@@ -45,11 +45,13 @@
             this.showXMLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.PathsTabPage = new System.Windows.Forms.TabPage();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.button11 = new System.Windows.Forms.Button();
             this.button10 = new System.Windows.Forms.Button();
             this.button9 = new System.Windows.Forms.Button();
             this.button8 = new System.Windows.Forms.Button();
             this.datapathTextBox = new System.Windows.Forms.TextBox();
+            this.pathsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.logpathTextBox = new System.Windows.Forms.TextBox();
             this.mediapathTextBox = new System.Windows.Forms.TextBox();
             this.templatepathTextBox = new System.Windows.Forms.TextBox();
@@ -75,15 +77,13 @@
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.AdvancedTabPage = new System.Windows.Forms.TabPage();
             this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.configurationBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.autodeinterlaceCheckBox = new System.Windows.Forms.CheckBox();
             this.autotranscodeCheckBox = new System.Windows.Forms.CheckBox();
             this.blendmodesCheckBox = new System.Windows.Forms.CheckBox();
             this.channelgridCheckBox = new System.Windows.Forms.CheckBox();
-            this.pipelinetokensTextBox = new System.Windows.Forms.TextBox();
-            this.pathsBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.configurationBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.channelBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.comboBox3 = new System.Windows.Forms.ComboBox();
             datapathLabel = new System.Windows.Forms.Label();
             logpathLabel = new System.Windows.Forms.Label();
             mediapathLabel = new System.Windows.Forms.Label();
@@ -97,12 +97,12 @@
             this.menuStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.PathsTabPage.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pathsBindingSource)).BeginInit();
             this.ChannelsTabPage.SuspendLayout();
             this.AdvancedTabPage.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pathsBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.configurationBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.channelBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // datapathLabel
@@ -261,6 +261,16 @@
             this.PathsTabPage.Text = "Paths";
             this.PathsTabPage.UseVisualStyleBackColor = true;
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::CasparCGConfigurator.Properties.Resources.CasparCG_10_128x128x32;
+            this.pictureBox1.Location = new System.Drawing.Point(222, 161);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(128, 128);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pictureBox1.TabIndex = 12;
+            this.pictureBox1.TabStop = false;
+            // 
             // button11
             // 
             this.button11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -312,6 +322,10 @@
             this.datapathTextBox.Name = "datapathTextBox";
             this.datapathTextBox.Size = new System.Drawing.Size(398, 20);
             this.datapathTextBox.TabIndex = 1;
+            // 
+            // pathsBindingSource
+            // 
+            this.pathsBindingSource.DataSource = typeof(CasparCGConfigurator.Paths);
             // 
             // logpathTextBox
             // 
@@ -568,6 +582,7 @@
             // AdvancedTabPage
             // 
             this.AdvancedTabPage.AutoScroll = true;
+            this.AdvancedTabPage.Controls.Add(this.comboBox3);
             this.AdvancedTabPage.Controls.Add(this.comboBox2);
             this.AdvancedTabPage.Controls.Add(autodeinterlaceLabel);
             this.AdvancedTabPage.Controls.Add(this.autodeinterlaceCheckBox);
@@ -579,7 +594,6 @@
             this.AdvancedTabPage.Controls.Add(this.channelgridCheckBox);
             this.AdvancedTabPage.Controls.Add(loglevelLabel);
             this.AdvancedTabPage.Controls.Add(pipelinetokensLabel);
-            this.AdvancedTabPage.Controls.Add(this.pipelinetokensTextBox);
             this.AdvancedTabPage.Location = new System.Drawing.Point(4, 22);
             this.AdvancedTabPage.Name = "AdvancedTabPage";
             this.AdvancedTabPage.Padding = new System.Windows.Forms.Padding(3);
@@ -603,6 +617,10 @@
             this.comboBox2.Name = "comboBox2";
             this.comboBox2.Size = new System.Drawing.Size(121, 21);
             this.comboBox2.TabIndex = 12;
+            // 
+            // configurationBindingSource
+            // 
+            this.configurationBindingSource.DataSource = typeof(CasparCGConfigurator.configuration);
             // 
             // autodeinterlaceCheckBox
             // 
@@ -640,35 +658,30 @@
             this.channelgridCheckBox.TabIndex = 7;
             this.channelgridCheckBox.UseVisualStyleBackColor = true;
             // 
-            // pipelinetokensTextBox
-            // 
-            this.pipelinetokensTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.configurationBindingSource, "pipelinetokens", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged, null, "N0"));
-            this.pipelinetokensTextBox.Location = new System.Drawing.Point(113, 164);
-            this.pipelinetokensTextBox.Name = "pipelinetokensTextBox";
-            this.pipelinetokensTextBox.Size = new System.Drawing.Size(104, 20);
-            this.pipelinetokensTextBox.TabIndex = 11;
-            // 
-            // pathsBindingSource
-            // 
-            this.pathsBindingSource.DataSource = typeof(CasparCGConfigurator.Paths);
-            // 
-            // configurationBindingSource
-            // 
-            this.configurationBindingSource.DataSource = typeof(CasparCGConfigurator.configuration);
-            // 
             // channelBindingSource
             // 
             this.channelBindingSource.DataSource = typeof(CasparCGConfigurator.Channel);
             // 
-            // pictureBox1
+            // comboBox3
             // 
-            this.pictureBox1.Image = global::CasparCGConfigurator.Properties.Resources.CasparCG_10_128x128x32;
-            this.pictureBox1.Location = new System.Drawing.Point(222, 161);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(128, 128);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.pictureBox1.TabIndex = 12;
-            this.pictureBox1.TabStop = false;
+            this.comboBox3.DataBindings.Add(new System.Windows.Forms.Binding("SelectedItem", this.configurationBindingSource, "PipelineTokens", true));
+            this.comboBox3.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox3.FormattingEnabled = true;
+            this.comboBox3.Items.AddRange(new object[] {
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9",
+            "10"});
+            this.comboBox3.Location = new System.Drawing.Point(113, 164);
+            this.comboBox3.Name = "comboBox3";
+            this.comboBox3.Size = new System.Drawing.Size(121, 21);
+            this.comboBox3.TabIndex = 13;
             // 
             // MainForm
             // 
@@ -687,14 +700,14 @@
             this.tabControl1.ResumeLayout(false);
             this.PathsTabPage.ResumeLayout(false);
             this.PathsTabPage.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pathsBindingSource)).EndInit();
             this.ChannelsTabPage.ResumeLayout(false);
             this.ChannelsTabPage.PerformLayout();
             this.AdvancedTabPage.ResumeLayout(false);
             this.AdvancedTabPage.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pathsBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.configurationBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.channelBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -735,7 +748,6 @@
         private System.Windows.Forms.CheckBox autotranscodeCheckBox;
         private System.Windows.Forms.CheckBox blendmodesCheckBox;
         private System.Windows.Forms.CheckBox channelgridCheckBox;
-        private System.Windows.Forms.TextBox pipelinetokensTextBox;
         private System.Windows.Forms.ComboBox comboBox2;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
@@ -747,6 +759,7 @@
         private System.Windows.Forms.Button button10;
         private System.Windows.Forms.Button button9;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.ComboBox comboBox3;
     }
 }
 
