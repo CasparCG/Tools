@@ -45,6 +45,10 @@
             this.showXMLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.PathsTabPage = new System.Windows.Forms.TabPage();
+            this.button11 = new System.Windows.Forms.Button();
+            this.button10 = new System.Windows.Forms.Button();
+            this.button9 = new System.Windows.Forms.Button();
+            this.button8 = new System.Windows.Forms.Button();
             this.datapathTextBox = new System.Windows.Forms.TextBox();
             this.logpathTextBox = new System.Windows.Forms.TextBox();
             this.mediapathTextBox = new System.Windows.Forms.TextBox();
@@ -76,13 +80,10 @@
             this.blendmodesCheckBox = new System.Windows.Forms.CheckBox();
             this.channelgridCheckBox = new System.Windows.Forms.CheckBox();
             this.pipelinetokensTextBox = new System.Windows.Forms.TextBox();
-            this.button8 = new System.Windows.Forms.Button();
-            this.button9 = new System.Windows.Forms.Button();
-            this.button10 = new System.Windows.Forms.Button();
-            this.button11 = new System.Windows.Forms.Button();
             this.pathsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.configurationBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.channelBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             datapathLabel = new System.Windows.Forms.Label();
             logpathLabel = new System.Windows.Forms.Label();
             mediapathLabel = new System.Windows.Forms.Label();
@@ -101,6 +102,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pathsBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.configurationBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.channelBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // datapathLabel
@@ -238,6 +240,7 @@
             // 
             // PathsTabPage
             // 
+            this.PathsTabPage.Controls.Add(this.pictureBox1);
             this.PathsTabPage.Controls.Add(this.button11);
             this.PathsTabPage.Controls.Add(this.button10);
             this.PathsTabPage.Controls.Add(this.button9);
@@ -257,6 +260,50 @@
             this.PathsTabPage.TabIndex = 0;
             this.PathsTabPage.Text = "Paths";
             this.PathsTabPage.UseVisualStyleBackColor = true;
+            // 
+            // button11
+            // 
+            this.button11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button11.Location = new System.Drawing.Point(513, 98);
+            this.button11.Name = "button11";
+            this.button11.Size = new System.Drawing.Size(29, 20);
+            this.button11.TabIndex = 11;
+            this.button11.Text = "...";
+            this.button11.UseVisualStyleBackColor = true;
+            this.button11.Click += new System.EventHandler(this.button11_Click);
+            // 
+            // button10
+            // 
+            this.button10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button10.Location = new System.Drawing.Point(513, 72);
+            this.button10.Name = "button10";
+            this.button10.Size = new System.Drawing.Size(29, 20);
+            this.button10.TabIndex = 10;
+            this.button10.Text = "...";
+            this.button10.UseVisualStyleBackColor = true;
+            this.button10.Click += new System.EventHandler(this.button10_Click);
+            // 
+            // button9
+            // 
+            this.button9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button9.Location = new System.Drawing.Point(513, 45);
+            this.button9.Name = "button9";
+            this.button9.Size = new System.Drawing.Size(29, 20);
+            this.button9.TabIndex = 9;
+            this.button9.Text = "...";
+            this.button9.UseVisualStyleBackColor = true;
+            this.button9.Click += new System.EventHandler(this.button9_Click);
+            // 
+            // button8
+            // 
+            this.button8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button8.Location = new System.Drawing.Point(513, 20);
+            this.button8.Name = "button8";
+            this.button8.Size = new System.Drawing.Size(29, 20);
+            this.button8.TabIndex = 8;
+            this.button8.Text = "...";
+            this.button8.UseVisualStyleBackColor = true;
+            this.button8.Click += new System.EventHandler(this.button8_Click);
             // 
             // datapathTextBox
             // 
@@ -601,50 +648,6 @@
             this.pipelinetokensTextBox.Size = new System.Drawing.Size(104, 20);
             this.pipelinetokensTextBox.TabIndex = 11;
             // 
-            // button8
-            // 
-            this.button8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button8.Location = new System.Drawing.Point(513, 20);
-            this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(29, 20);
-            this.button8.TabIndex = 8;
-            this.button8.Text = "...";
-            this.button8.UseVisualStyleBackColor = true;
-            this.button8.Click += new System.EventHandler(this.button8_Click);
-            // 
-            // button9
-            // 
-            this.button9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button9.Location = new System.Drawing.Point(513, 45);
-            this.button9.Name = "button9";
-            this.button9.Size = new System.Drawing.Size(29, 20);
-            this.button9.TabIndex = 9;
-            this.button9.Text = "...";
-            this.button9.UseVisualStyleBackColor = true;
-            this.button9.Click += new System.EventHandler(this.button9_Click);
-            // 
-            // button10
-            // 
-            this.button10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button10.Location = new System.Drawing.Point(513, 72);
-            this.button10.Name = "button10";
-            this.button10.Size = new System.Drawing.Size(29, 20);
-            this.button10.TabIndex = 10;
-            this.button10.Text = "...";
-            this.button10.UseVisualStyleBackColor = true;
-            this.button10.Click += new System.EventHandler(this.button10_Click);
-            // 
-            // button11
-            // 
-            this.button11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button11.Location = new System.Drawing.Point(513, 98);
-            this.button11.Name = "button11";
-            this.button11.Size = new System.Drawing.Size(29, 20);
-            this.button11.TabIndex = 11;
-            this.button11.Text = "...";
-            this.button11.UseVisualStyleBackColor = true;
-            this.button11.Click += new System.EventHandler(this.button11_Click);
-            // 
             // pathsBindingSource
             // 
             this.pathsBindingSource.DataSource = typeof(CasparCGConfigurator.Paths);
@@ -656,6 +659,16 @@
             // channelBindingSource
             // 
             this.channelBindingSource.DataSource = typeof(CasparCGConfigurator.Channel);
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::CasparCGConfigurator.Properties.Resources.CasparCG_10_128x128x32;
+            this.pictureBox1.Location = new System.Drawing.Point(222, 161);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(128, 128);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pictureBox1.TabIndex = 12;
+            this.pictureBox1.TabStop = false;
             // 
             // MainForm
             // 
@@ -681,6 +694,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pathsBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.configurationBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.channelBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -732,6 +746,7 @@
         private System.Windows.Forms.Button button11;
         private System.Windows.Forms.Button button10;
         private System.Windows.Forms.Button button9;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }
 
