@@ -13,7 +13,7 @@ namespace CasparCGConfigurator
         {
         }
 
-        private String device = "0";
+        private String device = "1";
         [XmlElement(ElementName = "device")]
         public String Device
         {

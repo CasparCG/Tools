@@ -209,11 +209,12 @@
             this.comboBox3.DataBindings.Add(new System.Windows.Forms.Binding("SelectedItem", this.screenConsumerBindingSource, "Device", true));
             this.comboBox3.FormattingEnabled = true;
             this.comboBox3.Items.AddRange(new object[] {
-            "0",
             "1",
             "2",
             "3",
-            "4"});
+            "4",
+            "5",
+            "6"});
             this.comboBox3.Location = new System.Drawing.Point(102, 62);
             this.comboBox3.Name = "comboBox3";
             this.comboBox3.Size = new System.Drawing.Size(121, 21);
