@@ -1,0 +1,11 @@
+C:\Users\GC\Desktop\OscFramework_1.7\Source Code\Framework\Bespoke.Common.Osc\src\bin\x86\Debug\Bespoke.Common.Osc.dll
+C:\Users\GC\Desktop\OscFramework_1.7\Source Code\Framework\Bespoke.Common.Osc\src\bin\x86\Debug\Bespoke.Common.Osc.pdb
+C:\Users\GC\Desktop\OscFramework_1.7\Source Code\Framework\Bespoke.Common.Osc\src\bin\x86\Debug\Bespoke.Common.dll
+C:\Users\GC\Desktop\OscFramework_1.7\Source Code\Framework\Bespoke.Common.Osc\src\bin\x86\Debug\DirectShowLib-2005.dll
+C:\Users\GC\Desktop\OscFramework_1.7\Source Code\Framework\Bespoke.Common.Osc\src\bin\x86\Debug\MySql.Data.dll
+C:\Users\GC\Desktop\OscFramework_1.7\Source Code\Framework\Bespoke.Common.Osc\src\bin\x86\Debug\Bespoke.Common.pdb
+C:\Users\GC\Desktop\OscFramework_1.7\Source Code\Framework\Bespoke.Common.Osc\src\bin\x86\Debug\Bespoke.Common.xml
+C:\Users\GC\Desktop\OscFramework_1.7\Source Code\Framework\Bespoke.Common.Osc\src\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\GC\Desktop\OscFramework_1.7\Source Code\Framework\Bespoke.Common.Osc\src\obj\x86\Debug\Bespoke.Common.Osc.dll
+C:\Users\GC\Desktop\OscFramework_1.7\Source Code\Framework\Bespoke.Common.Osc\src\obj\x86\Debug\Bespoke.Common.Osc.pdb
+C:\Users\GC\Desktop\OscFramework_1.7\Source Code\Framework\Bespoke.Common.Osc\src\bin\x86\Debug\Bespoke.Common.Osc.XML
