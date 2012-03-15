@@ -33,6 +33,7 @@ namespace CasparCGConfigurator
                 SerializeConfig();   
             this.WireBindings();
             this.Updatechannel();
+            this.SetToolTips();
         }
 
         private void WireBindings()
@@ -63,6 +64,8 @@ namespace CasparCGConfigurator
                             new XElement("port", 5250),
                             new XElement("protocol", "AMCP")
                         })));
+
+            doc.Add(new XComment(CasparCGConfigurator.Properties.Resources.configdoc.ToString()));
 
             using (var writer = new XmlTextWriter("casparcg.config", new UTF8Encoding(false, false))) // No BOM
             {
@@ -258,6 +261,12 @@ namespace CasparCGConfigurator
                 if (fd.ShowDialog() == System.Windows.Forms.DialogResult.OK)                
                     templatepathTextBox.Text = fd.SelectedPath;                
             }
+        }
+
+        private void SetToolTips()
+        {
+            var toolTip = new ToolTip();
+            toolTip.SetToolTip(this.comboBox3, "This sets the mixing pipeline buffer depth.");
         }
     }
 }

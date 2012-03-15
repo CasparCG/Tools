@@ -66,5 +66,28 @@ namespace CasparCGConfigurator.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;log-level&gt;       trace [trace|debug|info|warning|error]&lt;/log-level&gt;
+        ///&lt;channel-grid&gt;    false [true|false]&lt;/channel-grid&gt;
+        ///&lt;blend-modes&gt;     false [true|false]&lt;/blend-modes&gt;
+        ///&lt;auto-deinterlace&gt;true  [true|false]&lt;/auto-deinterlace&gt;
+        ///&lt;auto-transcode&gt;  true  [true|false]&lt;/auto-transcode&gt;
+        ///&lt;pipeline-tokens&gt; 2     [1..]       &lt;/pipeline-tokens&gt;
+        ///&lt;template-hosts&gt;
+        ///    &lt;template-host&gt;
+        ///        &lt;video-mode/&gt;
+        ///        &lt;filename/&gt;
+        ///        &lt;width/&gt;
+        ///        &lt;height/&gt;
+        ///    &lt;/template-host&gt;
+        ///&lt;/template-hosts&gt;
+        ///&lt;flash&gt;        /// [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string configdoc {
+            get {
+                return ResourceManager.GetString("configdoc", resourceCulture);
+            }
+        }
     }
 }
