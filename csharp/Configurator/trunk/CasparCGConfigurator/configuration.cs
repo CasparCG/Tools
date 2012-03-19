@@ -18,7 +18,7 @@ namespace CasparCGConfigurator
         {
             NotifyChanged("Channels");
         }
-
+        
         private Paths paths = new Paths();
         [XmlElement(ElementName = "paths")]
         public Paths Paths
@@ -73,6 +73,14 @@ namespace CasparCGConfigurator
         {
             get { return this.pipelineTokens; }
             set { this.pipelineTokens = value; NotifyChanged("PipelineTokens"); }
+        }
+
+        private Flash flash = new Flash();
+        [XmlElement(ElementName = "flash")]
+        public Flash Flash
+        {
+            get { return this.flash; }
+            set { this.flash = value; NotifyChanged("Flash"); }
         }
 
         private BindingList<Channel> channels = new BindingList<Channel>();

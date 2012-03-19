@@ -39,6 +39,7 @@
             System.Windows.Forms.Label channelgridLabel;
             System.Windows.Forms.Label loglevelLabel;
             System.Windows.Forms.Label pipelinetokensLabel;
+            System.Windows.Forms.Label bufferDepthLabel;
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
@@ -51,7 +52,6 @@
             this.button9 = new System.Windows.Forms.Button();
             this.button8 = new System.Windows.Forms.Button();
             this.datapathTextBox = new System.Windows.Forms.TextBox();
-            this.pathsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.logpathTextBox = new System.Windows.Forms.TextBox();
             this.mediapathTextBox = new System.Windows.Forms.TextBox();
             this.templatepathTextBox = new System.Windows.Forms.TextBox();
@@ -76,14 +76,17 @@
             this.button3 = new System.Windows.Forms.Button();
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.AdvancedTabPage = new System.Windows.Forms.TabPage();
+            this.comboBox3 = new System.Windows.Forms.ComboBox();
             this.comboBox2 = new System.Windows.Forms.ComboBox();
-            this.configurationBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.autodeinterlaceCheckBox = new System.Windows.Forms.CheckBox();
             this.autotranscodeCheckBox = new System.Windows.Forms.CheckBox();
             this.blendmodesCheckBox = new System.Windows.Forms.CheckBox();
             this.channelgridCheckBox = new System.Windows.Forms.CheckBox();
+            this.pathsBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.flashBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.configurationBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.channelBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.comboBox3 = new System.Windows.Forms.ComboBox();
+            this.comboBox4 = new System.Windows.Forms.ComboBox();
             datapathLabel = new System.Windows.Forms.Label();
             logpathLabel = new System.Windows.Forms.Label();
             mediapathLabel = new System.Windows.Forms.Label();
@@ -94,13 +97,15 @@
             channelgridLabel = new System.Windows.Forms.Label();
             loglevelLabel = new System.Windows.Forms.Label();
             pipelinetokensLabel = new System.Windows.Forms.Label();
+            bufferDepthLabel = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.PathsTabPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pathsBindingSource)).BeginInit();
             this.ChannelsTabPage.SuspendLayout();
             this.AdvancedTabPage.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pathsBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.flashBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.configurationBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.channelBindingSource)).BeginInit();
             this.SuspendLayout();
@@ -189,11 +194,11 @@
             // pipelinetokensLabel
             // 
             pipelinetokensLabel.AutoSize = true;
-            pipelinetokensLabel.Location = new System.Drawing.Point(24, 167);
+            pipelinetokensLabel.Location = new System.Drawing.Point(9, 167);
             pipelinetokensLabel.Name = "pipelinetokensLabel";
-            pipelinetokensLabel.Size = new System.Drawing.Size(86, 13);
+            pipelinetokensLabel.Size = new System.Drawing.Size(98, 13);
             pipelinetokensLabel.TabIndex = 10;
-            pipelinetokensLabel.Text = "Pipeline Tokens:";
+            pipelinetokensLabel.Text = "Mixer Buffer Depth:";
             // 
             // menuStrip1
             // 
@@ -211,7 +216,7 @@
             this.toolStripSeparator1,
             this.showXMLToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(35, 20);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "File";
             // 
             // toolStripSeparator1
@@ -322,10 +327,6 @@
             this.datapathTextBox.Name = "datapathTextBox";
             this.datapathTextBox.Size = new System.Drawing.Size(398, 20);
             this.datapathTextBox.TabIndex = 1;
-            // 
-            // pathsBindingSource
-            // 
-            this.pathsBindingSource.DataSource = typeof(CasparCGConfigurator.Paths);
             // 
             // logpathTextBox
             // 
@@ -582,6 +583,8 @@
             // AdvancedTabPage
             // 
             this.AdvancedTabPage.AutoScroll = true;
+            this.AdvancedTabPage.Controls.Add(this.comboBox4);
+            this.AdvancedTabPage.Controls.Add(bufferDepthLabel);
             this.AdvancedTabPage.Controls.Add(this.comboBox3);
             this.AdvancedTabPage.Controls.Add(this.comboBox2);
             this.AdvancedTabPage.Controls.Add(autodeinterlaceLabel);
@@ -602,6 +605,27 @@
             this.AdvancedTabPage.Text = "Advanced";
             this.AdvancedTabPage.UseVisualStyleBackColor = true;
             // 
+            // comboBox3
+            // 
+            this.comboBox3.DataBindings.Add(new System.Windows.Forms.Binding("SelectedItem", this.configurationBindingSource, "PipelineTokens", true));
+            this.comboBox3.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox3.FormattingEnabled = true;
+            this.comboBox3.Items.AddRange(new object[] {
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9",
+            "10"});
+            this.comboBox3.Location = new System.Drawing.Point(113, 164);
+            this.comboBox3.Name = "comboBox3";
+            this.comboBox3.Size = new System.Drawing.Size(121, 21);
+            this.comboBox3.TabIndex = 13;
+            // 
             // comboBox2
             // 
             this.comboBox2.DataBindings.Add(new System.Windows.Forms.Binding("SelectedItem", this.configurationBindingSource, "loglevel", true));
@@ -617,10 +641,6 @@
             this.comboBox2.Name = "comboBox2";
             this.comboBox2.Size = new System.Drawing.Size(121, 21);
             this.comboBox2.TabIndex = 12;
-            // 
-            // configurationBindingSource
-            // 
-            this.configurationBindingSource.DataSource = typeof(CasparCGConfigurator.configuration);
             // 
             // autodeinterlaceCheckBox
             // 
@@ -658,16 +678,38 @@
             this.channelgridCheckBox.TabIndex = 7;
             this.channelgridCheckBox.UseVisualStyleBackColor = true;
             // 
+            // bufferDepthLabel
+            // 
+            bufferDepthLabel.AutoSize = true;
+            bufferDepthLabel.Location = new System.Drawing.Point(9, 194);
+            bufferDepthLabel.Name = "bufferDepthLabel";
+            bufferDepthLabel.Size = new System.Drawing.Size(98, 13);
+            bufferDepthLabel.TabIndex = 13;
+            bufferDepthLabel.Text = "Flash Buffer Depth:";
+            // 
+            // pathsBindingSource
+            // 
+            this.pathsBindingSource.DataSource = typeof(CasparCGConfigurator.Paths);
+            // 
+            // flashBindingSource
+            // 
+            this.flashBindingSource.DataSource = typeof(CasparCGConfigurator.Flash);
+            // 
+            // configurationBindingSource
+            // 
+            this.configurationBindingSource.DataSource = typeof(CasparCGConfigurator.configuration);
+            // 
             // channelBindingSource
             // 
             this.channelBindingSource.DataSource = typeof(CasparCGConfigurator.Channel);
             // 
-            // comboBox3
+            // comboBox4
             // 
-            this.comboBox3.DataBindings.Add(new System.Windows.Forms.Binding("SelectedItem", this.configurationBindingSource, "PipelineTokens", true));
-            this.comboBox3.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox3.FormattingEnabled = true;
-            this.comboBox3.Items.AddRange(new object[] {
+            this.comboBox4.DataBindings.Add(new System.Windows.Forms.Binding("SelectedItem", this.flashBindingSource, "BufferDepth", true));
+            this.comboBox4.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox4.FormattingEnabled = true;
+            this.comboBox4.Items.AddRange(new object[] {
+            "auto",
             "1",
             "2",
             "3",
@@ -678,10 +720,10 @@
             "8",
             "9",
             "10"});
-            this.comboBox3.Location = new System.Drawing.Point(113, 164);
-            this.comboBox3.Name = "comboBox3";
-            this.comboBox3.Size = new System.Drawing.Size(121, 21);
-            this.comboBox3.TabIndex = 13;
+            this.comboBox4.Location = new System.Drawing.Point(113, 191);
+            this.comboBox4.Name = "comboBox4";
+            this.comboBox4.Size = new System.Drawing.Size(121, 21);
+            this.comboBox4.TabIndex = 14;
             // 
             // MainForm
             // 
@@ -701,11 +743,12 @@
             this.PathsTabPage.ResumeLayout(false);
             this.PathsTabPage.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pathsBindingSource)).EndInit();
             this.ChannelsTabPage.ResumeLayout(false);
             this.ChannelsTabPage.PerformLayout();
             this.AdvancedTabPage.ResumeLayout(false);
             this.AdvancedTabPage.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pathsBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.flashBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.configurationBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.channelBindingSource)).EndInit();
             this.ResumeLayout(false);
@@ -760,6 +803,8 @@
         private System.Windows.Forms.Button button9;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.ComboBox comboBox3;
+        private System.Windows.Forms.BindingSource flashBindingSource;
+        private System.Windows.Forms.ComboBox comboBox4;
     }
 }
 

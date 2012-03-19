@@ -94,6 +94,7 @@
       <DependentUpon>ScreenConsumerControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Consumers\SystemaudioConsumer.cs" />
+    <Compile Include="Flash.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -133,6 +134,7 @@
     <None Include="Properties\DataSources\Channel.datasource" />
     <None Include="Properties\DataSources\configuration.datasource" />
     <None Include="Properties\DataSources\DecklinkConsumer.datasource" />
+    <None Include="Properties\DataSources\Flash.datasource" />
     <None Include="Properties\DataSources\Paths.datasource" />
     <None Include="Properties\DataSources\ScreenConsumer.datasource" />
     <None Include="Properties\Settings.settings">

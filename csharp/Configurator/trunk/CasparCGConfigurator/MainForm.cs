@@ -39,6 +39,7 @@ namespace CasparCGConfigurator
         private void WireBindings()
         {
             this.pathsBindingSource.DataSource = this.config.Paths;
+            this.flashBindingSource.DataSource = this.config.Flash;
             this.configurationBindingSource.DataSource = this.config;
             this.listBox1.DataSource = this.config.Channels;           
         }
