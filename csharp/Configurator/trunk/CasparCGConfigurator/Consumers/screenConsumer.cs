@@ -69,7 +69,7 @@ namespace CasparCGConfigurator
             set { this.autodeinterlace = value; NotifyChanged("AutoDeinterlace"); }
         }
 
-        private Boolean vsync = false;
+        private Boolean vsync = true;
         [XmlElement(ElementName = "vsync")]
         public Boolean VSync
         {
