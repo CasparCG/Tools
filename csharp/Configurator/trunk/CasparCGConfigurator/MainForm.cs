@@ -267,7 +267,7 @@ namespace CasparCGConfigurator
         private void SetToolTips()
         {
             var toolTip = new ToolTip();
-            toolTip.SetToolTip(this.comboBox3, "This sets the mixing pipeline buffer depth.");
+            //toolTip.SetToolTip(this.##CONTROL##, "##Tooltip text##");
         }
     }
 }

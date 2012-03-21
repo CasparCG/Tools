@@ -67,14 +67,6 @@ namespace CasparCGConfigurator
             set { this.autoTranscode = value; NotifyChanged("AutoTranscode"); }
         }
 
-        private String pipelineTokens = "2";
-        [XmlElement(ElementName = "pipeline-tokens")]
-        public String PipelineTokens
-        {
-            get { return this.pipelineTokens; }
-            set { this.pipelineTokens = value; NotifyChanged("PipelineTokens"); }
-        }
-
         private Flash flash = new Flash();
         [XmlElement(ElementName = "flash")]
         public Flash Flash

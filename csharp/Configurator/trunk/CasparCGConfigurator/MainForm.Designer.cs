@@ -76,7 +76,7 @@
             this.button3 = new System.Windows.Forms.Button();
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.AdvancedTabPage = new System.Windows.Forms.TabPage();
-            this.comboBox3 = new System.Windows.Forms.ComboBox();
+            this.comboBox4 = new System.Windows.Forms.ComboBox();
             this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.autodeinterlaceCheckBox = new System.Windows.Forms.CheckBox();
             this.autotranscodeCheckBox = new System.Windows.Forms.CheckBox();
@@ -86,7 +86,6 @@
             this.flashBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.configurationBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.channelBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.comboBox4 = new System.Windows.Forms.ComboBox();
             datapathLabel = new System.Windows.Forms.Label();
             logpathLabel = new System.Windows.Forms.Label();
             mediapathLabel = new System.Windows.Forms.Label();
@@ -149,7 +148,7 @@
             // autodeinterlaceLabel
             // 
             autodeinterlaceLabel.AutoSize = true;
-            autodeinterlaceLabel.Location = new System.Drawing.Point(24, 23);
+            autodeinterlaceLabel.Location = new System.Drawing.Point(25, 23);
             autodeinterlaceLabel.Name = "autodeinterlaceLabel";
             autodeinterlaceLabel.Size = new System.Drawing.Size(89, 13);
             autodeinterlaceLabel.TabIndex = 0;
@@ -158,7 +157,7 @@
             // autotranscodeLabel
             // 
             autotranscodeLabel.AutoSize = true;
-            autotranscodeLabel.Location = new System.Drawing.Point(24, 53);
+            autotranscodeLabel.Location = new System.Drawing.Point(25, 53);
             autotranscodeLabel.Name = "autotranscodeLabel";
             autotranscodeLabel.Size = new System.Drawing.Size(86, 13);
             autotranscodeLabel.TabIndex = 2;
@@ -167,7 +166,7 @@
             // blendmodesLabel
             // 
             blendmodesLabel.AutoSize = true;
-            blendmodesLabel.Location = new System.Drawing.Point(24, 83);
+            blendmodesLabel.Location = new System.Drawing.Point(25, 83);
             blendmodesLabel.Name = "blendmodesLabel";
             blendmodesLabel.Size = new System.Drawing.Size(72, 13);
             blendmodesLabel.TabIndex = 4;
@@ -176,7 +175,7 @@
             // channelgridLabel
             // 
             channelgridLabel.AutoSize = true;
-            channelgridLabel.Location = new System.Drawing.Point(24, 113);
+            channelgridLabel.Location = new System.Drawing.Point(25, 113);
             channelgridLabel.Name = "channelgridLabel";
             channelgridLabel.Size = new System.Drawing.Size(71, 13);
             channelgridLabel.TabIndex = 6;
@@ -185,7 +184,7 @@
             // loglevelLabel
             // 
             loglevelLabel.AutoSize = true;
-            loglevelLabel.Location = new System.Drawing.Point(24, 141);
+            loglevelLabel.Location = new System.Drawing.Point(25, 141);
             loglevelLabel.Name = "loglevelLabel";
             loglevelLabel.Size = new System.Drawing.Size(57, 13);
             loglevelLabel.TabIndex = 8;
@@ -196,9 +195,17 @@
             pipelinetokensLabel.AutoSize = true;
             pipelinetokensLabel.Location = new System.Drawing.Point(9, 167);
             pipelinetokensLabel.Name = "pipelinetokensLabel";
-            pipelinetokensLabel.Size = new System.Drawing.Size(98, 13);
+            pipelinetokensLabel.Size = new System.Drawing.Size(0, 13);
             pipelinetokensLabel.TabIndex = 10;
-            pipelinetokensLabel.Text = "Mixer Buffer Depth:";
+            // 
+            // bufferDepthLabel
+            // 
+            bufferDepthLabel.AutoSize = true;
+            bufferDepthLabel.Location = new System.Drawing.Point(25, 170);
+            bufferDepthLabel.Name = "bufferDepthLabel";
+            bufferDepthLabel.Size = new System.Drawing.Size(98, 13);
+            bufferDepthLabel.TabIndex = 13;
+            bufferDepthLabel.Text = "Flash Buffer Depth:";
             // 
             // menuStrip1
             // 
@@ -585,7 +592,6 @@
             this.AdvancedTabPage.AutoScroll = true;
             this.AdvancedTabPage.Controls.Add(this.comboBox4);
             this.AdvancedTabPage.Controls.Add(bufferDepthLabel);
-            this.AdvancedTabPage.Controls.Add(this.comboBox3);
             this.AdvancedTabPage.Controls.Add(this.comboBox2);
             this.AdvancedTabPage.Controls.Add(autodeinterlaceLabel);
             this.AdvancedTabPage.Controls.Add(this.autodeinterlaceCheckBox);
@@ -605,104 +611,6 @@
             this.AdvancedTabPage.Text = "Advanced";
             this.AdvancedTabPage.UseVisualStyleBackColor = true;
             // 
-            // comboBox3
-            // 
-            this.comboBox3.DataBindings.Add(new System.Windows.Forms.Binding("SelectedItem", this.configurationBindingSource, "PipelineTokens", true));
-            this.comboBox3.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox3.FormattingEnabled = true;
-            this.comboBox3.Items.AddRange(new object[] {
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8",
-            "9",
-            "10"});
-            this.comboBox3.Location = new System.Drawing.Point(113, 164);
-            this.comboBox3.Name = "comboBox3";
-            this.comboBox3.Size = new System.Drawing.Size(121, 21);
-            this.comboBox3.TabIndex = 13;
-            // 
-            // comboBox2
-            // 
-            this.comboBox2.DataBindings.Add(new System.Windows.Forms.Binding("SelectedItem", this.configurationBindingSource, "loglevel", true));
-            this.comboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Items.AddRange(new object[] {
-            "trace",
-            "debug",
-            "info",
-            "warning",
-            "error"});
-            this.comboBox2.Location = new System.Drawing.Point(113, 137);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(121, 21);
-            this.comboBox2.TabIndex = 12;
-            // 
-            // autodeinterlaceCheckBox
-            // 
-            this.autodeinterlaceCheckBox.DataBindings.Add(new System.Windows.Forms.Binding("CheckState", this.configurationBindingSource, "autodeinterlace", true));
-            this.autodeinterlaceCheckBox.Location = new System.Drawing.Point(113, 18);
-            this.autodeinterlaceCheckBox.Name = "autodeinterlaceCheckBox";
-            this.autodeinterlaceCheckBox.Size = new System.Drawing.Size(104, 24);
-            this.autodeinterlaceCheckBox.TabIndex = 1;
-            this.autodeinterlaceCheckBox.UseVisualStyleBackColor = true;
-            // 
-            // autotranscodeCheckBox
-            // 
-            this.autotranscodeCheckBox.DataBindings.Add(new System.Windows.Forms.Binding("CheckState", this.configurationBindingSource, "autotranscode", true));
-            this.autotranscodeCheckBox.Location = new System.Drawing.Point(113, 48);
-            this.autotranscodeCheckBox.Name = "autotranscodeCheckBox";
-            this.autotranscodeCheckBox.Size = new System.Drawing.Size(104, 24);
-            this.autotranscodeCheckBox.TabIndex = 3;
-            this.autotranscodeCheckBox.UseVisualStyleBackColor = true;
-            // 
-            // blendmodesCheckBox
-            // 
-            this.blendmodesCheckBox.DataBindings.Add(new System.Windows.Forms.Binding("CheckState", this.configurationBindingSource, "blendmodes", true));
-            this.blendmodesCheckBox.Location = new System.Drawing.Point(113, 78);
-            this.blendmodesCheckBox.Name = "blendmodesCheckBox";
-            this.blendmodesCheckBox.Size = new System.Drawing.Size(104, 24);
-            this.blendmodesCheckBox.TabIndex = 5;
-            this.blendmodesCheckBox.UseVisualStyleBackColor = true;
-            // 
-            // channelgridCheckBox
-            // 
-            this.channelgridCheckBox.DataBindings.Add(new System.Windows.Forms.Binding("CheckState", this.configurationBindingSource, "channelgrid", true));
-            this.channelgridCheckBox.Location = new System.Drawing.Point(113, 108);
-            this.channelgridCheckBox.Name = "channelgridCheckBox";
-            this.channelgridCheckBox.Size = new System.Drawing.Size(104, 24);
-            this.channelgridCheckBox.TabIndex = 7;
-            this.channelgridCheckBox.UseVisualStyleBackColor = true;
-            // 
-            // bufferDepthLabel
-            // 
-            bufferDepthLabel.AutoSize = true;
-            bufferDepthLabel.Location = new System.Drawing.Point(9, 194);
-            bufferDepthLabel.Name = "bufferDepthLabel";
-            bufferDepthLabel.Size = new System.Drawing.Size(98, 13);
-            bufferDepthLabel.TabIndex = 13;
-            bufferDepthLabel.Text = "Flash Buffer Depth:";
-            // 
-            // pathsBindingSource
-            // 
-            this.pathsBindingSource.DataSource = typeof(CasparCGConfigurator.Paths);
-            // 
-            // flashBindingSource
-            // 
-            this.flashBindingSource.DataSource = typeof(CasparCGConfigurator.Flash);
-            // 
-            // configurationBindingSource
-            // 
-            this.configurationBindingSource.DataSource = typeof(CasparCGConfigurator.configuration);
-            // 
-            // channelBindingSource
-            // 
-            this.channelBindingSource.DataSource = typeof(CasparCGConfigurator.Channel);
-            // 
             // comboBox4
             // 
             this.comboBox4.DataBindings.Add(new System.Windows.Forms.Binding("SelectedItem", this.flashBindingSource, "BufferDepth", true));
@@ -720,10 +628,78 @@
             "8",
             "9",
             "10"});
-            this.comboBox4.Location = new System.Drawing.Point(113, 191);
+            this.comboBox4.Location = new System.Drawing.Point(123, 167);
             this.comboBox4.Name = "comboBox4";
             this.comboBox4.Size = new System.Drawing.Size(121, 21);
             this.comboBox4.TabIndex = 14;
+            // 
+            // comboBox2
+            // 
+            this.comboBox2.DataBindings.Add(new System.Windows.Forms.Binding("SelectedItem", this.configurationBindingSource, "loglevel", true));
+            this.comboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox2.FormattingEnabled = true;
+            this.comboBox2.Items.AddRange(new object[] {
+            "trace",
+            "debug",
+            "info",
+            "warning",
+            "error"});
+            this.comboBox2.Location = new System.Drawing.Point(123, 137);
+            this.comboBox2.Name = "comboBox2";
+            this.comboBox2.Size = new System.Drawing.Size(121, 21);
+            this.comboBox2.TabIndex = 12;
+            // 
+            // autodeinterlaceCheckBox
+            // 
+            this.autodeinterlaceCheckBox.DataBindings.Add(new System.Windows.Forms.Binding("CheckState", this.configurationBindingSource, "autodeinterlace", true));
+            this.autodeinterlaceCheckBox.Location = new System.Drawing.Point(123, 18);
+            this.autodeinterlaceCheckBox.Name = "autodeinterlaceCheckBox";
+            this.autodeinterlaceCheckBox.Size = new System.Drawing.Size(104, 24);
+            this.autodeinterlaceCheckBox.TabIndex = 1;
+            this.autodeinterlaceCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // autotranscodeCheckBox
+            // 
+            this.autotranscodeCheckBox.DataBindings.Add(new System.Windows.Forms.Binding("CheckState", this.configurationBindingSource, "autotranscode", true));
+            this.autotranscodeCheckBox.Location = new System.Drawing.Point(123, 48);
+            this.autotranscodeCheckBox.Name = "autotranscodeCheckBox";
+            this.autotranscodeCheckBox.Size = new System.Drawing.Size(104, 24);
+            this.autotranscodeCheckBox.TabIndex = 3;
+            this.autotranscodeCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // blendmodesCheckBox
+            // 
+            this.blendmodesCheckBox.DataBindings.Add(new System.Windows.Forms.Binding("CheckState", this.configurationBindingSource, "blendmodes", true));
+            this.blendmodesCheckBox.Location = new System.Drawing.Point(123, 78);
+            this.blendmodesCheckBox.Name = "blendmodesCheckBox";
+            this.blendmodesCheckBox.Size = new System.Drawing.Size(104, 24);
+            this.blendmodesCheckBox.TabIndex = 5;
+            this.blendmodesCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // channelgridCheckBox
+            // 
+            this.channelgridCheckBox.DataBindings.Add(new System.Windows.Forms.Binding("CheckState", this.configurationBindingSource, "channelgrid", true));
+            this.channelgridCheckBox.Location = new System.Drawing.Point(123, 108);
+            this.channelgridCheckBox.Name = "channelgridCheckBox";
+            this.channelgridCheckBox.Size = new System.Drawing.Size(104, 24);
+            this.channelgridCheckBox.TabIndex = 7;
+            this.channelgridCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // pathsBindingSource
+            // 
+            this.pathsBindingSource.DataSource = typeof(CasparCGConfigurator.Paths);
+            // 
+            // flashBindingSource
+            // 
+            this.flashBindingSource.DataSource = typeof(CasparCGConfigurator.Flash);
+            // 
+            // configurationBindingSource
+            // 
+            this.configurationBindingSource.DataSource = typeof(CasparCGConfigurator.configuration);
+            // 
+            // channelBindingSource
+            // 
+            this.channelBindingSource.DataSource = typeof(CasparCGConfigurator.Channel);
             // 
             // MainForm
             // 
@@ -802,7 +778,6 @@
         private System.Windows.Forms.Button button10;
         private System.Windows.Forms.Button button9;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.ComboBox comboBox3;
         private System.Windows.Forms.BindingSource flashBindingSource;
         private System.Windows.Forms.ComboBox comboBox4;
     }
