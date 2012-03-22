@@ -230,37 +230,33 @@ namespace CasparCGConfigurator
 
         private void button8_Click(object sender, EventArgs e)
         {
-            using (var fd = new FolderBrowserDialog())
-            {
-                if (fd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-                    datapathTextBox.Text = fd.SelectedPath;
-            }
+            setTextboxFilepath(datapathTextBox);
         }
 
         private void button9_Click(object sender, EventArgs e)
         {
-            using (var fd = new FolderBrowserDialog())
-            {
-                if (fd.ShowDialog() == System.Windows.Forms.DialogResult.OK)                
-                    logpathTextBox.Text = fd.SelectedPath;                
-            }
+            setTextboxFilepath(logpathTextBox);
         }
 
         private void button10_Click(object sender, EventArgs e)
         {
-            using (var fd = new FolderBrowserDialog())
-            {
-                if (fd.ShowDialog() == System.Windows.Forms.DialogResult.OK)                
-                    mediapathTextBox.Text = fd.SelectedPath;                
-            }
+            setTextboxFilepath(mediapathTextBox);
         }
 
         private void button11_Click(object sender, EventArgs e)
         {
-            using(var fd = new FolderBrowserDialog())
+            setTextboxFilepath(templatepathTextBox);
+        }
+
+        private void setTextboxFilepath(TextBox control)
+        {
+            using (var fd = new FolderBrowserDialog())
             {
-                if (fd.ShowDialog() == System.Windows.Forms.DialogResult.OK)                
-                    templatepathTextBox.Text = fd.SelectedPath;                
+                if (fd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    var p = fd.SelectedPath;
+                    control.Text = fd.SelectedPath + (p.EndsWith("\\") ? "" : "\\");
+                }
             }
         }
 
