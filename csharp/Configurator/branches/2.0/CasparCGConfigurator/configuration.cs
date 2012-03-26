@@ -51,12 +51,12 @@ namespace CasparCGConfigurator
             set { this.blendModes = value; NotifyChanged("BlendModes"); }
         }
 
-        private Boolean forceDeinterlace = true;
-        [XmlElement(ElementName = "force-deinterlace")]
-        public Boolean ForceDeinterlace
+        private Boolean autoDeinterlace = true;
+        [XmlElement(ElementName = "auto-Deinterlace")]
+        public Boolean AutoDeinterlace
         {
-            get { return this.forceDeinterlace; }
-            set { this.forceDeinterlace = value; NotifyChanged("ForceDeinterlace"); }
+            get { return this.autoDeinterlace; }
+            set { this.autoDeinterlace = value; NotifyChanged("AutoDeinterlace"); }
         }
 
         private Boolean autoTranscode = true;
@@ -65,6 +65,14 @@ namespace CasparCGConfigurator
         {
             get { return this.autoTranscode; }
             set { this.autoTranscode = value; NotifyChanged("AutoTranscode"); }
+        }
+
+        private string pipelineTokens = "2";
+        [XmlElement(ElementName = "pipeline-tokens")]
+        public string PipelineTokens
+        {
+            get { return this.pipelineTokens; }
+            set { this.pipelineTokens = value; NotifyChanged("PipelineTokens"); }
         }
 
         private Flash flash = new Flash();
