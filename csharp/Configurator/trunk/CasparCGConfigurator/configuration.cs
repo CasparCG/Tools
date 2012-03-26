@@ -51,12 +51,12 @@ namespace CasparCGConfigurator
             set { this.blendModes = value; NotifyChanged("BlendModes"); }
         }
 
-        private Boolean autoDeinterlace = true;
-        [XmlElement(ElementName = "auto-deinterlace")]
-        public Boolean AutoDeinterlace
+        private Boolean forceDeinterlace = true;
+        [XmlElement(ElementName = "force-deinterlace")]
+        public Boolean ForceDeinterlace
         {
-            get { return this.autoDeinterlace; }
-            set { this.autoDeinterlace = value; NotifyChanged("AutoDeinterlace"); }
+            get { return this.forceDeinterlace; }
+            set { this.forceDeinterlace = value; NotifyChanged("ForceDeinterlace"); }
         }
 
         private Boolean autoTranscode = true;

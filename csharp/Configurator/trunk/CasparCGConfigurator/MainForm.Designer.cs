@@ -82,6 +82,7 @@
             this.autotranscodeCheckBox = new System.Windows.Forms.CheckBox();
             this.blendmodesCheckBox = new System.Windows.Forms.CheckBox();
             this.channelgridCheckBox = new System.Windows.Forms.CheckBox();
+            this.label9 = new System.Windows.Forms.Label();
             this.pathsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.flashBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.configurationBindingSource = new System.Windows.Forms.BindingSource(this.components);
@@ -150,9 +151,9 @@
             autodeinterlaceLabel.AutoSize = true;
             autodeinterlaceLabel.Location = new System.Drawing.Point(25, 23);
             autodeinterlaceLabel.Name = "autodeinterlaceLabel";
-            autodeinterlaceLabel.Size = new System.Drawing.Size(89, 13);
+            autodeinterlaceLabel.Size = new System.Drawing.Size(94, 13);
             autodeinterlaceLabel.TabIndex = 0;
-            autodeinterlaceLabel.Text = "Auto Deinterlace:";
+            autodeinterlaceLabel.Text = "Force Deinterlace:";
             // 
             // autotranscodeLabel
             // 
@@ -252,6 +253,7 @@
             // 
             // PathsTabPage
             // 
+            this.PathsTabPage.Controls.Add(this.label9);
             this.PathsTabPage.Controls.Add(this.pictureBox1);
             this.PathsTabPage.Controls.Add(this.button11);
             this.PathsTabPage.Controls.Add(this.button10);
@@ -276,7 +278,7 @@
             // pictureBox1
             // 
             this.pictureBox1.Image = global::CasparCGConfigurator.Properties.Resources.CasparCG_10_128x128x32;
-            this.pictureBox1.Location = new System.Drawing.Point(222, 161);
+            this.pictureBox1.Location = new System.Drawing.Point(250, 137);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(128, 128);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -651,7 +653,7 @@
             // 
             // autodeinterlaceCheckBox
             // 
-            this.autodeinterlaceCheckBox.DataBindings.Add(new System.Windows.Forms.Binding("CheckState", this.configurationBindingSource, "autodeinterlace", true));
+            this.autodeinterlaceCheckBox.DataBindings.Add(new System.Windows.Forms.Binding("CheckState", this.configurationBindingSource, "ForceDeinterlace", true));
             this.autodeinterlaceCheckBox.Location = new System.Drawing.Point(123, 18);
             this.autodeinterlaceCheckBox.Name = "autodeinterlaceCheckBox";
             this.autodeinterlaceCheckBox.Size = new System.Drawing.Size(104, 24);
@@ -684,6 +686,17 @@
             this.channelgridCheckBox.Size = new System.Drawing.Size(104, 24);
             this.channelgridCheckBox.TabIndex = 7;
             this.channelgridCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Location = new System.Drawing.Point(6, 290);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(710, 24);
+            this.label9.TabIndex = 13;
+            this.label9.Text = "This application will create a configuration file compatible with CasparCG Server" +
+    " v2.1";
             // 
             // pathsBindingSource
             // 
@@ -780,6 +793,7 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.BindingSource flashBindingSource;
         private System.Windows.Forms.ComboBox comboBox4;
+        private System.Windows.Forms.Label label9;
     }
 }
 
