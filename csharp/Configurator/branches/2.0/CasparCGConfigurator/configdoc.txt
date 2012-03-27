@@ -1,4 +1,6 @@
-﻿!!!DOCUMENTATION!!!
+﻿This file was generated with CasparCG Configurator v2.0
+!!!DOCUMENTATION!!!
+
 
 <log-level>       trace [trace|debug|info|warning|error]</log-level>
 <channel-grid>    false [true|false]</channel-grid>
