@@ -1,0 +1,43 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+<macromedia-extension name="CasparCG Template Generator" version="2.0.0BETA" type="flash panel" requires-restart="true">
+
+	<!-- Describe the author -->
+
+	<author name="CasparCG.org" />
+
+	<!-- List the required/compatible products -->
+
+	<products>
+		<product name="Flash" version="10" primary="true" />
+	</products>
+
+	<!-- Describe the extension -->
+
+	<description>
+		<![CDATA[Panel used for generating Flash templates (.ft) for playback in the professional, free & open source video and graphics play-out system CasparCG Server.
+		<br>
+		After installation you can find the Template Generator panel in Flash > Window > Other Panels. 
+		<br>
+		Documentation, forum, tutorials and licenses can be found at http://casparcg.org/ 
+		<br>	
+		Distributed as-is by SVT under GPLv3.<br> ]]>
+	</description>
+
+	<!-- Describe where the extension shows in the UI of the product -->
+
+	<ui-access>
+		<![CDATA[You can find the panel in Flash->Window->Other Panels->Template Generator. Choose you settings and click "Generate" to create a .ft file. ]]>
+	</ui-access>
+
+	<!-- Describe the files that comprise the extension -->
+	
+	<files>
+		<file name="/jsfl/brew2_0.jsfl" destination="$flash/WindowSWF" />
+		<file name="Template Generator.swf" destination="$flash/WindowSWF" />
+		<file name="TemplateGeneratorServers.settings" destination="$flash/WindowSWF" />
+		<file name="TemplateGenerator.settings" destination="$flash/WindowSWF" />
+		<file name="CasparCGFramework-v.2.0.1.swc" destination="$flash/Libraries/casparCG" />
+		<file name="caspar/" destination="$flash/Classes/casparCG" />
+	</files>
+
+</macromedia-extension>

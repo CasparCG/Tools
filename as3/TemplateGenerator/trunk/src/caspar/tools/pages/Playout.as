@@ -69,7 +69,7 @@ package caspar.tools.pages
 			_view.TemplateNext.addEventListener(MouseEvent.CLICK, onTemplateNext);
 			_view.TemplateSetData.addEventListener(MouseEvent.CLICK, onTemplateSetData);
 			_view.TemplateInvoke.addEventListener(MouseEvent.CLICK, onTemplateInvoke);
-			_view.TemplateGoto.addEventListener(MouseEvent.CLICK, onTemplateGoto);
+			//_view.TemplateGoto.addEventListener(MouseEvent.CLICK, onTemplateGoto);
 			_view.TemplateClear.addEventListener(MouseEvent.CLICK, onTemplateClear);
 			_view.TemplateRemove.addEventListener(MouseEvent.CLICK, onTemplateRemove);
 			
@@ -127,13 +127,13 @@ package caspar.tools.pages
 			}
 		}
 		
-		private function onTemplateGoto(e:MouseEvent):void
-		{
-			if (_view.TemplateTemplates.selectedItem.data as ICasparItemInfo != null)
-			{
-				_casparConnection.connection.GotoLabel(_casparConnection.currentServer.channel, int(_view.TemplateLayer.value), _view.TemplateGotoText.text);
-			}
-		}
+		//private function onTemplateGoto(e:MouseEvent):void
+		//{
+			//if (_view.TemplateTemplates.selectedItem.data as ICasparItemInfo != null)
+			//{
+				//_casparConnection.connection.GotoLabel(_casparConnection.currentServer.channel, int(_view.TemplateLayer.value), _view.TemplateGotoText.text);
+			//}
+		//}
 		
 		private function onTemplateInvoke(e:MouseEvent):void
 		{

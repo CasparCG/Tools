@@ -18,7 +18,6 @@
 *
 */
 
-//TODO: Wrap CasparTemplate in a document class
 //TODO: Go into the document class and check for illegal override of Stop and warn
 //TODO: Make brew undo instead of revert to be able to keep the undo history for the .fla (not possible?)
 //TODO: Refactor code, rename variables with type notation
@@ -211,10 +210,10 @@ function generate(tn, sn, showPreview, aname, aemail, tinfo, optImages, optTextF
 	
 	writeCacheFile();
 
-	output.trace("||Generating CasparCG flash template, version " + VERSION + "||");
+	output.trace("||Generating CasparCG Flash template, version " + VERSION + "||");
 	verboseTrace("-----------------------------------------------------");
 	
-	verboseTrace("Verbose tracing is activated (+), this can be turned off in the settings tab.");
+	verboseTrace("Verbose tracing is activated (+), this can be turned off in the Settings tab.");
 	
 	bShowPreview = showPreview;
 	
