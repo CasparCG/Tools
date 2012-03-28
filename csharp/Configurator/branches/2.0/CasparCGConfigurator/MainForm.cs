@@ -30,7 +30,8 @@ namespace CasparCGConfigurator
             if (System.IO.File.Exists("casparcg.config"))
                 DeSerializeConfig(System.IO.File.ReadAllText("casparcg.config"));
             else
-                SerializeConfig();   
+                System.Windows.Forms.MessageBox.Show("A 'casparcg.config' file was not found in the same directory as this application.  One is now being generated.","CasparCG Configurator",MessageBoxButtons.OK,MessageBoxIcon.Exclamation);
+                SerializeConfig();
             this.WireBindings();
             this.Updatechannel();
             this.SetToolTips();
@@ -84,7 +85,15 @@ namespace CasparCGConfigurator
                 XmlSerializerNamespaces namespaces = new XmlSerializerNamespaces();
                 namespaces.Add(string.Empty, string.Empty);
 
-                this.config = (configuration)x.Deserialize(reader);
+                try
+                {
+                    this.config = (configuration)x.Deserialize(reader);
+                }
+                catch (Exception)
+                {
+                    System.Windows.Forms.MessageBox.Show("There was an error reading the current 'casparcg.config' file.  A new one will be generated.","CasparCG Configurator", MessageBoxButtons.OK,MessageBoxIcon.Error);
+                    this.config = new configuration();
+                }
             }
             this.WireBindings();
         }

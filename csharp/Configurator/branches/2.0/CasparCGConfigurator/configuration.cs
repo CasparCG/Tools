@@ -52,7 +52,7 @@ namespace CasparCGConfigurator
         }
 
         private Boolean autoDeinterlace = true;
-        [XmlElement(ElementName = "auto-Deinterlace")]
+        [XmlElement(ElementName = "auto-deinterlace")]
         public Boolean AutoDeinterlace
         {
             get { return this.autoDeinterlace; }
