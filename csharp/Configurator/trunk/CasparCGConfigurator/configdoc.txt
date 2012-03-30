@@ -1,11 +1,13 @@
-﻿!!!DOCUMENTATION!!!
+﻿This file was created with CasparCG Configurator 2.1 and is meant to be used with CasparCG Server 2.1.
 
-<log-level>       trace [trace|debug|info|warning|error]</log-level>
-<channel-grid>    false [true|false]</channel-grid>
-<blend-modes>     false [true|false]</blend-modes>
-<auto-deinterlace>true  [true|false]</auto-deinterlace>
-<auto-transcode>  true  [true|false]</auto-transcode>
-<pipeline-tokens> 2     [1..]       </pipeline-tokens>
+!!!DOCUMENTATION!!!
+
+<log-level>           trace [trace|debug|info|warning|error]</log-level>
+<force-deinterlacing> true  [true|false]</force-deinterlacing>
+<channel-grid>        false [true|false]</channel-grid>
+<blend-modes>         true  [true|false]</blend-modes>
+<auto-deinterlace>    true  [true|false]</auto-deinterlace>
+<accelerator>auto [cpu|gpu|auto]</accelerator>
 <template-hosts>
     <template-host>
         <video-mode/>

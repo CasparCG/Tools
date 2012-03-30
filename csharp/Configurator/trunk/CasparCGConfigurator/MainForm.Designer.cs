@@ -40,12 +40,14 @@
             System.Windows.Forms.Label loglevelLabel;
             System.Windows.Forms.Label pipelinetokensLabel;
             System.Windows.Forms.Label bufferDepthLabel;
+            System.Windows.Forms.Label label10;
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.showXMLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.PathsTabPage = new System.Windows.Forms.TabPage();
+            this.label9 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.button11 = new System.Windows.Forms.Button();
             this.button10 = new System.Windows.Forms.Button();
@@ -82,7 +84,7 @@
             this.autotranscodeCheckBox = new System.Windows.Forms.CheckBox();
             this.blendmodesCheckBox = new System.Windows.Forms.CheckBox();
             this.channelgridCheckBox = new System.Windows.Forms.CheckBox();
-            this.label9 = new System.Windows.Forms.Label();
+            this.comboBox3 = new System.Windows.Forms.ComboBox();
             this.pathsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.flashBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.configurationBindingSource = new System.Windows.Forms.BindingSource(this.components);
@@ -98,6 +100,7 @@
             loglevelLabel = new System.Windows.Forms.Label();
             pipelinetokensLabel = new System.Windows.Forms.Label();
             bufferDepthLabel = new System.Windows.Forms.Label();
+            label10 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.PathsTabPage.SuspendLayout();
@@ -274,6 +277,17 @@
             this.PathsTabPage.TabIndex = 0;
             this.PathsTabPage.Text = "Paths";
             this.PathsTabPage.UseVisualStyleBackColor = true;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Location = new System.Drawing.Point(6, 290);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(710, 24);
+            this.label9.TabIndex = 13;
+            this.label9.Text = "This application will create a configuration file compatible with CasparCG Server" +
+    " v2.1";
             // 
             // pictureBox1
             // 
@@ -592,6 +606,8 @@
             // AdvancedTabPage
             // 
             this.AdvancedTabPage.AutoScroll = true;
+            this.AdvancedTabPage.Controls.Add(this.comboBox3);
+            this.AdvancedTabPage.Controls.Add(label10);
             this.AdvancedTabPage.Controls.Add(this.comboBox4);
             this.AdvancedTabPage.Controls.Add(bufferDepthLabel);
             this.AdvancedTabPage.Controls.Add(this.comboBox2);
@@ -687,16 +703,28 @@
             this.channelgridCheckBox.TabIndex = 7;
             this.channelgridCheckBox.UseVisualStyleBackColor = true;
             // 
-            // label9
+            // comboBox3
             // 
-            this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(6, 290);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(710, 24);
-            this.label9.TabIndex = 13;
-            this.label9.Text = "This application will create a configuration file compatible with CasparCG Server" +
-    " v2.1";
+            this.comboBox3.DataBindings.Add(new System.Windows.Forms.Binding("SelectedItem", this.configurationBindingSource, "Accelerator", true));
+            this.comboBox3.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox3.FormattingEnabled = true;
+            this.comboBox3.Items.AddRange(new object[] {
+            "auto",
+            "gpu",
+            "cpu"});
+            this.comboBox3.Location = new System.Drawing.Point(123, 197);
+            this.comboBox3.Name = "comboBox3";
+            this.comboBox3.Size = new System.Drawing.Size(121, 21);
+            this.comboBox3.TabIndex = 16;
+            // 
+            // label10
+            // 
+            label10.AutoSize = true;
+            label10.Location = new System.Drawing.Point(25, 200);
+            label10.Name = "label10";
+            label10.Size = new System.Drawing.Size(62, 13);
+            label10.TabIndex = 15;
+            label10.Text = "Mixer Type:";
             // 
             // pathsBindingSource
             // 
@@ -794,6 +822,7 @@
         private System.Windows.Forms.BindingSource flashBindingSource;
         private System.Windows.Forms.ComboBox comboBox4;
         private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.ComboBox comboBox3;
     }
 }
 

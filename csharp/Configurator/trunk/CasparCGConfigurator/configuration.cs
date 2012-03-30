@@ -67,6 +67,14 @@ namespace CasparCGConfigurator
             set { this.autoTranscode = value; NotifyChanged("AutoTranscode"); }
         }
 
+        private String accelerator = "auto";
+        [XmlElement(ElementName = "accelerator")]
+        public String Accelerator
+        {
+            get { return this.accelerator; }
+            set { this.accelerator = value; NotifyChanged("Accelerator"); }
+        }
+
         private Flash flash = new Flash();
         [XmlElement(ElementName = "flash")]
         public Flash Flash
