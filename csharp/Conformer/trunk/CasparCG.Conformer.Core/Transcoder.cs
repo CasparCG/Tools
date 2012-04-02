@@ -120,6 +120,8 @@ namespace CasparCG.Conformer.Core
             if (!Specification.FindTargetExtension(Path.GetExtension(e.Name)))
                 return;
 
+            e = ValidateInput(e);
+
             lock (this.Items)
             {
                 this.Items.Add(e.Name, "Waiting");
@@ -188,6 +190,24 @@ namespace CasparCG.Conformer.Core
 
             if (this.DeleteInputWhenFinished)
                 File.Delete(string.Format("{0}/{1}", this.InputPath, e.Name));
+        }
+
+        /// <summary>
+        /// Validates the input.
+        /// </summary>
+        /// <param name="e">The <see cref="System.IO.FileSystemEventArgs"/> instance containing the event data.</param>
+        /// <returns></returns>
+        private FileSystemEventArgs ValidateInput(FileSystemEventArgs e)
+        {
+            // Check for spaces in filename.
+            if (!e.Name.Contains(" "))
+                return e;
+
+            string name = e.Name;
+            string rename = e.Name.Replace(" ", "_");
+            File.Move(string.Format("{0}/{1}", this.InputPath, name), string.Format("{0}/{1}", this.InputPath, rename));
+
+            return new FileSystemEventArgs(e.ChangeType, this.InputPath, rename);
         }
     }
 }
