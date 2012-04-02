@@ -120,7 +120,7 @@ namespace CasparCG.Conformer.Core
             if (!Specification.FindTargetExtension(Path.GetExtension(e.Name)))
                 return;
 
-            e = ValidateInput(e);
+            e = Validation.CheckInvalidFilename(e);
 
             lock (this.Items)
             {
@@ -145,7 +145,7 @@ namespace CasparCG.Conformer.Core
                 try
                 {
                     // We try to read from the file to see if it's locked by windows copying process.
-                    stream = File.Open(string.Format("{0}/{1}", this.InputPath, e.Name), FileMode.Open);
+                    stream = File.Open(string.Format("{0}/{1}", Path.GetDirectoryName(e.FullPath), e.Name), FileMode.Open);
                     break;
                 }
                 catch (Exception)
@@ -166,7 +166,7 @@ namespace CasparCG.Conformer.Core
             using (Process process = new Process())
             {
                 process.StartInfo.FileName = @"ffmpeg.exe";
-                process.StartInfo.Arguments = string.Format(@"-i {0}/{1} {2} -y {3}/{4}", this.InputPath, e.Name, Specification.GetTargetCommand(Path.GetExtension(e.Name)), this.OutputPath, e.Name);
+                process.StartInfo.Arguments = string.Format(@"-i {0}/{1} {2} -y {3}/{4}", Path.GetDirectoryName(e.FullPath), e.Name, Specification.GetTargetCommand(Path.GetExtension(e.Name)), this.OutputPath, e.Name);
                 process.StartInfo.UseShellExecute = false;
                 process.StartInfo.RedirectStandardError = true;
                 process.Start();
@@ -189,25 +189,7 @@ namespace CasparCG.Conformer.Core
             }
 
             if (this.DeleteInputWhenFinished)
-                File.Delete(string.Format("{0}/{1}", this.InputPath, e.Name));
-        }
-
-        /// <summary>
-        /// Validates the input.
-        /// </summary>
-        /// <param name="e">The <see cref="System.IO.FileSystemEventArgs"/> instance containing the event data.</param>
-        /// <returns></returns>
-        private FileSystemEventArgs ValidateInput(FileSystemEventArgs e)
-        {
-            // Check for spaces in filename.
-            if (!e.Name.Contains(" "))
-                return e;
-
-            string name = e.Name;
-            string rename = e.Name.Replace(" ", "_");
-            File.Move(string.Format("{0}/{1}", this.InputPath, name), string.Format("{0}/{1}", this.InputPath, rename));
-
-            return new FileSystemEventArgs(e.ChangeType, this.InputPath, rename);
+                File.Delete(string.Format("{0}/{1}", Path.GetDirectoryName(e.FullPath), e.Name));
         }
     }
 }
