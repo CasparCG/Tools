@@ -1,0 +1,3806 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Bespoke.Common</name>
+    </assembly>
+    <members>
+        <member name="T:Bespoke.Common.Net.TransmissionType">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Net.TransmissionType.Unicast">
+            <summary>
+            Transmit to subscribed clients only. Includes heartbeat exchanges.
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Net.TransmissionType.Multicast">
+            <summary>
+            Transmit via UDP multicast. No heartbeat exchanges.
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Net.TransmissionType.Broadcast">
+            <summary>
+            Transmit via UDP broadcast. No heartbeat exchanges.
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Net.TransmissionType.LocalBroadcast">
+            <summary>
+            Local unicast without subcription or heartbeat exchanges.
+            </summary>
+        </member>
+        <member name="T:Bespoke.Common.Net.TcpDataSentEventArgs">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Bespoke.Common.Net.TcpDataSentEventArgs.#ctor(Bespoke.Common.Net.TcpConnection,System.Object)">
+            <summary>
+            
+            </summary>
+            <param name="connection"></param>
+            <param name="data"></param>
+        </member>
+        <member name="P:Bespoke.Common.Net.TcpDataSentEventArgs.Connection">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Bespoke.Common.Net.TcpDataSentEventArgs.Data">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Bespoke.Common.Video.WebCamCapture">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Bespoke.Common.Video.WebCamCapture.#ctor(System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="deviceNumber"></param>
+            <param name="frameRate"></param>
+            <param name="width"></param>
+            <param name="height"></param>
+        </member>
+        <member name="M:Bespoke.Common.Video.WebCamCapture.Dispose">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Bespoke.Common.Video.WebCamCapture.Start">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Bespoke.Common.Video.WebCamCapture.Pause">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Bespoke.Common.Video.WebCamCapture.GetBitMap">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Bespoke.Common.Video.WebCamCapture.SampleCB(System.Double,DirectShowLib.IMediaSample)">
+            <summary>
+            Unused.
+            </summary>
+            <param name="sampleTime"></param>
+            <param name="pSample"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Bespoke.Common.Video.WebCamCapture.BufferCB(System.Double,System.IntPtr,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="sampleTime"></param>
+            <param name="buffer"></param>
+            <param name="bufferLength"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Bespoke.Common.Video.WebCamCapture.InitCaptureGraph">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Bespoke.Common.Video.WebCamCapture.ConfigureSampleGrabber(DirectShowLib.ISampleGrabber)">
+            <summary>
+            
+            </summary>
+            <param name="sampleGrabber"></param>
+        </member>
+        <member name="M:Bespoke.Common.Video.WebCamCapture.InitConfigParams(DirectShowLib.ICaptureGraphBuilder2,DirectShowLib.IBaseFilter)">
+            <summary>
+            
+            </summary>
+            <param name="captureGraph"></param>
+            <param name="captureFilter"></param>
+        </member>
+        <member name="M:Bespoke.Common.Video.WebCamCapture.SaveSizeInfo(DirectShowLib.ISampleGrabber)">
+            <summary>
+            
+            </summary>
+            <param name="sampleGrabber"></param>
+        </member>
+        <member name="P:Bespoke.Common.Video.WebCamCapture.FrameRate">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Bespoke.Common.Video.WebCamCapture.Width">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Bespoke.Common.Video.WebCamCapture.Height">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Bespoke.Common.Video.WebCamCapture.Stride">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Bespoke.Common.Video.WebCamCapture.DroppedImaged">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Bespoke.Common.LinearAlgebra.Matrix">
+            <summary>
+            Defines a matrix.
+            </summary>
+        </member>
+        <member name="M:Bespoke.Common.LinearAlgebra.Matrix.#cctor">
+            <summary>
+            Static constructor.
+            </summary>
+        </member>
+        <member name="M:Bespoke.Common.LinearAlgebra.Matrix.#ctor(System.Int32)">
+            <summary>
+            Creates a new instance of Matrix.
+            </summary>
+            <param name="size">The number of rows and columns for the matrix.</param>
+            <remarks>Creates a square matrix of <paramref name="size"/>.</remarks>
+        </member>
+        <member name="M:Bespoke.Common.LinearAlgebra.Matrix.#ctor(System.Int32,System.Int32)">
+            <summary>
+            Creates a new instance of Matrix.
+            </summary>
+            <param name="rows">The number of rows.</param>
+            <param name="cols">The number of columns.</param>
+        </member>
+        <member name="M:Bespoke.Common.LinearAlgebra.Matrix.#ctor(System.Double[0:,0:])">
+            <summary>
+            Creates a new instance of Matrix.
+            </summary>
+            <param name="data">An existing matrix.</param>
+        </member>
+        <member name="M:Bespoke.Common.LinearAlgebra.Matrix.op_Addition(Bespoke.Common.LinearAlgebra.Matrix,Bespoke.Common.LinearAlgebra.Matrix)">
+            <summary>
+            Adds a matrix to another matrix.
+            </summary>
+            <param name="M1">Source matrix.</param>
+            <param name="M2">Source matrix.</param>
+            <returns>Resulting matrix.</returns>
+        </member>
+        <member name="M:Bespoke.Common.LinearAlgebra.Matrix.op_Subtraction(Bespoke.Common.LinearAlgebra.Matrix,Bespoke.Common.LinearAlgebra.Matrix)">
+            <summary>
+            Subtracts a matrix from another matrix.
+            </summary>
+            <param name="M1">Source matrix.</param>
+            <param name="M2">Source matrix.</param>
+            <returns>Resulting matrix.</returns>
+        </member>
+        <member name="M:Bespoke.Common.LinearAlgebra.Matrix.op_Multiply(Bespoke.Common.LinearAlgebra.Matrix,Bespoke.Common.LinearAlgebra.Matrix)">
+            <summary>
+            Multiplies a matrix by another matrix.
+            </summary>
+            <param name="M1">Source matrix.</param>
+            <param name="M2">Source matrix.</param>
+            <returns>Resulting matrix.</returns>
+        </member>
+        <member name="M:Bespoke.Common.LinearAlgebra.Matrix.op_Division(System.Double,Bespoke.Common.LinearAlgebra.Matrix)">
+            <summary>
+            Divides the components of a matrix by a scalar.
+            </summary>
+            <param name="divisor">The divisor.</param>
+            <param name="M">Source matrix</param>
+            <returns></returns>
+        </member>
+        <member name="M:Bespoke.Common.LinearAlgebra.Matrix.op_Equality(Bespoke.Common.LinearAlgebra.Matrix,Bespoke.Common.LinearAlgebra.Matrix)">
+            <summary>
+            Compares a matrix for equality with another matrix.
+            </summary>
+            <param name="M1">Source matrix.</param>
+            <param name="M2">Source matrix.</param>
+            <returns>true if the matrices are equal; false otherwise.</returns>
+        </member>
+        <member name="M:Bespoke.Common.LinearAlgebra.Matrix.op_Inequality(Bespoke.Common.LinearAlgebra.Matrix,Bespoke.Common.LinearAlgebra.Matrix)">
+            <summary>
+            Tests a matrix for inequality with another matrix.
+            </summary>
+            <param name="M1">The matrix on the left of the equal sign.</param>
+            <param name="M2">The matrix on the right of the equal sign.</param>
+            <returns>true if the matrices are not equal; false otherwise.</returns>
+        </member>
+        <member name="M:Bespoke.Common.LinearAlgebra.Matrix.Equals(System.Object)">
+            <summary>
+            Determines whether the specified System.Object is equal to the Matrix.
+            </summary>
+            <param name="other">The System.Object to compare with the current Matrix.</param>
+            <returns>true if the specified System.Object is equal to the current Matrix; false otherwise.</returns>
+        </member>
+        <member name="M:Bespoke.Common.LinearAlgebra.Matrix.GetHashCode">
+            <summary>
+            Gets the hash code of this object.
+            </summary>
+            <returns>Hash code of this object.</returns>
+        </member>
+        <member name="M:Bespoke.Common.LinearAlgebra.Matrix.Display">
+            <summary>
+            Output the matrix to System.Console.
+            </summary>
+        </member>
+        <member name="M:Bespoke.Common.LinearAlgebra.Matrix.Display(System.String)">
+            <summary>
+            Output the matrix to System.Console.
+            </summary>
+            <param name="format">The format specifier to display with.</param>
+        </member>
+        <member name="M:Bespoke.Common.LinearAlgebra.Matrix.Inverse">
+            <summary>
+             Calculates the inverse of the matrix.
+            </summary>
+            <returns>The inverse of the matrix.</returns>
+        </member>
+        <member name="M:Bespoke.Common.LinearAlgebra.Matrix.Transpose">
+            <summary>
+            Transposes the rows and columns of the matrix.
+            </summary>
+            <returns> Transposed matrix.</returns>
+        </member>
+        <member name="M:Bespoke.Common.LinearAlgebra.Matrix.Zeros(System.Int32)">
+            <summary>
+            Creates a new matrix, setting each element to zero.
+            </summary>
+            <param name="size">The number of rows and columns for the matrix.</param>
+            <returns>The newly created matrix.</returns>
+            <remarks>Creates a square matrix of <paramref name="size"/>.</remarks>
+        </member>
+        <member name="M:Bespoke.Common.LinearAlgebra.Matrix.Zeros(System.Int32,System.Int32)">
+            <summary>
+            Creates a new matrix, setting each element to zero.
+            </summary>
+            <param name="rows">The number of rows.</param>
+            <param name="cols">The number of columns.</param>
+            <returns>The newly created matrix.</returns>
+        </member>
+        <member name="M:Bespoke.Common.LinearAlgebra.Matrix.LinSolve(Bespoke.Common.LinearAlgebra.Matrix,Bespoke.Common.LinearAlgebra.Matrix)">
+            <summary>
+            
+            </summary>
+            <param name="COF"></param>
+            <param name="CON"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Bespoke.Common.LinearAlgebra.Matrix.Det">
+            <summary>
+            Calculates the determinant of the matrix.
+            </summary>
+            <returns>The determinant of the matrix.</returns>
+        </member>
+        <member name="F:Bespoke.Common.LinearAlgebra.Matrix.Data">
+            <summary>
+            The data contained within the matrix.
+            </summary>
+        </member>
+        <member name="P:Bespoke.Common.LinearAlgebra.Matrix.Identity">
+            <summary>
+            Gets a 4x4 identity matrix.
+            </summary>
+        </member>
+        <member name="P:Bespoke.Common.LinearAlgebra.Matrix.Item(System.Int32,System.Int32)">
+            <summary>
+            Gets or sets an entry in the matrix.
+            </summary>
+            <param name="i">The row to get/set.</param>
+            <param name="j">The column to get/set.</param>
+            <returns></returns>
+        </member>
+        <member name="P:Bespoke.Common.LinearAlgebra.Matrix.IsSquare">
+            <summary>
+            Indicates whether the matrix is square.
+            </summary>
+        </member>
+        <member name="P:Bespoke.Common.LinearAlgebra.Matrix.IsSingular">
+            <summary>
+            Indicates whether the matrix is singular.
+            </summary>
+        </member>
+        <member name="P:Bespoke.Common.LinearAlgebra.Matrix.rows">
+            <summary>
+            Gets the number of rows in the matrix.
+            </summary>
+        </member>
+        <member name="P:Bespoke.Common.LinearAlgebra.Matrix.cols">
+            <summary>
+            Gets the number of columns in the matrix.
+            </summary>
+        </member>
+        <member name="T:Bespoke.Common.VoidHandler">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Bespoke.Common.ThreadStartWrapperHandler">
+            <summary>
+            Represents the method that executes on a System.Threading.Thread.
+            </summary>
+            <param name="obj">An object that contains data for the thread procedure.</param>
+        </member>
+        <member name="T:Bespoke.Common.UpdateProgressValueHandler">
+            <summary>
+            
+            </summary>
+            <param name="progressBar"></param>
+            <param name="value"></param>
+        </member>
+        <member name="T:Bespoke.Common.UpdateLabelHandler">
+            <summary>
+            
+            </summary>
+            <param name="label"></param>
+            <param name="text"></param>
+        </member>
+        <member name="T:Bespoke.Common.UpdateTextBoxHandler">
+            <summary>
+            
+            </summary>
+            <param name="textBox"></param>
+            <param name="text"></param>
+        </member>
+        <member name="T:Bespoke.Common.UpdateButtonTextHandler">
+            <summary>
+            
+            </summary>
+            <param name="button"></param>
+            <param name="text"></param>
+        </member>
+        <member name="T:Bespoke.Common.UpdatePictureBoxImageHandler">
+            <summary>
+            
+            </summary>
+            <param name="pictureBox"></param>
+            <param name="image"></param>
+        </member>
+        <member name="T:Bespoke.Common.ButtonPerformClickHandler">
+            <summary>
+            
+            </summary>
+            <param name="button"></param>
+        </member>
+        <member name="T:Bespoke.Common.ThreadStartDelegateWrapper">
+            <summary>
+            A replacement for parameterized thread start (missing from the .NET CF)
+            </summary>
+        </member>
+        <member name="M:Bespoke.Common.ThreadStartDelegateWrapper.#ctor(Bespoke.Common.ThreadStartWrapperHandler,System.Object)">
+            <summary>
+            
+            </summary>
+            <param name="handler"></param>
+            <param name="obj"></param>
+        </member>
+        <member name="M:Bespoke.Common.ThreadStartDelegateWrapper.Start">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Bespoke.Common.Library">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Bespoke.Common.Library.SetForegroundWindow(System.IntPtr)">
+            <summary>
+            SetForegroundWindow import.
+            </summary>        
+        </member>
+        <member name="M:Bespoke.Common.Library.ASCIIByteArrayToString(System.Byte[])">
+            <summary>
+            Convert a byte array of ASCII characters to a string.
+            </summary>
+            <param name="characters"></param>
+            <returns>A string with the same characters in the byte array.</returns>
+        </member>
+        <member name="M:Bespoke.Common.Library.UnicodeByteArrayToString(System.Byte[])">
+            <summary>
+            Convert a byte array of ASCII characters to a string.
+            </summary>
+            <param name="characters"></param>
+            <returns>A string with the same characters in the byte array.</returns>
+        </member>
+        <member name="M:Bespoke.Common.Library.CopyDirectory(System.String,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="sourceDirectory"></param>
+            <param name="destinationDirectory"></param>
+        </member>
+        <member name="M:Bespoke.Common.Library.ValuesInProximity(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="value1"></param>
+            <param name="value2"></param>
+            <param name="proxmityThreshold"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Bespoke.Common.Library.ValuesInProximity(System.Double,System.Double,System.Double)">
+            <summary>
+            
+            </summary>
+            <param name="value1"></param>
+            <param name="value2"></param>
+            <param name="proxmityThreshold"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Bespoke.Common.Library.ValuesInProximity(System.DateTime,System.DateTime,System.TimeSpan)">
+            <summary>
+            
+            </summary>
+            <param name="value1"></param>
+            <param name="value2"></param>
+            <param name="proxmityThreshold"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Bespoke.Common.Library.IsNumeric(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Bespoke.Common.Library.IsNumeric(System.String,System.Int32@)">
+            <summary>
+            
+            </summary>
+            <param name="value"></param>
+            <param name="result"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Bespoke.Common.Library.ToDegrees(System.Single)">
+            <summary>
+            Converts radians to degrees.
+            </summary>
+            <param name="radians">The angle in radians.</param>
+            <returns>The angle in degrees.</returns>
+        </member>
+        <member name="M:Bespoke.Common.Library.ToRadians(System.Single)">
+            <summary>
+            Converts degrees to radians.
+            </summary>
+            <param name="degrees">The angle in degrees.</param>
+            <returns>The angle in radians</returns>
+        </member>
+        <member name="M:Bespoke.Common.Library.GetEnumValues(System.Type)">
+            <summary>
+            
+            </summary>
+            <param name="enumType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Bespoke.Common.Library.CopySubArray``1(``0[],System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="data"></param>
+            <param name="index"></param>
+            <param name="length"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Bespoke.Common.Library.SwapEndian(System.Byte[])">
+            <summary>
+            Swap byte order.
+            </summary>
+            <param name="data">The source data.</param>
+            <returns>The swapped data source.</returns>
+        </member>
+        <member name="M:Bespoke.Common.Library.IsFlagSet(System.Enum,System.Enum)">
+            <summary>
+            Bitwise test for flag.
+            </summary>
+            <param name="input">Enumerated value to test.</param>
+            <param name="flagToMatch">Flag to match against.</param>
+            <returns>True if the flag is set; false otherwise.</returns>
+        </member>
+        <member name="M:Bespoke.Common.Library.BuildLatinSquareRow(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Build a row for a latin square.
+            </summary>
+            <param name="seed">The seed (starting point) of the row.</param>
+            <param name="minValue"></param>
+            <param name="conditionCount"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Bespoke.Common.Net.TcpConnectedEventArgs">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Bespoke.Common.Net.TcpConnectedEventArgs.#ctor(Bespoke.Common.Net.TcpConnection)">
+             <summary>
+            
+             </summary>
+             <param name="connection"></param>
+        </member>
+        <member name="P:Bespoke.Common.Net.TcpConnectedEventArgs.Connection">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Bespoke.Common.Wiimote.WiimoteExtensionChangedEventArgs">
+            <summary>
+            Argument sent through the WiimoteExtensionChangedEvent
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.WiimoteExtensionChangedEventArgs.ExtensionType">
+            <summary>
+            The extenstion type inserted or removed
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.WiimoteExtensionChangedEventArgs.Inserted">
+            <summary>
+            Whether the extension was inserted or removed
+            </summary>
+        </member>
+        <member name="M:Bespoke.Common.Wiimote.WiimoteExtensionChangedEventArgs.#ctor(Bespoke.Common.Wiimote.ExtensionType,System.Boolean)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="type">The extension type inserted or removed</param>
+            <param name="inserted">Whether the extension was inserted or removed</param>
+        </member>
+        <member name="T:Bespoke.Common.Wiimote.WiimoteChangedEventArgs">
+            <summary>
+            Argument sent through the WiimoteChangedEvent
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.WiimoteChangedEventArgs.WiimoteState">
+            <summary>
+            The current state of the Wiimote and extension controllers
+            </summary>
+        </member>
+        <member name="M:Bespoke.Common.Wiimote.WiimoteChangedEventArgs.#ctor(Bespoke.Common.Wiimote.WiimoteState)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="ws">Wiimote state</param>
+        </member>
+        <member name="T:Bespoke.Common.Data.MySqlDataProvider">
+            <summary>
+            Provides a wrapper for ADO.NET data access using the MySQL .NET
+            data provider.
+            </summary>
+        </member>
+        <member name="M:Bespoke.Common.Data.MySqlDataProvider.#ctor(System.String)">
+            <summary>
+            Instantiates a new instance of the MySqlDataProvider class.
+            </summary>
+            <param name="connectionString">The database connection string.</param>
+        </member>
+        <member name="M:Bespoke.Common.Data.MySqlDataProvider.CheckDBNull``1(System.Object)">
+            <summary>
+            Checks the database value for null.
+            </summary>
+            <typeparam name="T">The value type.</typeparam>
+            <param name="value">The database value.</param>
+            <returns>Returns the devault value for the property type if
+            the value is null, otherwise returns the database value.
+            </returns>
+        </member>
+        <member name="M:Bespoke.Common.Data.MySqlDataProvider.AddParameter(MySql.Data.MySqlClient.MySqlParameter)">
+            <overrrides>
+            Adds a stored procedure parameter object to the command
+            object parameters collection.
+            </overrrides>
+            <summary>
+            Adds a stored procedure parameter object to the command
+            object parameters collection.
+            </summary>
+            <param name="parameter">The parameter object.</param>
+        </member>
+        <member name="M:Bespoke.Common.Data.MySqlDataProvider.AddParameter(System.String,MySql.Data.MySqlClient.MySqlDbType,System.Data.ParameterDirection,System.Object)">
+            <summary>
+            Creates a parameter object that does not require a size from the
+            passed values and adds it to the command object parameters collection.
+            </summary>
+            <param name="name">The parameter name.</param>
+            <param name="type">The parameter type.</param>
+            <param name="direction">The parameter direction.</param>
+            <param name="value">The parameter value.</param>
+            <returns>Returns a reference to the added parameter object.</returns>
+        </member>
+        <member name="M:Bespoke.Common.Data.MySqlDataProvider.AddParameter(System.String,MySql.Data.MySqlClient.MySqlDbType,System.Data.ParameterDirection,System.Int32,System.Object)">
+            <summary>
+            Creates a parameter object that requires a size from the passed values
+            and adds it to the command object parameters collection.
+            </summary>
+            <param name="name">The parameter name.</param>
+            <param name="type">The parameter type.</param>
+            <param name="direction">The parameter direction.</param>
+            <param name="size">The parameter value size.</param>
+            <param name="value">The parameter value.</param>
+            <returns>Returns a reference to the added parameter object.</returns>
+        </member>
+        <member name="M:Bespoke.Common.Data.MySqlDataProvider.AddReturnValueParameter">
+            <summary>
+            Creates a return value parameter and adds it to the command object parameters collection.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Bespoke.Common.Data.MySqlDataProvider.BeginTransaction(System.Data.IsolationLevel)">
+            <summary>
+            Sets the command object to begin a transaction with the specified isolation level.
+            </summary>
+            <param name="isolationLevel">The isolation level.</param>
+        </member>
+        <member name="M:Bespoke.Common.Data.MySqlDataProvider.ClosePersitentConnection">
+            <summary>
+            Decrements the connection reference count and closes the connection
+            if there are no more connection references.
+            </summary>
+        </member>
+        <member name="M:Bespoke.Common.Data.MySqlDataProvider.CloseAllPersitentConnections">
+            <summary>
+            Removes all connection reference counters and closes the connection.
+            </summary>
+        </member>
+        <member name="M:Bespoke.Common.Data.MySqlDataProvider.CommitTransaction">
+            <summary>
+            Commits the transaction.
+            </summary>
+        </member>
+        <member name="M:Bespoke.Common.Data.MySqlDataProvider.OpenPersistentConnection">
+            <summary>
+            Opens the connection or increments the connection reference
+            count if the connection is already open.
+            </summary>
+        </member>
+        <member name="M:Bespoke.Common.Data.MySqlDataProvider.ExecuteQuery">
+            <summary>
+            Executes a result query.
+            </summary>
+        </member>
+        <member name="M:Bespoke.Common.Data.MySqlDataProvider.ExecuteNonQuery">
+            <summary>
+            Executes a non-result query.
+            </summary>
+            <returns>Returns a count of the affected rows.</returns>
+        </member>
+        <member name="M:Bespoke.Common.Data.MySqlDataProvider.ExecuteScalar">
+            <summary>
+            Executes a query that returns a scalar value.
+            </summary>
+            <returns>Returns the scalar object.</returns>
+        </member>
+        <member name="M:Bespoke.Common.Data.MySqlDataProvider.ResetQuery">
+            <summary>
+            Prepares for the next query by committing any pending transactions,
+            closing the data reader and clearing the command text and parameters.
+            </summary>
+        </member>
+        <member name="M:Bespoke.Common.Data.MySqlDataProvider.RollbackTransaction">
+            <summary>
+            Performs a rollback on the transaction.
+            </summary>
+        </member>
+        <member name="M:Bespoke.Common.Data.MySqlDataProvider.SetCommandText(System.Data.CommandType,System.String)">
+            <summary>
+            Sets the command type and text from the specified parameters.
+            </summary>
+            <param name="commandType">The command type.</param>
+            <param name="commandText">The command text.</param>
+        </member>
+        <member name="M:Bespoke.Common.Data.MySqlDataProvider.OpenTemporaryConnection">
+            <summary>
+            Make a temporary (non-persistent) database connection.
+            </summary>
+        </member>
+        <member name="M:Bespoke.Common.Data.MySqlDataProvider.CloseTemporaryConnection">
+            <summary>
+            Close a temporary database connection.
+            </summary>
+        </member>
+        <member name="P:Bespoke.Common.Data.MySqlDataProvider.ConnectionString">
+            <summary>
+            Gets the ConnectionString value.
+            </summary>
+        </member>
+        <member name="P:Bespoke.Common.Data.MySqlDataProvider.DataReader">
+            <summary>
+            Gets a reference to the DataReader object.
+            </summary>
+        </member>
+        <member name="P:Bespoke.Common.Data.MySqlDataProvider.CommandText">
+            <summary>
+            Gets or sets the actual query to perform.
+            </summary>
+        </member>
+        <member name="P:Bespoke.Common.Data.MySqlDataProvider.CommandType">
+            <summary>
+            Gets or sets the type of query to execute.
+            </summary>
+        </member>
+        <member name="P:Bespoke.Common.Data.MySqlDataProvider.InTransaction">
+            <summary>
+            Gets a value indicating if the command is setup to execute
+            within a database transaction. The value equals "true" if
+            it will execute within a transaction, otherwise it equals
+            "false".
+            </summary>
+        </member>
+        <member name="P:Bespoke.Common.Data.MySqlDataProvider.IsConnectionOpen">
+            <summary>
+            Gets a value indicating if the connection is open. The value equals
+            "true" if the connection is open, otherwise it equals "false".
+            </summary>
+        </member>
+        <member name="T:Bespoke.Common.Node`1">
+            <summary>
+            
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:Bespoke.Common.Node`1.#ctor(`0)">
+            <summary>
+            
+            </summary>
+            <param name="data"></param>
+        </member>
+        <member name="M:Bespoke.Common.Node`1.IsAncestorOf(Bespoke.Common.Node{`0})">
+            <summary>
+            
+            </summary>
+            <param name="node"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Bespoke.Common.Node`1.IsDescendantOf(Bespoke.Common.Node{`0})">
+            <summary>
+            
+            </summary>
+            <param name="node"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Bespoke.Common.Node`1.SharesHierarchyWith(Bespoke.Common.Node{`0})">
+            <summary>
+            
+            </summary>
+            <param name="node"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Bespoke.Common.Node`1.GetDepthFirstEnumerator">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Bespoke.Common.Node`1.GetBreadthFirstEnumerator">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Bespoke.Common.Node`1.GetEnumerator">
+            <summary>
+            Gets the default enumerator (breadth-first)
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Bespoke.Common.Node`1.System#Collections#IEnumerable#GetEnumerator">
+            <summary>
+            Gets the default enumerator (breadth-first)
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Bespoke.Common.Node`1.Parent">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Bespoke.Common.Node`1.Root">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Bespoke.Common.Node`1.Children">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Bespoke.Common.Node`1.Data">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Bespoke.Common.NodeCollection`1">
+            <summary>
+            
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:Bespoke.Common.NodeCollection`1.#ctor(Bespoke.Common.Node{`0})">
+            <summary>
+            
+            </summary>
+            <param name="owner"></param>
+        </member>
+        <member name="M:Bespoke.Common.NodeCollection`1.Add(Bespoke.Common.Node{`0})">
+            <summary>
+            
+            </summary>
+            <param name="item"></param>
+        </member>
+        <member name="M:Bespoke.Common.NodeCollection`1.Remove(Bespoke.Common.Node{`0})">
+            <summary>
+            
+            </summary>
+            <param name="item"></param>
+        </member>
+        <member name="M:Bespoke.Common.NodeCollection`1.Contains(Bespoke.Common.Node{`0})">
+            <summary>
+            
+            </summary>
+            <param name="item"></param>
+        </member>
+        <member name="M:Bespoke.Common.NodeCollection`1.Clear">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Bespoke.Common.NodeCollection`1.GetEnumerator">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Bespoke.Common.NodeCollection`1.System#Collections#IEnumerable#GetEnumerator">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Bespoke.Common.NodeCollection`1.Owner">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Bespoke.Common.NodeCollection`1.Count">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Bespoke.Common.NodeCollection`1.Item(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="index"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Bespoke.Common.Wiimote.UpdateWiimoteStateHandler">
+            <summary>
+            Allows for asynchronous WiimoteChanged event handling.
+            </summary>
+            <param name="args">The WiimoteChangedEventArgs that contains the event data.</param>
+        </member>
+        <member name="T:Bespoke.Common.Wiimote.PlayerIndex">
+            <summary>
+            Wiimote identifiers.
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.PlayerIndex.One">
+            <summary>
+            The first player.
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.PlayerIndex.Two">
+            <summary>
+            The second player.
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.PlayerIndex.Three">
+            <summary>
+            The third player.
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.PlayerIndex.Four">
+            <summary>
+            The fourth player.
+            </summary>
+        </member>
+        <member name="T:Bespoke.Common.Wiimote.Buttons">
+            <summary>
+            Identifies a particular button on a Wiimote.
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.Buttons.A">
+            <summary>
+            A button
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.Buttons.B">
+            <summary>
+            B button
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.Buttons.Plus">
+            <summary>
+            PLUS button
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.Buttons.Home">
+            <summary>
+            HOME button
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.Buttons.Minus">
+            <summary>
+            MINUS button
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.Buttons.One">
+            <summary>
+            ONE button
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.Buttons.Two">
+            <summary>
+            TWO button
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.Buttons.Up">
+            <summary>
+            D-Pad UP arrow
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.Buttons.Down">
+            <summary>
+            D-Pad DOWN arrow
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.Buttons.Left">
+            <summary>
+            D-Pad LEFT arrow
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.Buttons.Right">
+            <summary>
+            D-Pad RIGHT arrow
+            </summary>
+        </member>
+        <member name="T:Bespoke.Common.Wiimote.Wiimote">
+            <summary>
+            Implementation of Wiimote
+            </summary>
+        </member>
+        <member name="M:Bespoke.Common.Wiimote.Wiimote.#cctor">
+            <summary>
+            Static constructor
+            </summary>
+        </member>
+        <member name="M:Bespoke.Common.Wiimote.Wiimote.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="M:Bespoke.Common.Wiimote.Wiimote.Connect">
+            <summary>
+            Connect to the first-found Wiimote
+            </summary>
+            <exception cref="T:Bespoke.Common.Wiimote.WiimoteNotFoundException">Wiimote not found in HID device list</exception>
+        </member>
+        <member name="M:Bespoke.Common.Wiimote.Wiimote.Disconnect">
+            <summary>
+            Disconnect from the controller and stop reading data from it
+            </summary>
+        </member>
+        <member name="M:Bespoke.Common.Wiimote.Wiimote.BeginAsyncRead">
+            <summary>
+            Start reading asynchronously from the controller
+            </summary>
+        </member>
+        <member name="M:Bespoke.Common.Wiimote.Wiimote.OnReadData(System.IAsyncResult)">
+            <summary>
+            Callback when data is ready to be processed
+            </summary>
+            <param name="ar">State information for the callback</param>
+        </member>
+        <member name="M:Bespoke.Common.Wiimote.Wiimote.ParseInputReport(System.Byte[])">
+            <summary>
+            Parse a report sent by the Wiimote
+            </summary>
+            <param name="buff">Data buffer to parse</param>
+            <returns>Returns a boolean noting whether an event needs to be posted</returns>
+        </member>
+        <member name="M:Bespoke.Common.Wiimote.Wiimote.InitializeExtension">
+            <summary>
+            Handles setting up an extension when plugged in
+            </summary>
+        </member>
+        <member name="M:Bespoke.Common.Wiimote.Wiimote.DecryptBuffer(System.Byte[])">
+            <summary>
+            Decrypts data sent from the extension to the Wiimote
+            </summary>
+            <param name="buff">Data buffer</param>
+            <returns>Byte array containing decoded data</returns>
+        </member>
+        <member name="M:Bespoke.Common.Wiimote.Wiimote.ParseButtons(System.Byte[])">
+            <summary>
+            Parses a standard button report into the ButtonState struct
+            </summary>
+            <param name="buff">Data buffer</param>
+        </member>
+        <member name="M:Bespoke.Common.Wiimote.Wiimote.ParseAccel(System.Byte[])">
+            <summary>
+            Parse accelerometer data
+            </summary>
+            <param name="buff">Data buffer</param>
+        </member>
+        <member name="M:Bespoke.Common.Wiimote.Wiimote.ParseIR(System.Byte[])">
+            <summary>
+            Parse IR data from report
+            </summary>
+            <param name="buff">Data buffer</param>
+        </member>
+        <member name="M:Bespoke.Common.Wiimote.Wiimote.ParseExtension(System.Byte[],System.Int32)">
+            <summary>
+            Parse data from an extension controller
+            </summary>
+            <param name="buff">Data buffer</param>
+            <param name="offset">Offset into data buffer</param>
+        </member>
+        <member name="M:Bespoke.Common.Wiimote.Wiimote.ParseReadData(System.Byte[])">
+            <summary>
+            Parse data returned from a read report
+            </summary>
+            <param name="buff">Data buffer</param>
+        </member>
+        <member name="M:Bespoke.Common.Wiimote.Wiimote.GetRumbleBit">
+            <summary>
+            Returns whether rumble is currently enabled.
+            </summary>
+            <returns>Byte indicating true (0x01) or false (0x00)</returns>
+        </member>
+        <member name="M:Bespoke.Common.Wiimote.Wiimote.ReadWiimoteCalibration">
+            <summary>
+            Read calibration information stored on Wiimote
+            </summary>
+        </member>
+        <member name="M:Bespoke.Common.Wiimote.Wiimote.SetReportType(Bespoke.Common.Wiimote.InputReport,System.Boolean)">
+            <summary>
+            Set Wiimote reporting mode (if using an IR report type, IR sensitivity is set to WiiLevel3)
+            </summary>
+            <param name="type">Report type</param>
+            <param name="continuous">Continuous data</param>
+        </member>
+        <member name="M:Bespoke.Common.Wiimote.Wiimote.SetReportType(Bespoke.Common.Wiimote.InputReport,Bespoke.Common.Wiimote.IRSensitivity,System.Boolean)">
+            <summary>
+            Set Wiimote reporting mode
+            </summary>
+            <param name="type">Report type</param>
+            <param name="irSensitivity">IR sensitivity</param>
+            <param name="continuous">Continuous data</param>
+        </member>
+        <member name="M:Bespoke.Common.Wiimote.Wiimote.SetLEDs(System.Boolean,System.Boolean,System.Boolean,System.Boolean)">
+            <summary>
+            Set the LEDs on the Wiimote
+            </summary>
+            <param name="led1">LED 1</param>
+            <param name="led2">LED 2</param>
+            <param name="led3">LED 3</param>
+            <param name="led4">LED 4</param>
+        </member>
+        <member name="M:Bespoke.Common.Wiimote.Wiimote.SetLEDs(System.Int32)">
+            <summary>
+            Set the LEDs on the Wiimote
+            </summary>
+            <param name="leds">The value to be lit up in base2 on the Wiimote</param>
+        </member>
+        <member name="M:Bespoke.Common.Wiimote.Wiimote.SetRumble(System.Boolean)">
+            <summary>
+            Toggle rumble
+            </summary>
+            <param name="on">On or off</param>
+        </member>
+        <member name="M:Bespoke.Common.Wiimote.Wiimote.GetStatus">
+            <summary>
+            Retrieve the current status of the Wiimote and extensions.  Replaces GetBatteryLevel() since it was poorly named.
+            </summary>
+        </member>
+        <member name="M:Bespoke.Common.Wiimote.Wiimote.EnableIR(Bespoke.Common.Wiimote.IRMode,Bespoke.Common.Wiimote.IRSensitivity)">
+            <summary>
+            Turn on the IR sensor
+            </summary>
+            <param name="mode">The data report mode</param>
+            <param name="irSensitivity">IR sensitivity</param>
+        </member>
+        <member name="M:Bespoke.Common.Wiimote.Wiimote.DisableIR">
+            <summary>
+            Disable the IR sensor
+            </summary>
+        </member>
+        <member name="M:Bespoke.Common.Wiimote.Wiimote.ClearReport">
+            <summary>
+            Initialize the report data buffer
+            </summary>
+        </member>
+        <member name="M:Bespoke.Common.Wiimote.Wiimote.WriteReport">
+            <summary>
+            Write a report to the Wiimote
+            </summary>
+        </member>
+        <member name="M:Bespoke.Common.Wiimote.Wiimote.ReadData(System.Int32,System.Int16)">
+            <summary>
+            Read data or register from Wiimote
+            </summary>
+            <param name="address">Address to read</param>
+            <param name="size">Length to read</param>
+            <returns>Data buffer</returns>
+        </member>
+        <member name="M:Bespoke.Common.Wiimote.Wiimote.WriteData(System.Int32,System.Byte)">
+            <summary>
+            Write a single byte to the Wiimote
+            </summary>
+            <param name="address">Address to write</param>
+            <param name="data">Byte to write</param>
+        </member>
+        <member name="M:Bespoke.Common.Wiimote.Wiimote.WriteData(System.Int32,System.Byte,System.Byte[])">
+            <summary>
+            Write a byte array to a specified address
+            </summary>
+            <param name="address">Address to write</param>
+            <param name="size">Length of buffer</param>
+            <param name="buff">Data buffer</param>
+        </member>
+        <member name="M:Bespoke.Common.Wiimote.Wiimote.Dispose">
+            <summary>
+            Dispose Wiimote
+            </summary>
+        </member>
+        <member name="M:Bespoke.Common.Wiimote.Wiimote.Dispose(System.Boolean)">
+            <summary>
+            Dispose wiimote
+            </summary>
+            <param name="disposing">Disposing?</param>
+        </member>
+        <member name="E:Bespoke.Common.Wiimote.Wiimote.WiimoteChanged">
+            <summary>
+            Event raised when Wiimote state is changed
+            </summary>
+        </member>
+        <member name="E:Bespoke.Common.Wiimote.Wiimote.WiimoteExtensionChanged">
+            <summary>
+            Event raised when an extension is inserted or removed
+            </summary>
+        </member>
+        <member name="P:Bespoke.Common.Wiimote.Wiimote.AvailableWiimotes">
+            <summary>
+            Gets the collection of available Wiimotes
+            </summary>
+        </member>
+        <member name="P:Bespoke.Common.Wiimote.Wiimote.WiimoteState">
+            <summary>
+            Current Wiimote state
+            </summary>
+        </member>
+        <member name="P:Bespoke.Common.Wiimote.Wiimote.ID">
+            <summary>
+             Unique identifier for this Wiimote (not persisted across application instances)
+            </summary>
+        </member>
+        <member name="P:Bespoke.Common.Wiimote.Wiimote.HIDDevicePath">
+            <summary>
+            HID device path for this Wiimote (valid until Wiimote is disconnected)
+            </summary>
+        </member>
+        <member name="T:Bespoke.Common.Wiimote.WiimoteNotFoundException">
+            <summary>
+            Thrown when no Wiimotes are found in the HID device list
+            </summary>
+        </member>
+        <member name="M:Bespoke.Common.Wiimote.WiimoteNotFoundException.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="M:Bespoke.Common.Wiimote.WiimoteNotFoundException.#ctor(System.String)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="message">Error message</param>
+        </member>
+        <member name="M:Bespoke.Common.Wiimote.WiimoteNotFoundException.#ctor(System.String,System.Exception)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="message">Error message</param>
+            <param name="innerException">Inner exception</param>
+        </member>
+        <member name="M:Bespoke.Common.Wiimote.WiimoteNotFoundException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="info">Serialization info</param>
+            <param name="context">Streaming context</param>
+        </member>
+        <member name="T:Bespoke.Common.Wiimote.WiimoteException">
+            <summary>
+            Represents errors that occur during the execution of the Wiimote library
+            </summary>
+        </member>
+        <member name="M:Bespoke.Common.Wiimote.WiimoteException.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="M:Bespoke.Common.Wiimote.WiimoteException.#ctor(System.String)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="message">Error message</param>
+        </member>
+        <member name="M:Bespoke.Common.Wiimote.WiimoteException.#ctor(System.String,System.Exception)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="message">Error message</param>
+            <param name="innerException">Inner exception</param>
+        </member>
+        <member name="M:Bespoke.Common.Wiimote.WiimoteException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="info">Serialization info</param>
+            <param name="context">Streaming context</param>
+        </member>
+        <member name="T:Bespoke.Common.InputManager">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Bespoke.Common.InputManager.MouseMove(System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="x"></param>
+            <param name="y"></param>
+        </member>
+        <member name="M:Bespoke.Common.InputManager.MouseDown(Bespoke.Common.InputManager.MouseButtons)">
+            <summary>
+            
+            </summary>
+            <param name="button"></param>
+        </member>
+        <member name="M:Bespoke.Common.InputManager.MouseUp(Bespoke.Common.InputManager.MouseButtons)">
+            <summary>
+            
+            </summary>
+            <param name="button"></param>
+        </member>
+        <member name="M:Bespoke.Common.InputManager.MouseClick(Bespoke.Common.InputManager.MouseButtons)">
+            <summary>
+            
+            </summary>
+            <param name="button"></param>
+        </member>
+        <member name="M:Bespoke.Common.InputManager.MouseDoubleClick">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Bespoke.Common.InputManager.MouseWheel(System.UInt32)">
+            <summary>
+            
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:Bespoke.Common.InputManager.Tab">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Bespoke.Common.InputManager.ShiftTab">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Bespoke.Common.InputManager.AltTab">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Bespoke.Common.InputManager.AltShiftTab">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Bespoke.Common.InputManager.MouseButtonToFlag(Bespoke.Common.InputManager.MouseButtons,System.Boolean,System.UInt32@)">
+            <summary>
+            
+            </summary>
+            <param name="button"></param>
+            <param name="down"></param>
+            <param name="mouseData"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Bespoke.Common.InputManager.MouseButtons">
+            <summary>
+             Specifies constants that define which mouse button was pressed.
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.InputManager.MouseButtons.None">
+            <summary>
+            No button is pressed.
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.InputManager.MouseButtons.Left">
+            <summary>
+            The left mouse button was pressed.
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.InputManager.MouseButtons.Right">
+            <summary>
+            The right mouse button was pressed.
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.InputManager.MouseButtons.Middle">
+            <summary>
+            The middle mouse button was pressed.
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.InputManager.MouseButtons.XButton1">
+            <summary>
+            The first XButton was pressed.
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.InputManager.MouseButtons.XButton2">
+            <summary>
+            The second XButton was pressed.
+            </summary>
+        </member>
+        <member name="T:Bespoke.Common.InputManager.VKeys">
+            <summary>
+            Virtual key codes.
+            </summary>
+        </member>
+        <member name="T:Bespoke.Common.Wiimote.WiimoteCollection">
+            <summary>
+            Used to manage multiple Wiimotes
+            </summary>
+        </member>
+        <member name="M:Bespoke.Common.Wiimote.WiimoteCollection.FindAllWiimotes">
+            <summary>
+            Finds all Wiimotes connected to the system and adds them to the collection
+            </summary>
+        </member>
+        <member name="T:Bespoke.Common.Wiimote.HIDImports">
+            <summary>
+            Win32 import information for use with the Wiimote library
+            </summary>
+        </member>
+        <member name="T:Bespoke.Common.XmlElementBase">
+            <summary>
+            Xml element base class.
+            </summary>
+        </member>
+        <member name="M:Bespoke.Common.XmlElementBase.Load``1(System.String)">
+            <summary>
+            Load a XmlElement object from a file.
+            </summary>
+            <param name="fileName">The name of the file storing the SceneElement.</param>
+            <returns>The newly deserialzied XmlElement object.</returns>
+        </member>
+        <member name="M:Bespoke.Common.XmlElementBase.Load``1(System.Xml.XmlNode)">
+            <summary>
+            Load a XmlElement object from an XmlNode.
+            </summary>
+            <param name="elementNode">The name of the Xml node storing the SceneElement.</param>
+            <returns>The newly deserialzied XmlElement object.</returns>
+        </member>
+        <member name="M:Bespoke.Common.XmlElementBase.Save(System.String)">
+            <summary>
+            Save an XmlElement object to a file.
+            </summary>
+            <param name="fileName">The name of the file to save to.</param>
+        </member>
+        <member name="M:Bespoke.Common.XmlElementBase.Save(System.Xml.XmlWriter)">
+            <summary>
+            Save an XmlElement object to an XmlWriter object.
+            </summary>
+            <param name="writer">The XmlWriter object to save to.</param>
+        </member>
+        <member name="T:Bespoke.Common.XmlHelper">
+            <summary>
+            Xml helper methods
+            </summary>
+        </member>
+        <member name="M:Bespoke.Common.XmlHelper.ParseElement(System.Xml.XmlNode,System.Type)">
+            <summary>
+            Parse an Xml element into a specifed type.
+            </summary>
+            <param name="elementNode">The xml node containing the element to parse.</param>
+            <param name="elementType">The type of object to deserialize into.</param>
+            <returns>The instance of the newly deserialized object.</returns>
+        </member>
+        <member name="M:Bespoke.Common.XmlHelper.SaveToXml(System.Object,System.String)">
+            <summary>
+            Save an object to Xml.
+            </summary>
+            <param name="value">The object to serialize.</param>
+            <param name="fileName">The file to save to.</param>
+        </member>
+        <member name="M:Bespoke.Common.XmlHelper.SaveToXml(System.Object,System.Xml.XmlWriter)">
+            <summary>
+            Save an object to Xml.
+            </summary>
+            <param name="value">The object to serialize.</param>
+            <param name="writer">The XmlWriter object to save to.</param>
+        </member>
+        <member name="M:Bespoke.Common.XmlHelper.GetAttribute(System.Xml.XmlNode,System.String,System.Type)">
+            <summary>
+            
+            </summary>
+            <param name="xmlNode"></param>
+            <param name="attributeName"></param>
+            <param name="type"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Bespoke.Common.XmlHelper.GetAttribute(System.Xml.XmlNode,System.String,System.Type,System.Boolean,System.Object)">
+            <summary>
+            
+            </summary>
+            <param name="xmlNode"></param>
+            <param name="attributeName"></param>
+            <param name="type"></param>
+            <param name="required"></param>
+            <param name="defaultValue"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Bespoke.Common.XmlHelper.GetAttribute``1(System.Xml.XmlNode,System.String)">
+            <summary>
+            
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="xmlNode"></param>
+            <param name="attributeName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Bespoke.Common.XmlHelper.GetAttribute``1(System.Xml.XmlNode,System.String,System.Boolean,``0)">
+            <summary>
+            
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="xmlNode"></param>
+            <param name="attributeName"></param>
+            <param name="required"></param>
+            <param name="defaultValue"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Bespoke.Common.XmlHelper.ToString``1(``0)">
+            <summary>
+            
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Bespoke.Common.XmlHelper.ParsePoint(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Bespoke.Common.XmlHelper.GetValueFromString(System.Type,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="type"></param>
+            <param name="stringValue"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Bespoke.Common.Video.FrameReceivedEventArgs">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Bespoke.Common.Video.FrameReceivedEventArgs.#ctor(System.Drawing.Bitmap)">
+            <summary>
+            
+            </summary>
+            <param name="frame"></param>
+        </member>
+        <member name="P:Bespoke.Common.Video.FrameReceivedEventArgs.Frame">
+            <summary>
+            Gets the received frame.
+            </summary>
+        </member>
+        <member name="T:Bespoke.Common.Net.UdpDataReceivedHandler">
+            <summary>
+            
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="T:Bespoke.Common.Net.UdpState">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Bespoke.Common.Net.UdpState.#ctor(System.Net.Sockets.UdpClient,System.Net.IPEndPoint)">
+            <summary>
+            
+            </summary>
+            <param name="client"></param>
+            <param name="ipEndPoint"></param>
+        </member>
+        <member name="P:Bespoke.Common.Net.UdpState.Client">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Bespoke.Common.Net.UdpState.IPEndPoint">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Bespoke.Common.Net.UdpServer">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Bespoke.Common.Net.UdpServer.#ctor(System.Int32)">
+            <summary>
+            Binds the server to the loopback address.
+            </summary>
+            <param name="port"></param>
+        </member>
+        <member name="M:Bespoke.Common.Net.UdpServer.#ctor(System.Int32,System.Net.IPAddress)">
+            <summary>
+            Binds the server to the loopback address.
+            </summary>
+            <param name="port"></param>
+            <param name="multicastAddress"></param>
+        </member>
+        <member name="M:Bespoke.Common.Net.UdpServer.#ctor(System.Net.IPAddress,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="ipAddress"></param>
+            <param name="port"></param>
+        </member>
+        <member name="M:Bespoke.Common.Net.UdpServer.#ctor(System.Net.IPAddress,System.Int32,System.Net.IPAddress,Bespoke.Common.Net.TransmissionType)">
+            <summary>
+            
+            </summary>
+            <param name="ipAddress"></param>
+            <param name="port"></param>
+            <param name="multicastAddress"></param>
+            <param name="transmissionType"></param>
+        </member>
+        <member name="M:Bespoke.Common.Net.UdpServer.GetLocalIPAddress">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Bespoke.Common.Net.UdpServer.IsIPEndPointAvailable(System.Net.IPAddress,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="ipAddress"></param>
+            <param name="port"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Bespoke.Common.Net.UdpServer.IsIPEndPointAvailable(System.Net.IPEndPoint)">
+            <summary>
+            
+            </summary>
+            <param name="ipEndPoint"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Bespoke.Common.Net.UdpServer.Start">
+            <summary>
+            Start the UDP server and begin receiving data.
+            </summary>
+        </member>
+        <member name="M:Bespoke.Common.Net.UdpServer.Stop">
+            <summary>
+            Stop the UDP server.
+            </summary>
+        </member>
+        <member name="M:Bespoke.Common.Net.UdpServer.EndReceive(System.IAsyncResult)">
+            <summary>
+            EndReceive paired call.
+            </summary>
+            <param name="asyncResult">Paired result object from the BeginReceive call.</param>
+        </member>
+        <member name="M:Bespoke.Common.Net.UdpServer.OnDataReceived(Bespoke.Common.Net.UdpDataReceivedEventArgs)">
+            <summary>
+            Raise the DataReceived event.
+            </summary>
+            <param name="e">An EventArgs object that contains the event data.</param>
+        </member>
+        <member name="E:Bespoke.Common.Net.UdpServer.DataReceived">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Bespoke.Common.Net.UdpServer.IPAddress">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Bespoke.Common.Net.UdpServer.Port">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Bespoke.Common.Net.UdpServer.MulticastAddress">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Bespoke.Common.Net.UdpServer.IsRunning">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Bespoke.Common.Net.UdpServer.TransmissionType">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Bespoke.Common.Net.UdpDataReceivedEventArgs">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Bespoke.Common.Net.UdpDataReceivedEventArgs.#ctor(System.Net.IPEndPoint,System.Byte[])">
+            <summary>
+            
+            </summary>
+            <param name="sourceEndPoint"></param>
+            <param name="data"></param>
+        </member>
+        <member name="P:Bespoke.Common.Net.UdpDataReceivedEventArgs.SourceEndPoint">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Bespoke.Common.Net.UdpDataReceivedEventArgs.Data">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Bespoke.Common.Net.TcpConnectedHandler">
+            <summary>
+            
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="T:Bespoke.Common.Net.TcpDataSentHandler">
+            <summary>
+            
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="T:Bespoke.Common.Net.TcpDataReceivedHandler">
+            <summary>
+            
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="T:Bespoke.Common.Net.TcpServer">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Bespoke.Common.Net.TcpServer.#ctor(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="port"></param>
+        </member>
+        <member name="M:Bespoke.Common.Net.TcpServer.#ctor(System.Int32,System.Boolean,System.Boolean)">
+            <summary>
+            Binds the server to the loopback address.
+            </summary>
+            <param name="port"></param>
+            <param name="receiveDataInline"></param>
+            <param name="useSynchronousCommunication"></param>
+        </member>
+        <member name="M:Bespoke.Common.Net.TcpServer.#ctor(System.Net.IPAddress,System.Int32,System.Boolean,System.Boolean)">
+            <summary>
+            
+            </summary>
+            <param name="ipAddress"></param>
+            <param name="port"></param>
+            <param name="receiveDataInline"></param>
+            <param name="useSynchronousCommunication"></param>
+        </member>
+        <member name="M:Bespoke.Common.Net.TcpServer.#ctor(System.Net.IPAddress,System.Int32,System.Boolean,System.Boolean,System.Boolean)">
+            <summary>
+            
+            </summary>
+            <param name="ipAddress"></param>
+            <param name="port"></param>
+            <param name="receiveDataInline"></param>
+            <param name="useSynchronousCommunication"></param>
+            <param name="littleEndianByteOrder">The expected endianness of integral value types.</param>
+        </member>
+        <member name="M:Bespoke.Common.Net.TcpServer.GetLocalIPAddress">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Bespoke.Common.Net.TcpServer.Start">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Bespoke.Common.Net.TcpServer.Stop">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Bespoke.Common.Net.TcpServer.SendToAllClients(System.IO.MemoryStream)">
+            <summary>
+            
+            </summary>
+            <param name="stream"></param>
+        </member>
+        <member name="M:Bespoke.Common.Net.TcpServer.SendToAllClients(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="message"></param>
+        </member>
+        <member name="M:Bespoke.Common.Net.TcpServer.SendToAllClients(System.Int64)">
+            <summary>
+            
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:Bespoke.Common.Net.TcpServer.SendToAllClients(System.Byte[],System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="data"></param>
+            <param name="length"></param>
+        </member>
+        <member name="M:Bespoke.Common.Net.TcpServer.Dispose">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Bespoke.Common.Net.TcpServer.CloseConnection(Bespoke.Common.Net.TcpConnection)">
+            <summary>
+            
+            </summary>
+            <param name="connection"></param>
+        </member>
+        <member name="M:Bespoke.Common.Net.TcpServer.OnConnected(Bespoke.Common.Net.TcpConnectedEventArgs)">
+            <summary>
+            Raise the Connected event.
+            </summary>
+            <param name="e">An EventArgs object that contains the event data.</param>
+        </member>
+        <member name="M:Bespoke.Common.Net.TcpServer.OnDisconnected(Bespoke.Common.Net.TcpConnectedEventArgs)">
+            <summary>
+            Raise the Disconnected event.
+            </summary>
+            <param name="e">An EventArgs object that contains the event data.</param>
+        </member>
+        <member name="M:Bespoke.Common.Net.TcpServer.OnDataReceived(Bespoke.Common.Net.TcpDataReceivedEventArgs)">
+            <summary>
+            Raise the DataReceived event.
+            </summary>
+            <param name="e">An EventArgs object that contains the event data.</param>
+        </member>
+        <member name="M:Bespoke.Common.Net.TcpServer.OnDataReceived(System.IAsyncResult)">
+            <summary>
+            
+            </summary>
+            <param name="asyncResult"></param>
+        </member>
+        <member name="M:Bespoke.Common.Net.TcpServer.OnDataSent(Bespoke.Common.Net.TcpDataSentEventArgs)">
+            <summary>
+            Raise the DataSent event.
+            </summary>
+            <param name="e">An EventArgs object that contains the event data.</param>
+        </member>
+        <member name="M:Bespoke.Common.Net.TcpServer.RunWorker(System.Object)">
+            <summary>
+            Primary worker thread.
+            </summary>
+            <param name="socket"></param>
+        </member>
+        <member name="M:Bespoke.Common.Net.TcpServer.MarkConnectionForClose(Bespoke.Common.Net.TcpConnection)">
+            <summary>
+            
+            </summary>
+            <param name="connection"></param>
+        </member>
+        <member name="M:Bespoke.Common.Net.TcpServer.CloseMarkedConnections">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Bespoke.Common.Net.TcpServer.SynchronousReceiveData(System.Object)">
+            <summary>
+            
+            </summary>
+            <param name="tcpConnection"></param>
+        </member>
+        <member name="F:Bespoke.Common.Net.TcpServer.MaxPendingConnections">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="E:Bespoke.Common.Net.TcpServer.Connected">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="E:Bespoke.Common.Net.TcpServer.Disconnected">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="E:Bespoke.Common.Net.TcpServer.DataReceived">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="E:Bespoke.Common.Net.TcpServer.DataSent">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Bespoke.Common.Net.TcpServer.Port">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Bespoke.Common.Net.TcpServer.IPAddress">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Bespoke.Common.Net.TcpServer.ActiveConnectionCount">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Bespoke.Common.Net.TcpServer.ActiveConnections">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Bespoke.Common.Net.TcpServer.ReceiveDataInline">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Bespoke.Common.Net.TcpServer.UseSynchronousCommunication">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Bespoke.Common.Net.TcpServer.LittleEndianByteOrder">
+            <summary>
+            Gets or sets the expected endianness of integral value types.
+            </summary>
+        </member>
+        <member name="T:Bespoke.Common.Assert">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Bespoke.Common.Assert.ParamIsNotNull(System.String,System.Object)">
+            <summary>
+            Verify that a parameter is not null.
+            </summary>
+            <param name="paramName">The name of the paramater to verify.</param>
+            <param name="param">The object to test for null.</param>
+            <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="param"/> is null.</exception>
+        </member>
+        <member name="M:Bespoke.Common.Assert.ParamIsNotNull(System.Object)">
+            <summary>
+            Verify that a parameter is not null.
+            </summary>
+            <param name="param">The object to test for null.</param>
+            <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="param"/> is null.</exception>
+        </member>
+        <member name="M:Bespoke.Common.Assert.IsTrue(System.Boolean)">
+            <summary>
+            
+            </summary>
+            <param name="condition"></param>
+        </member>
+        <member name="M:Bespoke.Common.Assert.IsTrue(System.String,System.Boolean)">
+            <summary>
+            
+            </summary>
+            <param name="paramName"></param>
+            <param name="condition"></param>
+        </member>
+        <member name="M:Bespoke.Common.Assert.IsFalse(System.Boolean)">
+            <summary>
+            
+            </summary>
+            <param name="condition"></param>
+        </member>
+        <member name="M:Bespoke.Common.Assert.IsFalse(System.String,System.Boolean)">
+            <summary>
+            
+            </summary>
+            <param name="paramName"></param>
+            <param name="condition"></param>
+        </member>
+        <member name="T:Bespoke.Common.Video.WebCamService">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Bespoke.Common.Video.WebCamService.#ctor(System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="captureDeviceNumber"></param>
+            <param name="frameRate"></param>
+            <param name="width"></param>
+            <param name="height"></param>
+        </member>
+        <member name="M:Bespoke.Common.Video.WebCamService.Start">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Bespoke.Common.Video.WebCamService.Stop">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Bespoke.Common.Video.WebCamService.RetrieveImages">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Bespoke.Common.Video.WebCamService.OnFrameReceived(System.Drawing.Bitmap)">
+            <summary>
+            
+            </summary>
+            <param name="frame"></param>
+        </member>
+        <member name="E:Bespoke.Common.Video.WebCamService.FrameReceived">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Bespoke.Common.Video.WebCamService.FrameReceivedHandler">
+            <summary>
+            
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="T:Bespoke.Common.ServiceContainer">
+            <summary>
+            Container class implements the IServiceProvider interface. This is used
+            to pass shared services between different components, for instance the
+            ContentManager uses it to locate the IGraphicsDeviceService implementation.
+            </summary>
+        </member>
+        <member name="M:Bespoke.Common.ServiceContainer.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Bespoke.Common.ServiceContainer.AddService``1(``0)">
+            <summary>
+            Adds a new service to the collection.
+            </summary>
+        </member>
+        <member name="M:Bespoke.Common.ServiceContainer.GetService(System.Type)">
+            <summary>
+            Looks up the specified service.
+            </summary>
+        </member>
+        <member name="M:Bespoke.Common.ServiceContainer.GetService``1">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Bespoke.Common.ServiceContainer.RemoveService(System.Type)">
+            <summary>
+            
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="serviceType"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Bespoke.Common.Net.TcpConnection">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Net.TcpConnection.ReceivedDataBufferSize">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Bespoke.Common.Net.TcpConnection.#ctor(System.Net.Sockets.Socket,System.AsyncCallback)">
+            <summary>
+            
+            </summary>
+            <param name="client"></param>
+            <param name="dataReceivedCallback"></param>
+        </member>
+        <member name="M:Bespoke.Common.Net.TcpConnection.InitDataReceivedCallback(System.AsyncCallback)">
+            <summary>
+            
+            </summary>
+            <param name="dataReceivedCallback"></param>
+        </member>
+        <member name="M:Bespoke.Common.Net.TcpConnection.Dispose">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Bespoke.Common.Net.TcpConnection.AppendReceivedData(System.Collections.Generic.IEnumerable{System.Byte})">
+            <summary>
+            
+            </summary>
+            <param name="data"></param>
+        </member>
+        <member name="M:Bespoke.Common.Net.TcpConnection.AppendReceivedData(System.ArraySegment{System.Byte})">
+            <summary>
+            
+            </summary>
+            <param name="data"></param>
+        </member>
+        <member name="M:Bespoke.Common.Net.TcpConnection.ClearReceivedData">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Bespoke.Common.Net.TcpConnection.Client">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Bespoke.Common.Net.TcpConnection.Reader">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Bespoke.Common.Net.TcpConnection.Writer">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Bespoke.Common.Net.TcpConnection.ReceivedDataBuffer">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Bespoke.Common.Net.TcpConnection.ReceivedData">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Bespoke.Common.Net.TcpConnection.Tag">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Bespoke.Common.RandomHelper.#cctor">
+            <summary>
+            Static constructor.
+            </summary>
+        </member>
+        <member name="T:Bespoke.Common.ProgressIndicator">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Bespoke.Common.ProgressIndicator.#ctor(System.Windows.Forms.ProgressBar)">
+            <summary>
+            
+            </summary>
+            <param name="progressBar"></param>
+        </member>
+        <member name="M:Bespoke.Common.ProgressIndicator.#ctor(System.Windows.Forms.ProgressBar,System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="progressBar"></param>
+            <param name="minimum"></param>
+            <param name="maximum"></param>
+            <param name="step"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:Bespoke.Common.ProgressIndicator.PerformStep">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Bespoke.Common.ProgressIndicator.Increment(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:Bespoke.Common.ProgressIndicator.Init(System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="minimum"></param>
+            <param name="maximum"></param>
+            <param name="step"></param>
+            <param name="value"></param>		
+        </member>
+        <member name="T:Bespoke.Common.ProgressIndicator.InitHandler">
+            <summary>
+            
+            </summary>
+            <param name="minimum"></param>
+            <param name="maximum"></param>
+            <param name="step"></param>
+            <param name="value"></param>		
+        </member>
+        <member name="T:Bespoke.Common.ProgressIndicator.IncrementHandler">
+            <summary>
+            
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="T:Bespoke.Common.ProgressIndicator.PerformStepHandler">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Bespoke.Common.LinearAlgebra.Vector2">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Bespoke.Common.LinearAlgebra.Vector2.#ctor(System.Drawing.Point)">
+            <summary>
+            
+            </summary>
+            <param name="location"></param>
+        </member>
+        <member name="M:Bespoke.Common.LinearAlgebra.Vector2.#ctor(System.Single,System.Single)">
+            <summary>
+            
+            </summary>
+            <param name="x"></param>
+            <param name="y"></param>
+        </member>
+        <member name="M:Bespoke.Common.LinearAlgebra.Vector2.op_UnaryNegation(Bespoke.Common.LinearAlgebra.Vector2)">
+            <summary>
+            
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Bespoke.Common.LinearAlgebra.Vector2.op_Addition(Bespoke.Common.LinearAlgebra.Vector2,Bespoke.Common.LinearAlgebra.Vector2)">
+            <summary>
+            
+            </summary>
+            <param name="lhs"></param>
+            <param name="rhs"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Bespoke.Common.LinearAlgebra.Vector2.op_Subtraction(Bespoke.Common.LinearAlgebra.Vector2,Bespoke.Common.LinearAlgebra.Vector2)">
+            <summary>
+            
+            </summary>
+            <param name="lhs"></param>
+            <param name="rhs"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Bespoke.Common.LinearAlgebra.Vector2.op_Multiply(System.Single,Bespoke.Common.LinearAlgebra.Vector2)">
+            <summary>
+            
+            </summary>
+            <param name="scaleFactor"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Bespoke.Common.LinearAlgebra.Vector2.op_Equality(Bespoke.Common.LinearAlgebra.Vector2,Bespoke.Common.LinearAlgebra.Vector2)">
+            <summary>
+            Compares a vector for equality with another vector.
+            </summary>
+            <param name="lhs">Source vector.</param>
+            <param name="rhs">Source vector.</param>
+            <returns>true if the vectors are equal; false otherwise.</returns>
+        </member>
+        <member name="M:Bespoke.Common.LinearAlgebra.Vector2.op_Inequality(Bespoke.Common.LinearAlgebra.Vector2,Bespoke.Common.LinearAlgebra.Vector2)">
+            <summary>
+            Tests a vector for inequality with another vector.
+            </summary>
+            <param name="lhs">The vector on the left of the equal sign.</param>
+            <param name="rhs">The vector on the right of the equal sign.</param>
+            <returns>true if the vectors are not equal; false otherwise.</returns>
+        </member>
+        <member name="M:Bespoke.Common.LinearAlgebra.Vector2.Dot(Bespoke.Common.LinearAlgebra.Vector2,Bespoke.Common.LinearAlgebra.Vector2)">
+            <summary>
+            
+            </summary>
+            <param name="lhs"></param>
+            <param name="rhs"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Bespoke.Common.LinearAlgebra.Vector2.Distance(Bespoke.Common.LinearAlgebra.Vector2,Bespoke.Common.LinearAlgebra.Vector2)">
+            <summary>
+            
+            </summary>
+            <param name="lhs"></param>
+            <param name="rhs"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Bespoke.Common.LinearAlgebra.Vector2.Normalize(Bespoke.Common.LinearAlgebra.Vector2)">
+            <summary>
+            
+            </summary>
+            <param name="vector"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Bespoke.Common.LinearAlgebra.Vector2.GetAngle(Bespoke.Common.LinearAlgebra.Vector2,Bespoke.Common.LinearAlgebra.Vector2)">
+            <summary>
+            
+            </summary>
+            <param name="fromVector"></param>
+            <param name="toVector"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Bespoke.Common.LinearAlgebra.Vector2.Load(System.IO.BinaryReader)">
+            <summary>
+            
+            </summary>
+            <param name="reader"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Bespoke.Common.LinearAlgebra.Vector2.Save(System.IO.BinaryWriter)">
+            <summary>
+            
+            </summary>
+            <param name="writer"></param>
+        </member>
+        <member name="M:Bespoke.Common.LinearAlgebra.Vector2.Equals(System.Object)">
+            <summary>
+            Determines whether the specified System.Object is equal to the Vector.
+            </summary>
+            <param name="other">The System.Object to compare with the current Vector.</param>
+            <returns>true if the specified System.Object is equal to the current Vector; false otherwise.</returns>
+        </member>
+        <member name="M:Bespoke.Common.LinearAlgebra.Vector2.GetHashCode">
+            <summary>
+            Gets the hash code of this object.
+            </summary>
+            <returns>Hash code of this object.</returns>
+        </member>
+        <member name="M:Bespoke.Common.LinearAlgebra.Vector2.Normalize">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Bespoke.Common.LinearAlgebra.Vector2.Length">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Bespoke.Common.LinearAlgebra.Vector2.ToPoint">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="F:Bespoke.Common.LinearAlgebra.Vector2.Zero">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.LinearAlgebra.Vector2.X">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.LinearAlgebra.Vector2.Y">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Bespoke.Common.Wiimote.PointF">
+            <summary>
+            Point structure for floating point 2D positions (X, Y)
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.PointF.X">
+            <summary>
+            X, Y coordinates of this point
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.PointF.Y">
+            <summary>
+            X, Y coordinates of this point
+            </summary>
+        </member>
+        <member name="M:Bespoke.Common.Wiimote.PointF.ToString">
+            <summary>
+            Convert to human-readable string
+            </summary>
+            <returns>A string that represents the point</returns>
+        </member>
+        <member name="T:Bespoke.Common.Wiimote.Point">
+            <summary>
+            Point structure for int 2D positions (X, Y)
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.Point.X">
+            <summary>
+            X, Y coordinates of this point
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.Point.Y">
+            <summary>
+            X, Y coordinates of this point
+            </summary>
+        </member>
+        <member name="M:Bespoke.Common.Wiimote.Point.ToString">
+            <summary>
+            Convert to human-readable string
+            </summary>
+            <returns>A string that represents the point.</returns>
+        </member>
+        <member name="T:Bespoke.Common.Wiimote.Point3F">
+            <summary>
+            Point structure for floating point 3D positions (X, Y, Z)
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.Point3F.X">
+            <summary>
+            X, Y, Z coordinates of this point
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.Point3F.Y">
+            <summary>
+            X, Y, Z coordinates of this point
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.Point3F.Z">
+            <summary>
+            X, Y, Z coordinates of this point
+            </summary>
+        </member>
+        <member name="M:Bespoke.Common.Wiimote.Point3F.ToString">
+            <summary>
+            Convert to human-readable string
+            </summary>
+            <returns>A string that represents the point</returns>
+        </member>
+        <member name="T:Bespoke.Common.Wiimote.Point3">
+            <summary>
+            Point structure for int 3D positions (X, Y, Z)
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.Point3.X">
+            <summary>
+            X, Y, Z coordinates of this point
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.Point3.Y">
+            <summary>
+            X, Y, Z coordinates of this point
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.Point3.Z">
+            <summary>
+            X, Y, Z coordinates of this point
+            </summary>
+        </member>
+        <member name="M:Bespoke.Common.Wiimote.Point3.ToString">
+            <summary>
+            Convert to human-readable string
+            </summary>
+            <returns>A string that represents the point.</returns>
+        </member>
+        <member name="T:Bespoke.Common.Wiimote.WiimoteState">
+            <summary>
+            Current overall state of the Wiimote and all attachments
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.WiimoteState.AccelCalibrationInfo">
+            <summary>
+            Current calibration information
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.WiimoteState.AccelState">
+            <summary>
+            Current state of accelerometers
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.WiimoteState.ButtonState">
+            <summary>
+            Current state of buttons
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.WiimoteState.IRState">
+            <summary>
+            Current state of IR sensors
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.WiimoteState.BatteryRaw">
+            <summary>
+            Raw byte value of current battery level
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.WiimoteState.Battery">
+            <summary>
+            Calculated current battery level
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.WiimoteState.Rumble">
+            <summary>
+            Current state of rumble
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.WiimoteState.Extension">
+            <summary>
+            Is an extension controller inserted?
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.WiimoteState.ExtensionType">
+            <summary>
+            Extension controller currently inserted, if any
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.WiimoteState.NunchukState">
+            <summary>
+            Current state of Nunchuk extension
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.WiimoteState.ClassicControllerState">
+            <summary>
+            Current state of Classic Controller extension
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.WiimoteState.GuitarState">
+            <summary>
+            Current state of Guitar extension
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.WiimoteState.DrumsState">
+            <summary>
+            Current state of Drums extension
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.WiimoteState.BalanceBoardState">
+            <summary>
+            Current state of the Wii Fit Balance Board
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.WiimoteState.LEDState">
+            <summary>
+            Current state of LEDs
+            </summary>
+        </member>
+        <member name="M:Bespoke.Common.Wiimote.WiimoteState.#ctor">
+            <summary>
+            Constructor for WiimoteState class
+            </summary>
+        </member>
+        <member name="T:Bespoke.Common.Wiimote.LEDState">
+            <summary>
+            Current state of LEDs
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.LEDState.LED1">
+            <summary>
+            LED on the Wiimote
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.LEDState.LED2">
+            <summary>
+            LED on the Wiimote
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.LEDState.LED3">
+            <summary>
+            LED on the Wiimote
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.LEDState.LED4">
+            <summary>
+            LED on the Wiimote
+            </summary>
+        </member>
+        <member name="T:Bespoke.Common.Wiimote.NunchukCalibrationInfo">
+            <summary>
+            Calibration information stored on the Nunchuk
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.NunchukCalibrationInfo.AccelCalibration">
+            <summary>
+            Accelerometer calibration data
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.NunchukCalibrationInfo.MinX">
+            <summary>
+            Joystick X-axis calibration
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.NunchukCalibrationInfo.MidX">
+            <summary>
+            Joystick X-axis calibration
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.NunchukCalibrationInfo.MaxX">
+            <summary>
+            Joystick X-axis calibration
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.NunchukCalibrationInfo.MinY">
+            <summary>
+            Joystick Y-axis calibration
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.NunchukCalibrationInfo.MidY">
+            <summary>
+            Joystick Y-axis calibration
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.NunchukCalibrationInfo.MaxY">
+            <summary>
+            Joystick Y-axis calibration
+            </summary>
+        </member>
+        <member name="T:Bespoke.Common.Wiimote.ClassicControllerCalibrationInfo">
+            <summary>
+            Calibration information stored on the Classic Controller
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.ClassicControllerCalibrationInfo.MinXL">
+            <summary>
+            Left joystick X-axis 
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.ClassicControllerCalibrationInfo.MidXL">
+            <summary>
+            Left joystick X-axis 
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.ClassicControllerCalibrationInfo.MaxXL">
+            <summary>
+            Left joystick X-axis 
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.ClassicControllerCalibrationInfo.MinYL">
+            <summary>
+            Left joystick Y-axis
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.ClassicControllerCalibrationInfo.MidYL">
+            <summary>
+            Left joystick Y-axis
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.ClassicControllerCalibrationInfo.MaxYL">
+            <summary>
+            Left joystick Y-axis
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.ClassicControllerCalibrationInfo.MinXR">
+            <summary>
+            Right joystick X-axis
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.ClassicControllerCalibrationInfo.MidXR">
+            <summary>
+            Right joystick X-axis
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.ClassicControllerCalibrationInfo.MaxXR">
+            <summary>
+            Right joystick X-axis
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.ClassicControllerCalibrationInfo.MinYR">
+            <summary>
+            Right joystick Y-axis
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.ClassicControllerCalibrationInfo.MidYR">
+            <summary>
+            Right joystick Y-axis
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.ClassicControllerCalibrationInfo.MaxYR">
+            <summary>
+            Right joystick Y-axis
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.ClassicControllerCalibrationInfo.MinTriggerL">
+            <summary>
+            Left analog trigger
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.ClassicControllerCalibrationInfo.MaxTriggerL">
+            <summary>
+            Left analog trigger
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.ClassicControllerCalibrationInfo.MinTriggerR">
+            <summary>
+            Right analog trigger
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.ClassicControllerCalibrationInfo.MaxTriggerR">
+            <summary>
+            Right analog trigger
+            </summary>
+        </member>
+        <member name="T:Bespoke.Common.Wiimote.NunchukState">
+            <summary>
+            Current state of the Nunchuk extension
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.NunchukState.CalibrationInfo">
+            <summary>
+            Calibration data for Nunchuk extension
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.NunchukState.AccelState">
+            <summary>
+            State of accelerometers
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.NunchukState.RawJoystick">
+            <summary>
+            Raw joystick position before normalization.  Values range between 0 and 255.
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.NunchukState.Joystick">
+            <summary>
+            Normalized joystick position.  Values range between -0.5 and 0.5
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.NunchukState.C">
+            <summary>
+            Digital button on Nunchuk extension
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.NunchukState.Z">
+            <summary>
+            Digital button on Nunchuk extension
+            </summary>
+        </member>
+        <member name="T:Bespoke.Common.Wiimote.ClassicControllerButtonState">
+            <summary>
+            Curernt button state of the Classic Controller
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.ClassicControllerButtonState.A">
+            <summary>
+            Digital button on the Classic Controller extension
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.ClassicControllerButtonState.B">
+            <summary>
+            Digital button on the Classic Controller extension
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.ClassicControllerButtonState.Plus">
+            <summary>
+            Digital button on the Classic Controller extension
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.ClassicControllerButtonState.Home">
+            <summary>
+            Digital button on the Classic Controller extension
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.ClassicControllerButtonState.Minus">
+            <summary>
+            Digital button on the Classic Controller extension
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.ClassicControllerButtonState.Up">
+            <summary>
+            Digital button on the Classic Controller extension
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.ClassicControllerButtonState.Down">
+            <summary>
+            Digital button on the Classic Controller extension
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.ClassicControllerButtonState.Left">
+            <summary>
+            Digital button on the Classic Controller extension
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.ClassicControllerButtonState.Right">
+            <summary>
+            Digital button on the Classic Controller extension
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.ClassicControllerButtonState.X">
+            <summary>
+            Digital button on the Classic Controller extension
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.ClassicControllerButtonState.Y">
+            <summary>
+            Digital button on the Classic Controller extension
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.ClassicControllerButtonState.ZL">
+            <summary>
+            Digital button on the Classic Controller extension
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.ClassicControllerButtonState.ZR">
+            <summary>
+            Digital button on the Classic Controller extension
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.ClassicControllerButtonState.TriggerL">
+            <summary>
+            Analog trigger - false if released, true for any pressure applied
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.ClassicControllerButtonState.TriggerR">
+            <summary>
+            Analog trigger - false if released, true for any pressure applied
+            </summary>
+        </member>
+        <member name="T:Bespoke.Common.Wiimote.ClassicControllerState">
+            <summary>
+            Current state of the Classic Controller
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.ClassicControllerState.CalibrationInfo">
+            <summary>
+            Calibration data for Classic Controller extension
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.ClassicControllerState.ButtonState">
+            <summary>
+            Current button state
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.ClassicControllerState.RawJoystickL">
+            <summary>
+            Raw value of left joystick.  Values range between 0 - 255.
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.ClassicControllerState.RawJoystickR">
+            <summary>
+            Raw value of right joystick.  Values range between 0 - 255.
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.ClassicControllerState.JoystickL">
+            <summary>
+            Normalized value of left joystick.  Values range between -0.5 - 0.5
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.ClassicControllerState.JoystickR">
+            <summary>
+            Normalized value of right joystick.  Values range between -0.5 - 0.5
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.ClassicControllerState.RawTriggerL">
+            <summary>
+            Raw value of analog trigger.  Values range between 0 - 255.
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.ClassicControllerState.RawTriggerR">
+            <summary>
+            Raw value of analog trigger.  Values range between 0 - 255.
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.ClassicControllerState.TriggerL">
+            <summary>
+            Normalized value of analog trigger.  Values range between 0.0 - 1.0.
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.ClassicControllerState.TriggerR">
+            <summary>
+            Normalized value of analog trigger.  Values range between 0.0 - 1.0.
+            </summary>
+        </member>
+        <member name="T:Bespoke.Common.Wiimote.GuitarState">
+            <summary>
+            Current state of the Guitar controller
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.GuitarState.GuitarType">
+            <summary>
+            Guitar type
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.GuitarState.ButtonState">
+            <summary>
+            Current button state of the Guitar
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.GuitarState.FretButtonState">
+            <summary>
+            Current fret button state of the Guitar
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.GuitarState.TouchbarState">
+            <summary>
+            Current touchbar state of the Guitar
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.GuitarState.RawJoystick">
+            <summary>
+            Raw joystick position.  Values range between 0 - 63.
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.GuitarState.Joystick">
+            <summary>
+            Normalized value of joystick position.  Values range between 0.0 - 1.0.
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.GuitarState.RawWhammyBar">
+            <summary>
+            Raw whammy bar position.  Values range between 0 - 10.
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.GuitarState.WhammyBar">
+            <summary>
+            Normalized value of whammy bar position.  Values range between 0.0 - 1.0.
+            </summary>
+        </member>
+        <member name="T:Bespoke.Common.Wiimote.GuitarFretButtonState">
+            <summary>
+            Current fret button state of the Guitar controller
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.GuitarFretButtonState.Green">
+            <summary>
+            Fret buttons
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.GuitarFretButtonState.Red">
+            <summary>
+            Fret buttons
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.GuitarFretButtonState.Yellow">
+            <summary>
+            Fret buttons
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.GuitarFretButtonState.Blue">
+            <summary>
+            Fret buttons
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.GuitarFretButtonState.Orange">
+            <summary>
+            Fret buttons
+            </summary>
+        </member>
+        <member name="T:Bespoke.Common.Wiimote.GuitarButtonState">
+            <summary>
+            Current button state of the Guitar controller
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.GuitarButtonState.StrumUp">
+            <summary>
+            Strum bar
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.GuitarButtonState.StrumDown">
+            <summary>
+            Strum bar
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.GuitarButtonState.Minus">
+            <summary>
+            Other buttons
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.GuitarButtonState.Plus">
+            <summary>
+            Other buttons
+            </summary>
+        </member>
+        <member name="T:Bespoke.Common.Wiimote.DrumsState">
+            <summary>
+            Current state of the Drums controller
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.DrumsState.Red">
+            <summary>
+            Drum pads
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.DrumsState.Green">
+            <summary>
+            Drum pads
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.DrumsState.Blue">
+            <summary>
+            Drum pads
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.DrumsState.Orange">
+            <summary>
+            Drum pads
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.DrumsState.Yellow">
+            <summary>
+            Drum pads
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.DrumsState.Pedal">
+            <summary>
+            Drum pads
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.DrumsState.RedVelocity">
+            <summary>
+            Speed at which the pad is hit.  Values range from 0 (very hard) to 6 (very soft)
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.DrumsState.GreenVelocity">
+            <summary>
+            Speed at which the pad is hit.  Values range from 0 (very hard) to 6 (very soft)
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.DrumsState.BlueVelocity">
+            <summary>
+            Speed at which the pad is hit.  Values range from 0 (very hard) to 6 (very soft)
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.DrumsState.OrangeVelocity">
+            <summary>
+            Speed at which the pad is hit.  Values range from 0 (very hard) to 6 (very soft)
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.DrumsState.YellowVelocity">
+            <summary>
+            Speed at which the pad is hit.  Values range from 0 (very hard) to 6 (very soft)
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.DrumsState.PedalVelocity">
+            <summary>
+            Speed at which the pad is hit.  Values range from 0 (very hard) to 6 (very soft)
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.DrumsState.Plus">
+            <summary>
+            Other buttons
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.DrumsState.Minus">
+            <summary>
+            Other buttons
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.DrumsState.RawJoystick">
+            <summary>
+            Raw value of analong joystick.  Values range from 0 - 15
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.DrumsState.Joystick">
+            <summary>
+            Normalized value of analog joystick.  Values range from 0.0 - 1.0
+            </summary>
+        </member>
+        <member name="T:Bespoke.Common.Wiimote.BalanceBoardState">
+            <summary>
+            Current state of the Wii Fit Balance Board controller
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.BalanceBoardState.CalibrationInfo">
+            <summary>
+            Calibration information for the Balance Board
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.BalanceBoardState.SensorValuesRaw">
+            <summary>
+            Raw values of each sensor
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.BalanceBoardState.SensorValuesKg">
+            <summary>
+            Kilograms per sensor
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.BalanceBoardState.SensorValuesLb">
+            <summary>
+            Pounds per sensor
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.BalanceBoardState.WeightKg">
+            <summary>
+            Total kilograms on the Balance Board
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.BalanceBoardState.WeightLb">
+            <summary>
+            Total pounds on the Balance Board
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.BalanceBoardState.CenterOfGravity">
+            <summary>
+            Center of gravity of Balance Board user
+            </summary>
+        </member>
+        <member name="T:Bespoke.Common.Wiimote.BalanceBoardCalibrationInfo">
+            <summary>
+            Calibration information
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.BalanceBoardCalibrationInfo.Kg0">
+            <summary>
+            Calibration information at 0kg
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.BalanceBoardCalibrationInfo.Kg17">
+            <summary>
+            Calibration information at 17kg
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.BalanceBoardCalibrationInfo.Kg34">
+            <summary>
+            Calibration information at 34kg
+            </summary>
+        </member>
+        <member name="T:Bespoke.Common.Wiimote.BalanceBoardSensors">
+            <summary>
+            The 4 sensors on the Balance Board (short values)
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.BalanceBoardSensors.TopRight">
+            <summary>
+            Sensor at top right
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.BalanceBoardSensors.TopLeft">
+            <summary>
+            Sensor at top left
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.BalanceBoardSensors.BottomRight">
+            <summary>
+            Sensor at bottom right
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.BalanceBoardSensors.BottomLeft">
+            <summary>
+            Sensor at bottom left
+            </summary>
+        </member>
+        <member name="T:Bespoke.Common.Wiimote.BalanceBoardSensorsF">
+            <summary>
+            The 4 sensors on the Balance Board (float values)
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.BalanceBoardSensorsF.TopRight">
+            <summary>
+            Sensor at top right
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.BalanceBoardSensorsF.TopLeft">
+            <summary>
+            Sensor at top left
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.BalanceBoardSensorsF.BottomRight">
+            <summary>
+            Sensor at bottom right
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.BalanceBoardSensorsF.BottomLeft">
+            <summary>
+            Sensor at bottom left
+            </summary>
+        </member>
+        <member name="T:Bespoke.Common.Wiimote.IRSensor">
+            <summary>
+            Current state of a single IR sensor
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.IRSensor.RawPosition">
+            <summary>
+            Raw values of individual sensor.  Values range between 0 - 1023 on the X axis and 0 - 767 on the Y axis.
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.IRSensor.Position">
+            <summary>
+            Normalized values of the sensor position.  Values range between 0.0 - 1.0.
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.IRSensor.Size">
+            <summary>
+            Size of IR Sensor.  Values range from 0 - 15
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.IRSensor.Found">
+            <summary>
+            IR sensor seen
+            </summary>
+        </member>
+        <member name="M:Bespoke.Common.Wiimote.IRSensor.ToString">
+            <summary>
+            Convert to human-readable string
+            </summary>
+            <returns>A string that represents the point.</returns>
+        </member>
+        <member name="T:Bespoke.Common.Wiimote.IRState">
+            <summary>
+            Current state of the IR camera
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.IRState.Mode">
+            <summary>
+            Current mode of IR sensor data
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.IRState.IRSensors">
+            <summary>
+            Current state of IR sensors
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.IRState.RawMidpoint">
+            <summary>
+            Raw midpoint of IR sensors 1 and 2 only.  Values range between 0 - 1023, 0 - 767
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.IRState.Midpoint">
+            <summary>
+            Normalized midpoint of IR sensors 1 and 2 only.  Values range between 0.0 - 1.0
+            </summary>
+        </member>
+        <member name="T:Bespoke.Common.Wiimote.AccelState">
+            <summary>
+            Current state of the accelerometers
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.AccelState.RawValues">
+            <summary>
+            Raw accelerometer data.
+            <remarks>Values range between 0 - 255</remarks>
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.AccelState.Values">
+            <summary>
+            Normalized accelerometer data.  Values range between 0 - ?, but values > 3 and &lt; -3 are inaccurate.
+            </summary>
+        </member>
+        <member name="T:Bespoke.Common.Wiimote.AccelCalibrationInfo">
+            <summary>
+            Accelerometer calibration information
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.AccelCalibrationInfo.X0">
+            <summary>
+            Zero point of accelerometer
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.AccelCalibrationInfo.Y0">
+            <summary>
+            Zero point of accelerometer
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.AccelCalibrationInfo.Z0">
+            <summary>
+            Zero point of accelerometer
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.AccelCalibrationInfo.XG">
+            <summary>
+            Gravity at rest of accelerometer
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.AccelCalibrationInfo.YG">
+            <summary>
+            Gravity at rest of accelerometer
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.AccelCalibrationInfo.ZG">
+            <summary>
+            Gravity at rest of accelerometer
+            </summary>
+        </member>
+        <member name="T:Bespoke.Common.Wiimote.ButtonState">
+            <summary>
+            Current button state
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.ButtonState.A">
+            <summary>
+            Digital button on the Wiimote
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.ButtonState.B">
+            <summary>
+            Digital button on the Wiimote
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.ButtonState.Plus">
+            <summary>
+            Digital button on the Wiimote
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.ButtonState.Home">
+            <summary>
+            Digital button on the Wiimote
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.ButtonState.Minus">
+            <summary>
+            Digital button on the Wiimote
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.ButtonState.One">
+            <summary>
+            Digital button on the Wiimote
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.ButtonState.Two">
+            <summary>
+            Digital button on the Wiimote
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.ButtonState.Up">
+            <summary>
+            Digital button on the Wiimote
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.ButtonState.Down">
+            <summary>
+            Digital button on the Wiimote
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.ButtonState.Left">
+            <summary>
+            Digital button on the Wiimote
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.ButtonState.Right">
+            <summary>
+            Digital button on the Wiimote
+            </summary>
+        </member>
+        <member name="T:Bespoke.Common.Wiimote.ExtensionType">
+            <summary>
+            The extension plugged into the Wiimote
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.ExtensionType.None">
+            <summary>
+            No extension
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.ExtensionType.Nunchuk">
+            <summary>
+            Nunchuk extension
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.ExtensionType.ClassicController">
+            <summary>
+            Classic Controller extension
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.ExtensionType.Guitar">
+            <summary>
+            Guitar controller from Guitar Hero 3/WorldTour
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.ExtensionType.Drums">
+            <summary>
+            Drum controller from Guitar Hero: World Tour
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.ExtensionType.BalanceBoard">
+            <summary>
+            Wii Fit Balance Board controller
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.ExtensionType.ParitallyInserted">
+            <summary>
+            Partially inserted extension.  This is an error condition.
+            </summary>
+        </member>
+        <member name="T:Bespoke.Common.Wiimote.IRMode">
+            <summary>
+            The mode of data reported for the IR sensor
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.IRMode.Off">
+            <summary>
+            IR sensor off
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.IRMode.Basic">
+            <summary>
+            Basic mode
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.IRMode.Extended">
+            <summary>
+            Extended mode
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.IRMode.Full">
+            <summary>
+            Full mode (unsupported)
+            </summary>
+        </member>
+        <member name="T:Bespoke.Common.Wiimote.InputReport">
+            <summary>
+            The report format in which the Wiimote should return data
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.InputReport.Status">
+            <summary>
+            Status report
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.InputReport.ReadData">
+            <summary>
+            Read data from memory location
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.InputReport.OutputReportAck">
+            <summary>
+            Register write complete
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.InputReport.Buttons">
+            <summary>
+            Button data only
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.InputReport.ButtonsAccel">
+            <summary>
+            Button and accelerometer data
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.InputReport.IRAccel">
+            <summary>
+            IR sensor and accelerometer data
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.InputReport.ButtonsExtension">
+            <summary>
+            Button and extension controller data
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.InputReport.ExtensionAccel">
+            <summary>
+            Extension and accelerometer data
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.InputReport.IRExtensionAccel">
+            <summary>
+            IR sensor, extension controller and accelerometer data
+            </summary>
+        </member>
+        <member name="T:Bespoke.Common.Wiimote.IRSensitivity">
+            <summary>
+            Sensitivity of the IR camera on the Wiimote
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.IRSensitivity.WiiLevel1">
+            <summary>
+            Equivalent to level 1 on the Wii console
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.IRSensitivity.WiiLevel2">
+            <summary>
+            Equivalent to level 2 on the Wii console
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.IRSensitivity.WiiLevel3">
+            <summary>
+            Equivalent to level 3 on the Wii console (default)
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.IRSensitivity.WiiLevel4">
+            <summary>
+            Equivalent to level 4 on the Wii console
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.IRSensitivity.WiiLevel5">
+            <summary>
+            Equivalent to level 5 on the Wii console
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.IRSensitivity.Maximum">
+            <summary>
+            Maximum sensitivity
+            </summary>
+        </member>
+        <member name="T:Bespoke.Common.Wiimote.GuitarType">
+            <summary>
+            Type of guitar extension: Guitar Hero 3 or Guitar Hero World Tour
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.GuitarType.GuitarHero3">
+            <summary>
+             Guitar Hero 3 guitar controller
+            </summary>
+        </member>
+        <member name="F:Bespoke.Common.Wiimote.GuitarType.GuitarHeroWorldTour">
+            <summary>
+            Guitar Hero: World Tour guitar controller
+            </summary>
+        </member>
+        <member name="T:Bespoke.Common.Net.TcpDataReceivedEventArgs">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Bespoke.Common.Net.TcpDataReceivedEventArgs.#ctor(Bespoke.Common.Net.TcpConnection,System.Byte[])">
+            <summary>
+            
+            </summary>
+            <param name="connection"></param>
+        </member>
+        <member name="P:Bespoke.Common.Net.TcpDataReceivedEventArgs.Connection">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Bespoke.Common.Net.TcpDataReceivedEventArgs.Data">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Bespoke.Common.Data.RecordUtility">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Bespoke.Common.Data.RecordUtility.Equals``1(``0,``0)">
+            <summary>
+            Tests for equality between record objects using the object's properties.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="lhs">The LHS.</param>
+            <param name="rhs">The RHS.</param>
+            <returns></returns>
+        </member>
+        <member name="T:Bespoke.Common.CommandLineParser">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Bespoke.Common.CommandLineParser.#ctor(System.String[])">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="args"></param>
+        </member>
+        <member name="M:Bespoke.Common.CommandLineParser.CollapseArguments(System.String[])">
+            <summary>
+            
+            </summary>
+            <param name="args"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Bespoke.Common.CommandLineParser.ContainsKey(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Bespoke.Common.CommandLineParser.ParseWindowsCommandLine(System.String[])">
+            <summary>
+            
+            </summary>
+            <param name="args"></param>
+        </member>
+        <member name="M:Bespoke.Common.CommandLineParser.ParseSpecialCommandLine(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="collapsedArgs"></param>
+        </member>
+        <member name="P:Bespoke.Common.CommandLineParser.Item(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Bespoke.Common.CommandLineParser.Count">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Bespoke.Common.CommandLineParser.Keys">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Bespoke.Common.CommandLineParser.Values">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Bespoke.Common.SubArray`1">
+            <summary>
+            
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:Bespoke.Common.SubArray`1.#ctor(`0[],System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="original"></param>
+            <param name="start"></param>
+            <param name="length"></param>
+        </member>
+        <member name="M:Bespoke.Common.SubArray`1.GetEnumerator">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Bespoke.Common.SubArray`1.System#Collections#IEnumerable#GetEnumerator">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Bespoke.Common.SubArray`1.ToArray">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Bespoke.Common.SubArray`1.Length">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Bespoke.Common.SubArray`1.Item(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="index"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Bespoke.Common.LogManager">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:Bespoke.Common.LogManager.Initialize">
+            <summary>
+            Static constructor
+            </summary>
+        </member>
+        <member name="M:Bespoke.Common.LogManager.Write(System.String)">
+            <summary>
+            Writes a LogType and info/error message string to the Log file
+            </summary>
+        </member>
+        <member name="P:Bespoke.Common.LogManager.ApplicationName">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Bespoke.Common.LogManager.FileName">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Bespoke.Common.Data.SqlDataProvider">
+            <summary>
+            Provides a wrapper for ADO.NET data access using the SQL data provider.
+            </summary>
+        </member>
+        <member name="M:Bespoke.Common.Data.SqlDataProvider.#ctor(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="connectionString"></param>
+        </member>
+        <member name="M:Bespoke.Common.Data.SqlDataProvider.CheckDBNull``1(System.Object)">
+            <summary>
+            Checks the database value for null.
+            </summary>
+            <typeparam name="T">The value type.</typeparam>
+            <param name="value">The database value.</param>
+            <returns>Returns the devault value for the property type if
+            the value is null, otherwise returns the database value.
+            </returns>
+        </member>
+        <member name="M:Bespoke.Common.Data.SqlDataProvider.Dispose">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Bespoke.Common.Data.SqlDataProvider.OpenPersistentConnection">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Bespoke.Common.Data.SqlDataProvider.ClosePersistentConnection">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Bespoke.Common.Data.SqlDataProvider.AddParameter(System.Data.SqlClient.SqlParameter)">
+            <summary>
+            
+            </summary>
+            <param name="parameter"></param>
+        </member>
+        <member name="M:Bespoke.Common.Data.SqlDataProvider.AddParameter(System.String,System.Data.SqlDbType,System.Data.ParameterDirection,System.Object)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+            <param name="type"></param>
+            <param name="direction"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Bespoke.Common.Data.SqlDataProvider.AddParameter(System.String,System.Data.SqlDbType,System.Data.ParameterDirection,System.Int32,System.Object)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+            <param name="type"></param>
+            <param name="direction"></param>
+            <param name="size"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Bespoke.Common.Data.SqlDataProvider.AddOutputParameter(System.String,System.Data.SqlDbType,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="name"></param>
+            <param name="type"></param>
+            <param name="size"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Bespoke.Common.Data.SqlDataProvider.AddReturnValueParameter">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Bespoke.Common.Data.SqlDataProvider.BeginTransaction(System.Data.IsolationLevel)">
+            <summary>
+            
+            </summary>
+            <param name="isolationLevel"></param>
+        </member>
+        <member name="M:Bespoke.Common.Data.SqlDataProvider.CommitTransaction">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Bespoke.Common.Data.SqlDataProvider.ExecuteQuery">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Bespoke.Common.Data.SqlDataProvider.ExecuteNonQuery">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Bespoke.Common.Data.SqlDataProvider.ExecuteScalar">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Bespoke.Common.Data.SqlDataProvider.EndQuery">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Bespoke.Common.Data.SqlDataProvider.ResetQuery">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Bespoke.Common.Data.SqlDataProvider.RollbackTransaction">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Bespoke.Common.Data.SqlDataProvider.SetCommandText(System.Data.CommandType,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="commandType"></param>
+            <param name="commandText"></param>
+        </member>
+        <member name="M:Bespoke.Common.Data.SqlDataProvider.ReadValue``1(System.String)">
+            <summary>
+            
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="F:Bespoke.Common.Data.SqlDataProvider.DefaultKey">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Bespoke.Common.Data.SqlDataProvider.ConnectionString">
+            <summary>
+            Gets the ConnectionString value.
+            </summary>
+        </member>
+        <member name="P:Bespoke.Common.Data.SqlDataProvider.DataReader">
+            <summary>
+            Gets a reference to the DataReader object.
+            </summary>
+        </member>
+        <member name="P:Bespoke.Common.Data.SqlDataProvider.CommandText">
+            <summary>
+            Gets or sets the query to perform.
+            </summary>
+        </member>
+        <member name="P:Bespoke.Common.Data.SqlDataProvider.InTransaction">
+            <summary>
+            Gets a value indicating if the command is setup to execute
+            within a database transaction. The value equals "true" if
+            it will execute within a transaction, otherwise it equals
+            "false".
+            </summary>
+        </member>
+        <member name="P:Bespoke.Common.Data.SqlDataProvider.IsConnected">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Bespoke.Common.Data.SqlDataProvider.Parameters">
+            <summary>
+            
+            </summary>
+        </member>
+    </members>
+</doc>
