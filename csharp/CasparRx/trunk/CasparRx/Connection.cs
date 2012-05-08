@@ -63,9 +63,11 @@ namespace CasparRx
         }
 
         public void Connect(string host, int port = 5250)
-        {
+        {            
             this.host = host;
             this.port = port;
+
+            this.Connect();
 
             this.reconnectSubscription = Observable
                 .Interval(TimeSpan.FromSeconds(1))
