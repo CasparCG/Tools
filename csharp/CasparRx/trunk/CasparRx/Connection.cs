@@ -35,35 +35,35 @@ using System.Threading;
 
 namespace CasparRx
 {
-    public class Connection : IDisposable
+    public class CasparConnection : IDisposable
     {
-        private string  host;
-        private int     port;
+        private string host;
+        private int port;
 
-        private CompositeDisposable     disposables = new CompositeDisposable();
-        private BehaviorSubject<bool>   connectedSubject = new BehaviorSubject<bool>(false);
-        private TcpClient               client = new TcpClient();
-        private EventLoopScheduler      scheduler = new EventLoopScheduler(ts => new Thread(ts));
-        private IDisposable             reconnectSubscription;
-        
+        private CompositeDisposable disposables = new CompositeDisposable();
+        private BehaviorSubject<bool> connectedSubject = new BehaviorSubject<bool>(false);
+        private TcpClient client = new TcpClient();
+        private EventLoopScheduler scheduler = new EventLoopScheduler(ts => new Thread(ts));
+        private IDisposable reconnectSubscription;
+
         public IObservable<bool> OnConnected
         {
             get { return this.connectedSubject.DistinctUntilChanged(); }
         }
 
-        public Connection()
+        public CasparConnection()
         {
             this.disposables.Add(scheduler);
         }
 
-        public Connection(string host, int port = 5250)
+        public CasparConnection(string host, int port = 5250)
         {
             this.disposables.Add(scheduler);
             this.Connect(host, port);
         }
 
         public void Connect(string host, int port = 5250)
-        {            
+        {
             this.host = host;
             this.port = port;
 
@@ -87,8 +87,8 @@ namespace CasparRx
 
         public void Close()
         {
-            if(this.reconnectSubscription != null)
-                 this.reconnectSubscription.Dispose();
+            if (this.reconnectSubscription != null)
+                this.reconnectSubscription.Dispose();
             this.reconnectSubscription = null;
 
             this.Send("BYE")
@@ -103,28 +103,28 @@ namespace CasparRx
         public IObservable<string> Send(string cmd)
         {
             var subject = new ReplaySubject<string>();
-            
+
             this.scheduler.Schedule(() =>
             {
                 try
                 {
                     this.Connect();
-                    
+
                     var writer = new StreamWriter(client.GetStream()) { AutoFlush = true };
                     var reader = new StreamReader(client.GetStream());
-                    
+
                     writer.WriteLine(cmd);
-                    var reply = reader.ReadLine();
+                    var reply = ReadLine(reader);
 
                     subject.OnNext(reply);
 
                     if (Regex.IsMatch(reply, "201.*"))
-                        subject.OnNext(reader.ReadLine());
+                        subject.OnNext(ReadLine(reader));
                     else if (Regex.IsMatch(reply, "200.*"))
                     {
                         while (reply != string.Empty)
                         {
-                            reply = reader.ReadLine();
+                            reply = ReadLine(reader);
                             subject.OnNext(reply);
                         }
                     }
@@ -156,7 +156,7 @@ namespace CasparRx
             subject
                 .Timeout(TimeSpan.FromSeconds(5))
                 .Subscribe(x => { }, ex => this.client.Close());
-            
+
             return subject;
         }
 
@@ -181,6 +181,14 @@ namespace CasparRx
         {
             this.Close();
             this.disposables.Dispose();
+        }
+
+        private string ReadLine(StreamReader reader)
+        {
+            StringBuilder str = new StringBuilder();
+            while (str.Length < 2 || (str[str.Length - 2] != '\r' && str[str.Length - 2] != '\n'))
+                str.Append((char)reader.Read());
+            return str.ToString().Trim(new char[] { '\r', '\n' });
         }
     }
 }
