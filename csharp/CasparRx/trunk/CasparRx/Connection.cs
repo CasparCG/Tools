@@ -185,10 +185,20 @@ namespace CasparRx
 
         private string ReadLine(StreamReader reader)
         {
-            StringBuilder str = new StringBuilder();
-            while (str.Length < 2 || (str[str.Length - 2] != '\r' && str[str.Length - 2] != '\n'))
-                str.Append((char)reader.Read());
-            return str.ToString().Remove(str.Length - 3, 2);
+            var str = new StringBuilder();
+            while (true)
+            {
+                char[] c = new char[2];
+                if (reader.Read(c, 0, 2) < 2)
+                    throw new Exception();
+
+                if (c[0] == '\r' && c[1] == '\n')
+                    break;
+
+                str.Append(c);
+            }
+
+            return str.ToString();
         }
     }
 }
