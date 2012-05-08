@@ -188,7 +188,7 @@ namespace CasparRx
             StringBuilder str = new StringBuilder();
             while (str.Length < 2 || (str[str.Length - 2] != '\r' && str[str.Length - 2] != '\n'))
                 str.Append((char)reader.Read());
-            return str.ToString().Trim(new char[] { '\r', '\n' });
+            return str.ToString().Remove(str.Length-2, 2);
         }
     }
 }
