@@ -92,8 +92,8 @@ namespace CasparRx
             this.reconnectSubscription = null;
 
             this.Send("BYE")
-                .Catch(Observable.Empty<string>())
                 .Timeout(TimeSpan.FromSeconds(5))
+                .Catch(Observable.Empty<string>())
                 .Subscribe(x => { });
             this.client.Close();
             this.client = new TcpClient();
