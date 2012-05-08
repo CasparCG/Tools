@@ -1,14 +1,14 @@
 ﻿/*
 * Copyright (c) 2012 Robert Nagy and Thomas III Kaltz
 *
-* This file is part of CasparRX Framework).
+* This file is part of CasparRx Framework.
 *
-* CasparRX is free software: you can redistribute it and/or modify
+* CasparRx is free software: you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
 * the Free Software Foundation, either version 3 of the License, or
 * (at your option) any later version.
 *
-* CasparRX is distributed in the hope that it will be useful,
+* CasparRx is distributed in the hope that it will be useful,
 * but WITHOUT ANY WARRANTY; without even the implied warranty of
 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 * GNU General Public License for more details.
