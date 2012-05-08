@@ -121,7 +121,7 @@ namespace CasparRx
             });
 
             subject
-                .Timeout(TimeSpan.FromSeconds(10))
+                .Timeout(TimeSpan.FromSeconds(5))
                 .Subscribe(x => { }, ex => this.client.Close());
             
             return subject;
