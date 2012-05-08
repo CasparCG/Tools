@@ -44,14 +44,30 @@ namespace CasparRx
         private BehaviorSubject<bool>   connectedSubject = new BehaviorSubject<bool>(false);
         private TcpClient               client = new TcpClient();
         private EventLoopScheduler      scheduler = new EventLoopScheduler(ts => new Thread(ts));
+        private IDisposable             reconnectSubscription;
+        
+        public IObservable<bool> OnConnected
+        {
+            get { return this.connectedSubject.DistinctUntilChanged(); }
+        }
 
-        public Connection(string host = "localhost", int port = 5250)
+        public Connection()
+        {
+            this.disposables.Add(scheduler);
+        }
+
+        public Connection(string host, int port = 5250)
+        {
+            this.disposables.Add(scheduler);
+            this.Connect(host, port);
+        }
+
+        public void Connect(string host, int port = 5250)
         {
             this.host = host;
             this.port = port;
 
-            this.disposables.Add(scheduler);
-            this.disposables.Add(Observable
+            this.reconnectSubscription = Observable
                 .Interval(TimeSpan.FromSeconds(1))
                 .ObserveOn(scheduler)
                 .Subscribe(x =>
@@ -64,7 +80,19 @@ namespace CasparRx
                     {
                         // Failed to connect... try again.
                     }
-                }));
+                });
+        }
+
+        public void Close()
+        {
+            if(this.reconnectSubscription != null)
+                 this.reconnectSubscription.Dispose();
+            this.reconnectSubscription = null;
+
+            this.Send("BYE");
+            this.client.Close();
+            this.client = new TcpClient();
+            this.connectedSubject.OnNext(this.client.Connected);
         }
 
         public IObservable<string> Send(string cmd)
@@ -127,11 +155,6 @@ namespace CasparRx
             return subject;
         }
 
-        public IObservable<bool> OnConnected
-        {
-            get { return this.connectedSubject.DistinctUntilChanged(); }
-        }
-
         private void Connect()
         {
             if (this.client.Connected)
@@ -151,9 +174,8 @@ namespace CasparRx
 
         public void Dispose()
         {
-            this.Send("BYE");
+            this.Close();
             this.disposables.Dispose();
-            this.client.Close();
         }
     }
 }
