@@ -69,7 +69,7 @@ namespace CasparRx
 
         public IObservable<string> Send(string cmd)
         {
-            var subject = new AsyncSubject<string>();
+            var subject = new ReplaySubject<string>();
             
             this.scheduler.Schedule(() =>
             {
