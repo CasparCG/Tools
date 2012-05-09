@@ -32,6 +32,7 @@ using System.Reactive.Subjects;
 using System.Net;
 using System.Text.RegularExpressions;
 using System.Threading;
+using System.Diagnostics;
 
 namespace CasparRx
 {
@@ -79,8 +80,12 @@ namespace CasparRx
             if (this.reconnectSubscription != null)
                 this.reconnectSubscription.Dispose();
             this.reconnectSubscription = null;
+            this.Reset();
+        }
 
-            if(this.client != null)
+        public void Reset()
+        {
+            if (this.client != null)
                 this.client.Close();
             this.client = null;
             this.connectedSubject.OnNext(false);
@@ -148,29 +153,27 @@ namespace CasparRx
 
             subject
                 .Timeout(TimeSpan.FromSeconds(5))
-                .Subscribe(x => { }, ex => this.Close());
+                .Subscribe(x => { }, ex => this.Reset());
 
             return subject;
         }
 
         private void Connect()
         {
-            if (this.IsConnected)
-                return;
-
             try
             {
-                this.Close();
-                this.client = new TcpClient(host, port);
-                this.Send("VERSION");
-                this.connectedSubject.OnNext(this.IsConnected);
+                if (!this.IsConnected)
+                {
+                    this.Reset();
+                    this.client = new TcpClient(host, port);
+                }
             }
             catch
             {
-                if (this.client != null)
-                    this.client.Close();
-                this.client = null;
+                this.Reset();
             }
+
+            this.connectedSubject.OnNext(this.IsConnected);
         }
 
         private bool IsConnected
@@ -182,7 +185,7 @@ namespace CasparRx
                 
                 if (this.client.Client.Poll(1000, SelectMode.SelectRead) & this.client.Client.Available == 0)
                 {
-                    this.Close();
+                    this.Reset();
                     return false;
                 }
 
