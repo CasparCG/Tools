@@ -42,13 +42,14 @@ namespace CasparRx
 
         private CompositeDisposable     disposables = new CompositeDisposable();
         private BehaviorSubject<bool>   connectedSubject = new BehaviorSubject<bool>(false);
-        private TcpClient               client = new TcpClient();
+        private TcpClient               client = null;
         private EventLoopScheduler      scheduler = new EventLoopScheduler(ts => new Thread(ts));
         private IDisposable             reconnectSubscription;
 
         public IObservable<bool> OnConnected
         {
-            get { return this.connectedSubject.DistinctUntilChanged(); }
+            get { return this.connectedSubject
+                    .DistinctUntilChanged(); }
         }
 
         public Connection()
@@ -91,9 +92,10 @@ namespace CasparRx
                 this.reconnectSubscription.Dispose();
             this.reconnectSubscription = null;
 
-            this.client.Close();
-            this.client = new TcpClient();
-            this.connectedSubject.OnNext(this.client.Connected);
+            if(this.client != null)
+                this.client.Close();
+            this.client = null;
+            this.connectedSubject.OnNext(false);
         }
 
         public IEnumerable<string> Send(string cmd)
@@ -165,21 +167,40 @@ namespace CasparRx
 
         private void Connect()
         {
-            if (this.client.Connected)
+            if (this.IsConnected)
                 return;
 
             try
             {
-                this.client.Close();
-                this.client = new TcpClient();
-                this.client.Connect(host, port);
+                if(this.client != null)
+                    this.client.Close();
+                this.client = new TcpClient(host, port);
+                this.connectedSubject.OnNext(true);
             }
             catch
             {
-            }
-            finally
+                this.client = null;
+                this.connectedSubject.OnNext(false);
+            }            
+        }
+
+        private bool IsConnected
+        {
+            get
             {
-                this.connectedSubject.OnNext(this.client.Connected);
+                if (this.client == null  || !this.client.Connected)
+                    return false;
+
+                bool part1 = this.client.Client.Poll(1000, SelectMode.SelectRead);
+                bool part2 = this.client.Client.Available == 0;
+
+                if (part1 & part2)
+                {
+                    this.Close();
+                    return false;
+                }
+
+                return true;             
             }
         }
 
