@@ -40,11 +40,11 @@ namespace CasparRx
         private string host;
         private int port;
 
-        private CompositeDisposable disposables = new CompositeDisposable();
-        private BehaviorSubject<bool> connectedSubject = new BehaviorSubject<bool>(false);
-        private TcpClient client = new TcpClient();
-        private EventLoopScheduler scheduler = new EventLoopScheduler(ts => new Thread(ts));
-        private IDisposable reconnectSubscription;
+        private CompositeDisposable     disposables = new CompositeDisposable();
+        private BehaviorSubject<bool>   connectedSubject = new BehaviorSubject<bool>(false);
+        private TcpClient               client = new TcpClient();
+        private EventLoopScheduler      scheduler = new EventLoopScheduler(ts => new Thread(ts));
+        private IDisposable             reconnectSubscription;
 
         public IObservable<bool> OnConnected
         {
@@ -91,15 +91,20 @@ namespace CasparRx
                 this.reconnectSubscription.Dispose();
             this.reconnectSubscription = null;
 
-            this.Send("BYE")
-                .ToEnumerable()
-                .First();
+            this.Send("BYE");
             this.client.Close();
             this.client = new TcpClient();
             this.connectedSubject.OnNext(this.client.Connected);
         }
 
-        public IObservable<string> Send(string cmd)
+        public IEnumerable<string> Send(string cmd)
+        {
+            return AsyncSend(cmd)
+                .ToEnumerable()
+                .ToList();
+        }
+
+        public IObservable<string> AsyncSend(string cmd)
         {
             var subject = new ReplaySubject<string>();
 

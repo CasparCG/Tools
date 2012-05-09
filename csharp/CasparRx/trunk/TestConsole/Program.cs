@@ -16,7 +16,8 @@ namespace TestConsole
 
             while (true)
             {
-                c.Send(Console.ReadLine()).Subscribe(Console.WriteLine);
+                c.Send(Console.ReadLine()).ToList().ForEach(Console.WriteLine);
+                c.AsyncSend(Console.ReadLine()).Subscribe(Console.WriteLine);
             }
         }
     }
