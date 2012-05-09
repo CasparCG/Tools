@@ -48,8 +48,7 @@ namespace CasparRx
 
         public IObservable<bool> OnConnected
         {
-            get { return this.connectedSubject
-                    .DistinctUntilChanged(); }
+            get { return this.connectedSubject.DistinctUntilChanged(); }
         }
 
         public Connection()
@@ -190,11 +189,8 @@ namespace CasparRx
             {
                 if (this.client == null  || !this.client.Connected)
                     return false;
-
-                bool part1 = this.client.Client.Poll(1000, SelectMode.SelectRead);
-                bool part2 = this.client.Client.Available == 0;
-
-                if (part1 & part2)
+                
+                if (this.client.Client.Poll(1000, SelectMode.SelectRead) & this.client.Client.Available == 0)
                 {
                     this.Close();
                     return false;
