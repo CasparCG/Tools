@@ -35,7 +35,7 @@ using System.Threading;
 
 namespace CasparRx
 {
-    public class CasparConnection : IDisposable
+    public class Connection : IDisposable
     {
         private string host;
         private int port;
@@ -51,12 +51,12 @@ namespace CasparRx
             get { return this.connectedSubject.DistinctUntilChanged(); }
         }
 
-        public CasparConnection()
+        public Connection()
         {
             this.disposables.Add(scheduler);
         }
 
-        public CasparConnection(string host, int port = 5250)
+        public Connection(string host, int port = 5250)
         {
             this.disposables.Add(scheduler);
             this.Connect(host, port);
@@ -92,9 +92,8 @@ namespace CasparRx
             this.reconnectSubscription = null;
 
             this.Send("BYE")
-                .Timeout(TimeSpan.FromSeconds(5))
-                .Catch(Observable.Empty<string>())
-                .Subscribe(x => { });
+                .ToEnumerable()
+                .First();
             this.client.Close();
             this.client = new TcpClient();
             this.connectedSubject.OnNext(this.client.Connected);
@@ -188,17 +187,17 @@ namespace CasparRx
             var str = new StringBuilder();
             while (true)
             {
-                char[] c = new char[2];
-                if (reader.Read(c, 0, 2) < 2)
+                var c = reader.Read();
+                if (c == -1)
                     throw new Exception();
 
-                if (c[0] == '\r' && c[1] == '\n')
-                    break;
+                str.Append((char)c);
 
-                str.Append(c);
+                if (str.Length >= 2 && str[str.Length - 2] == '\r' && str[str.Length - 1] == '\n')
+                    break;
             }
 
-            return str.ToString();
+            return new String(str.ToString().Take(str.Length - 2).ToArray());
         }
     }
 }
