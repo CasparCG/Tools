@@ -96,7 +96,8 @@ namespace CasparRx
             var result = this.AsyncSend(cmd);
 
             // Block only until we get response code and know that the command has executed.
-            result.ToEnumerable().FirstOrDefault();
+            result.ToEnumerable()
+                .FirstOrDefault();
 
             return result.ToEnumerable();
         }
