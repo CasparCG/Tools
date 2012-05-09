@@ -83,12 +83,10 @@ namespace CasparRx
             this.Reset();
         }
 
-        public void Reset()
+        public void Dispose()
         {
-            if (this.client != null)
-                this.client.Close();
-            this.client = null;
-            this.connectedSubject.OnNext(false);
+            this.Close();
+            this.disposables.Dispose();
         }
 
         public IEnumerable<string> Send(string cmd)
@@ -158,6 +156,14 @@ namespace CasparRx
             return subject;
         }
 
+        private void Reset()
+        {
+            if (this.client != null)
+                this.client.Close();
+            this.client = null;
+            this.connectedSubject.OnNext(false);
+        }
+
         private void Connect()
         {
             try
@@ -191,12 +197,6 @@ namespace CasparRx
 
                 return true;             
             }
-        }
-
-        public void Dispose()
-        {
-            this.Close();
-            this.disposables.Dispose();
         }
 
         private string ReadLine(StreamReader reader)
