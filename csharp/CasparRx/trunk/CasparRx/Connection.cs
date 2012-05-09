@@ -91,9 +91,12 @@ namespace CasparRx
 
         public IEnumerable<string> Send(string cmd)
         {
-            return AsyncSend(cmd)
-                .ToEnumerable()
-                .ToList();
+            var result = this.AsyncSend(cmd);
+
+            // Block only until we get response code and know that the command has executed.
+            result.First();
+
+            return result.ToEnumerable();
         }
 
         public IObservable<string> AsyncSend(string cmd)
@@ -104,7 +107,8 @@ namespace CasparRx
             {
                 try
                 {
-                    this.Connect();
+                    if (!this.Connect())
+                        return;
 
                     var writer = new StreamWriter(client.GetStream()) { AutoFlush = true };
                     var reader = new StreamReader(client.GetStream());
@@ -164,7 +168,7 @@ namespace CasparRx
             this.connectedSubject.OnNext(false);
         }
 
-        private void Connect()
+        private bool Connect()
         {
             try
             {
@@ -180,6 +184,7 @@ namespace CasparRx
             }
 
             this.connectedSubject.OnNext(this.IsConnected);
+            return this.IsConnected;
         }
 
         private bool IsConnected
