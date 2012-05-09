@@ -91,7 +91,6 @@ namespace CasparRx
                 this.reconnectSubscription.Dispose();
             this.reconnectSubscription = null;
 
-            this.Send("BYE");
             this.client.Close();
             this.client = new TcpClient();
             this.connectedSubject.OnNext(this.client.Connected);
@@ -174,6 +173,9 @@ namespace CasparRx
                 this.client.Close();
                 this.client = new TcpClient();
                 this.client.Connect(host, port);
+            }
+            catch
+            {
             }
             finally
             {
