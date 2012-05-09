@@ -205,14 +205,30 @@ namespace CasparRx
             {
                 if (this.client == null)
                     return false;
-                
-                if (this.client.Client.Poll(1000, SelectMode.SelectRead) & this.client.Client.Available == 0)
-                {
-                    this.Reset();
-                    return false;
-                }
 
-                return true;             
+                bool blockingState = this.client.Client.Blocking;
+                try
+                {
+                    byte[] tmp = new byte[1];
+                    this.client.Client.Blocking = false;
+                    this.client.Client.Send(tmp, 0, 0);
+                    return true;
+                }
+                catch (SocketException e)
+                {
+                    // 10035 == WSAEWOULDBLOCK
+                    if (e.NativeErrorCode.Equals(10035))
+                        return true;
+                    else
+                    {
+                        this.Reset();
+                        return false;
+                    }
+                }
+                finally
+                {
+                    this.client.Client.Blocking = blockingState;
+                }           
             }
         }
 
