@@ -64,6 +64,8 @@ namespace CasparRx
 
         public void Connect(string host, int port = 5250)
         {
+            this.Close();
+
             this.host = host;
             this.port = port;
 
@@ -175,7 +177,7 @@ namespace CasparRx
                 if (!this.IsConnected)
                 {
                     this.Reset();
-                    this.client = new TcpClient(host, port);
+                    this.client = new TcpClient(this.host, this.port);
                 }
             }
             catch
