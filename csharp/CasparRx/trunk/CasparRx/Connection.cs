@@ -194,7 +194,7 @@ namespace CasparRx
             {
                 var c = reader.Read();
                 if (c == -1)
-                    throw new Exception();
+                    throw new IOException();
 
                 str.Append((char)c);
 
