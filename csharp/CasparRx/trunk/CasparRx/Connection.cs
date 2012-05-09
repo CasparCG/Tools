@@ -197,7 +197,7 @@ namespace CasparRx
                     break;
             }
 
-            return new String(str.ToString().Take(str.Length - 2).ToArray());
+            return str.ToString(0, str.Length - 2);
         }
     }
 }
