@@ -71,17 +71,7 @@ namespace CasparRx
             this.reconnectSubscription = Observable
                 .Interval(TimeSpan.FromSeconds(1))
                 .ObserveOn(scheduler)
-                .Subscribe(x =>
-                {
-                    try
-                    {
-                        this.Connect();
-                    }
-                    catch
-                    {
-                        // Failed to connect... try again.
-                    }
-                });
+                .Subscribe(x => this.Connect());
         }
 
         public void Close()
