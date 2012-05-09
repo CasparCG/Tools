@@ -96,7 +96,7 @@ namespace CasparRx
             var result = this.AsyncSend(cmd);
 
             // Block only until we get response code and know that the command has executed.
-            result.First();
+            result.ToEnumerable().FirstOrDefault();
 
             return result.ToEnumerable();
         }
@@ -117,9 +117,7 @@ namespace CasparRx
 
                     writer.WriteLine(cmd);
                     var reply = ReadLine(reader);
-
-                    subject.OnNext(reply);
-
+                    
                     if (Regex.IsMatch(reply, "201.*"))
                         subject.OnNext(ReadLine(reader));
                     else if (Regex.IsMatch(reply, "200.*"))
