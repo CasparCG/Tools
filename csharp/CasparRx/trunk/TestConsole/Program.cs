@@ -14,6 +14,8 @@ namespace TestConsole
         {
             var c = new Connection("localhost");
 
+            c.OnConnected.Subscribe(x => Console.WriteLine(x));
+
             while (true)
             {
                 c.Send(Console.ReadLine()).ToList().ForEach(Console.WriteLine);

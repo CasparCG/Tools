@@ -147,13 +147,15 @@ namespace CasparRx
                     else if (Regex.IsMatch(reply, "502.*"))
                         throw new Exception("Media file unreadable.");
                 }
-                catch (IOException)
+                catch (IOException ex)
                 {
                     this.Reset();
+                    subject.OnError(ex);
                 }
-                catch(ObjectDisposedException)
+                catch(ObjectDisposedException ex)
                 {
                     this.Reset();
+                    subject.OnError(ex);
                 }
                 catch (Exception ex)
                 {
