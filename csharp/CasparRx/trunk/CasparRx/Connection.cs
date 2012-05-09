@@ -186,7 +186,7 @@ namespace CasparRx
         {
             get
             {
-                if (this.client == null  || !this.client.Connected)
+                if (this.client == null)
                     return false;
                 
                 if (this.client.Client.Poll(1000, SelectMode.SelectRead) & this.client.Client.Available == 0)
