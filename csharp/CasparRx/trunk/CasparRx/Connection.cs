@@ -202,7 +202,7 @@ namespace CasparRx
         {
             get
             {
-                if (this.client == null)
+                if (this.client == null || !this.client.Connected)
                     return false;
 
                 bool blockingState = this.client.Client.Blocking;
