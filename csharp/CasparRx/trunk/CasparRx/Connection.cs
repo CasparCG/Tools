@@ -163,7 +163,7 @@ namespace CasparRx
                 this.Close();
                 this.client = new TcpClient(host, port);
                 this.Send("VERSION");
-                this.connectedSubject.OnNext(true);
+                this.connectedSubject.OnNext(this.IsConnected);
             }
             catch
             {
