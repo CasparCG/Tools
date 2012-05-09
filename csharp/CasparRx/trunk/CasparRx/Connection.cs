@@ -56,9 +56,8 @@ namespace CasparRx
             this.disposables.Add(scheduler);
         }
 
-        public Connection(string host, int port = 5250)
+        public Connection(string host, int port = 5250) : this()
         {
-            this.disposables.Add(scheduler);
             this.Connect(host, port);
         }
 
@@ -174,13 +173,13 @@ namespace CasparRx
                 if(this.client != null)
                     this.client.Close();
                 this.client = new TcpClient(host, port);
+                this.Send("VERSION");
                 this.connectedSubject.OnNext(true);
             }
             catch
             {
-                this.client = null;
-                this.connectedSubject.OnNext(false);
-            }            
+                this.Close();
+            }
         }
 
         private bool IsConnected
