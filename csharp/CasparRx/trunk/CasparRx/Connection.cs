@@ -147,9 +147,8 @@ namespace CasparRx
                 bool blockingState = this.client.Client.Blocking;
                 try
                 {
-                    byte[] tmp = new byte[1];
                     this.client.Client.Blocking = false;
-                    this.client.Client.Send(tmp, 0, 0);
+                    this.client.Client.Send(new byte[1], 0, 0);
                     return true;
                 }
                 catch (SocketException e)
