@@ -41,9 +41,8 @@ namespace CasparRx
         private string host;
         private int port;
 
-        private CompositeDisposable     disposables = new CompositeDisposable();
         private BehaviorSubject<bool>   connectedSubject = new BehaviorSubject<bool>(false);
-        private TcpClient               client = null;
+        private volatile TcpClient      client = null;
         private EventLoopScheduler      scheduler = new EventLoopScheduler(ts => new Thread(ts));
         private IDisposable             reconnectSubscription = null;
 
@@ -52,43 +51,34 @@ namespace CasparRx
             get { return this.connectedSubject.DistinctUntilChanged(); }
         }
 
-        public Connection()
+        public Connection(string host, int port = 5250)
         {
-            this.disposables.Add(scheduler);
-        }
-
-        public Connection(string host, int port = 5250) : this()
-        {
-            this.Connect(host, port);
-        }
-
-        public void Connect(string host, int port = 5250)
-        {
-            this.Close();
-
             this.host = host;
             this.port = port;
-
+            
             this.Connect();
-
+            
             this.reconnectSubscription = Observable
                 .Interval(TimeSpan.FromSeconds(1))
                 .ObserveOn(scheduler)
                 .Subscribe(x => this.Connect());
         }
 
-        public void Close()
+        public void Dispose()
         {
             if (this.reconnectSubscription != null)
                 this.reconnectSubscription.Dispose();
             this.reconnectSubscription = null;
-            this.Reset();
-        }
+            
+            var client = this.client;
+            if (client != null)
+                client.Close(); // [TODO] This is possibly not thread-safe...
 
-        public void Dispose()
-        {
-            this.Close();
-            this.disposables.Dispose();
+            if (this.scheduler != null)
+                this.scheduler.Dispose();
+            this.scheduler = null;
+
+            this.connectedSubject.OnNext(false);
         }
 
         public IEnumerable<string> Send(string cmd)
@@ -113,26 +103,25 @@ namespace CasparRx
         private void Reset()
         {
             if (this.client != null)
-                this.client.Close();
-            this.connectedSubject.OnNext(false);
+                client.Close();
+            this.client = null;
         }
 
         private bool Connect()
         {
             try
             {
-                if (!this.IsConnected)
-                {
-                    this.Reset();
-                    this.client = new TcpClient(this.host, this.port);
-                }
+                if (this.IsConnected)
+                    return true;
+
+                this.Reset();
+                this.client = new TcpClient(this.host, this.port);
             }
             catch
             {
                 this.Reset();
             }
 
-            this.connectedSubject.OnNext(this.IsConnected);
             return this.IsConnected;
         }
 
@@ -148,22 +137,28 @@ namespace CasparRx
                 {
                     this.client.Client.Blocking = false;
                     this.client.Client.Send(new byte[1], 0, 0);
+                    this.connectedSubject.OnNext(true);
                     return true;
                 }
                 catch (SocketException e)
                 {
                     // 10035 == WSAEWOULDBLOCK
                     if (e.NativeErrorCode.Equals(10035))
+                    {
+                        this.connectedSubject.OnNext(true);
                         return true;
+                    }
                     else
                     {
                         this.Reset();
+                        this.connectedSubject.OnNext(false);
                         return false;
                     }
                 }
                 finally
                 {
-                    this.client.Client.Blocking = blockingState;
+                    if(this.client != null && this.client.Client != null)
+                        this.client.Client.Blocking = blockingState;
                 }           
             }
         }
@@ -252,7 +247,7 @@ namespace CasparRx
 
             subject
                 .Timeout(TimeSpan.FromSeconds(5))
-                .Subscribe(x => { }, ex => this.Reset());
+                .Subscribe(x => { }, ex => this.Reset()); // [TODO] This is possibly not thread-safe...
 
             return subject;
         }
