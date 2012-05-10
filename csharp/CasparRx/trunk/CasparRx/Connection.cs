@@ -45,7 +45,7 @@ namespace CasparRx
         private BehaviorSubject<bool>   connectedSubject = new BehaviorSubject<bool>(false);
         private TcpClient               client = null;
         private EventLoopScheduler      scheduler = new EventLoopScheduler(ts => new Thread(ts));
-        private IDisposable             reconnectSubscription;
+        private IDisposable             reconnectSubscription = null;
 
         public IObservable<bool> OnConnected
         {
