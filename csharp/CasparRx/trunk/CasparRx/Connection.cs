@@ -115,7 +115,7 @@ namespace CasparRx
                     return true;
 
                 this.Reset();
-                this.client = new TcpClient(this.host, this.port);
+                this.client = new TcpClient(this.host, this.port) { ReceiveTimeout = 5000 };
             }
             catch
             {
@@ -244,11 +244,7 @@ namespace CasparRx
 
                 subject.OnCompleted();
             });
-
-            subject
-                .Timeout(TimeSpan.FromSeconds(5))
-                .Subscribe(x => { }, ex => this.Reset()); // [TODO] This is possibly not thread-safe...
-
+            
             return subject;
         }
     }
