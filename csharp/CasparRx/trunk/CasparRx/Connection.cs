@@ -72,13 +72,8 @@ namespace CasparRx
 
             Observable
                 .Start(() => this.Reset(), this.scheduler)
-                .First();
-
-            if (this.scheduler != null)
-                this.scheduler.Dispose();
-            this.scheduler = null;
-
-            this.connectedSubject.OnNext(false);
+                .ObserveOn(Scheduler.NewThread)
+                .Subscribe(x => this.scheduler.Dispose());
         }
 
         public IEnumerable<string> Send(string cmd)
@@ -105,6 +100,7 @@ namespace CasparRx
             if (this.client != null)
                 client.Close();
             this.client = null;
+            this.connectedSubject.OnNext(false);
         }
 
         private bool Connect()
