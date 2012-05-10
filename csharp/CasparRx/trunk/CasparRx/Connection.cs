@@ -93,82 +93,21 @@ namespace CasparRx
 
         public IEnumerable<string> Send(string cmd)
         {
-            var result = this.AsyncSend(cmd);
+            var result = this.DoAsyncSend(cmd);
 
             // Block only until we get response code and know that the command has executed.
-            result.ToEnumerable()
-                .FirstOrDefault();
+            result.First();
 
-            return result.ToEnumerable();
+            return result
+                .Skip(1) // Skip response code.
+                .ToEnumerable();
         }
 
         public IObservable<string> AsyncSend(string cmd)
         {
-            var subject = new ReplaySubject<string>();
-
-            this.scheduler.Schedule(() =>
-            {
-                try
-                {
-                    if (!this.Connect())
-                        return;
-
-                    var writer = new StreamWriter(client.GetStream()) { AutoFlush = true };
-                    var reader = new StreamReader(client.GetStream());
-
-                    writer.WriteLine(cmd);
-                    var reply = ReadLine(reader);
-                    
-                    if (Regex.IsMatch(reply, "201.*"))
-                        subject.OnNext(ReadLine(reader));
-                    else if (Regex.IsMatch(reply, "200.*"))
-                    {
-                        while (reply != string.Empty)
-                        {
-                            reply = ReadLine(reader);
-                            subject.OnNext(reply);
-                        }
-                    }
-                    else if (Regex.IsMatch(reply, "400.*"))
-                        throw new Exception("Command not understood.");
-                    else if (Regex.IsMatch(reply, "401.*"))
-                        throw new Exception("Illegal Command.");
-                    else if (Regex.IsMatch(reply, "402.*"))
-                        throw new Exception("Parameter missing.");
-                    else if (Regex.IsMatch(reply, "403.*"))
-                        throw new Exception("Illegal parameter.");
-                    else if (Regex.IsMatch(reply, "404.*"))
-                        throw new Exception("Media file not found.");
-                    else if (Regex.IsMatch(reply, "500.*"))
-                        throw new Exception("Internal server error.");
-                    else if (Regex.IsMatch(reply, "501.*"))
-                        throw new Exception("Internal server error.");
-                    else if (Regex.IsMatch(reply, "502.*"))
-                        throw new Exception("Media file unreadable.");
-                }
-                catch (IOException ex)
-                {
-                    this.Reset();
-                    subject.OnError(ex);
-                }
-                catch(ObjectDisposedException ex)
-                {
-                    this.Reset();
-                    subject.OnError(ex);
-                }
-                catch (Exception ex)
-                {
-                    subject.OnError(ex);
-                }
-
-                subject.OnCompleted();
-            });
-
-            subject
-                .Timeout(TimeSpan.FromSeconds(5))
-                .Subscribe(x => { }, ex => this.Reset());
-
-            return subject;
+            return this
+                .DoAsyncSend(cmd)
+                .Skip(1);  // Skip response code.
         }
 
         private void Reset()
@@ -247,6 +186,77 @@ namespace CasparRx
             }
 
             return str.ToString(0, str.Length - 2);
+        }
+
+        private IObservable<string> DoAsyncSend(string cmd)
+        { 
+            var subject = new ReplaySubject<string>();
+
+            this.scheduler.Schedule(() =>
+            {
+                try
+                {
+                    if (!this.Connect())
+                        return;
+
+                    var writer = new StreamWriter(client.GetStream()) { AutoFlush = true };
+                    var reader = new StreamReader(client.GetStream());
+
+                    writer.WriteLine(cmd);
+                    var reply = ReadLine(reader);
+
+                    subject.OnNext(reply);
+                    
+                    if (Regex.IsMatch(reply, "201.*"))
+                        subject.OnNext(ReadLine(reader));
+                    else if (Regex.IsMatch(reply, "200.*"))
+                    {
+                        while (reply != string.Empty)
+                        {
+                            reply = ReadLine(reader);
+                            subject.OnNext(reply);
+                        }
+                    }
+                    else if (Regex.IsMatch(reply, "400.*"))
+                        throw new Exception("Command not understood.");
+                    else if (Regex.IsMatch(reply, "401.*"))
+                        throw new Exception("Illegal Command.");
+                    else if (Regex.IsMatch(reply, "402.*"))
+                        throw new Exception("Parameter missing.");
+                    else if (Regex.IsMatch(reply, "403.*"))
+                        throw new Exception("Illegal parameter.");
+                    else if (Regex.IsMatch(reply, "404.*"))
+                        throw new Exception("Media file not found.");
+                    else if (Regex.IsMatch(reply, "500.*"))
+                        throw new Exception("Internal server error.");
+                    else if (Regex.IsMatch(reply, "501.*"))
+                        throw new Exception("Internal server error.");
+                    else if (Regex.IsMatch(reply, "502.*"))
+                        throw new Exception("Media file unreadable.");
+                }
+                catch (IOException ex)
+                {
+                    this.Reset();
+                    subject.OnError(ex);
+                }
+                catch(ObjectDisposedException ex)
+                {
+                    this.Reset();
+                    subject.OnError(ex);
+                }
+                catch (Exception ex)
+                {
+                    subject.OnError(ex);
+                }
+
+                subject.OnCompleted();
+            });
+
+            subject
+                .Timeout(TimeSpan.FromSeconds(5))
+                .Subscribe(x => { }, ex => this.Reset());
+
+            return subject;
         }
     }
 }
