@@ -69,10 +69,10 @@ namespace CasparRx
             if (this.reconnectSubscription != null)
                 this.reconnectSubscription.Dispose();
             this.reconnectSubscription = null;
-            
-            var client = this.client;
-            if (client != null)
-                client.Close(); // [TODO] This is possibly not thread-safe...
+
+            Observable
+                .Start(() => this.Reset(), this.scheduler)
+                .First();
 
             if (this.scheduler != null)
                 this.scheduler.Dispose();
