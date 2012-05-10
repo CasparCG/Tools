@@ -114,7 +114,6 @@ namespace CasparRx
         {
             if (this.client != null)
                 this.client.Close();
-            this.client = null;
             this.connectedSubject.OnNext(false);
         }
 
@@ -141,7 +140,7 @@ namespace CasparRx
         {
             get
             {
-                if (this.client == null || !this.client.Connected)
+                if (this.client == null || this.client.Client == null || !this.client.Connected)
                     return false;
 
                 bool blockingState = this.client.Client.Blocking;
