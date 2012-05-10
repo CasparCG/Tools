@@ -72,7 +72,7 @@ namespace CasparRx
 
             Observable
                 .Start(() => this.Reset(), this.scheduler)
-                .ObserveOn(Scheduler.NewThread)
+                .ObserveOn(Scheduler.ThreadPool)
                 .Subscribe(x => this.scheduler.Dispose());
         }
 
