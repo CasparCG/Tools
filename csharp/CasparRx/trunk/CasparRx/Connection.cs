@@ -42,7 +42,6 @@ namespace CasparRx
         private int port;
 
         private BehaviorSubject<bool>       connectedSubject = new BehaviorSubject<bool>(false);
-        private BehaviorSubject<Version>    versionSubject = new BehaviorSubject<Version>(null);
         private volatile TcpClient          client = null;
         private EventLoopScheduler          scheduler = new EventLoopScheduler(ts => new Thread(ts));
         private IDisposable                 reconnectSubscription = null;
