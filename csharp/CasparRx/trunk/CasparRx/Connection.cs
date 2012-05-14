@@ -82,11 +82,8 @@ namespace CasparRx
         
         public IObservable<Version> OnVersion
         {
-            get
-            {
-                return this.versionSubject
-                           .DistinctUntilChanged();
-            }
+            get { return this.versionSubject
+                             .DistinctUntilChanged(); }
         }
 
         public Connection()
