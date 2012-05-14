@@ -101,6 +101,10 @@ namespace CasparRx
             }
         }
 
+        public Connection()
+        {
+        }
+
         public Connection(string host, int port = 5250)
         {
             this.Connect(host, port);
