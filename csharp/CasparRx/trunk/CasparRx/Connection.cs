@@ -90,7 +90,7 @@ namespace CasparRx
 
                                 var match = exp.Match(x);
                                 if (!match.Success)
-                                    throw new Exception("Invalid VERSION response");
+                                    throw new Exception("Invalid VERSION response.");
 
                                 return new Version(int.Parse(match.Groups[1].Value),
                                                    int.Parse(match.Groups[2].Value),
