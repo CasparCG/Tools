@@ -48,6 +48,12 @@ namespace CasparRx
 
         public class Version
         {
+            public int Generation { get; private set; }
+            public int Major { get; private set; }
+            public int Minor { get; private set; }
+            public int Revision { get; private set; }
+            public String Tag { get; private set; }
+
             public Version(int gen, int maj, int min, int rev, String tag)
             {
                 this.Generation = gen;
@@ -56,12 +62,6 @@ namespace CasparRx
                 this.Revision = rev;
                 this.Tag = tag;
             }
-
-            public int Generation { get; private set; }
-            public int Major { get; private set; }
-            public int Minor { get; private set; }
-            public int Revision { get; private set; }
-            public String Tag { get; private set; }
 
             public override string ToString()
             {
