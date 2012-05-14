@@ -103,25 +103,42 @@ namespace CasparRx
 
         public Connection(string host, int port = 5250)
         {
-            this.host = host;
-            this.port = port;
-            
-            this.Connect();
-            
-            this.reconnectSubscription = Observable
-                .Interval(TimeSpan.FromSeconds(1))
-                .ObserveOn(scheduler)
-                .Subscribe(x => this.Connect());
+            this.Connect(host, port);
+        }
+
+        public IObservable<Unit> Connect(string host, int port = 5250)
+        {            
+            return Observable
+                    .Start(() =>
+                    {
+                        this.host = host;
+                        this.port = port;
+                        this.Reset();
+                        this.Connect();
+
+                        this.reconnectSubscription = Observable
+                            .Interval(TimeSpan.FromSeconds(1))
+                            .ObserveOn(scheduler)
+                            .Subscribe(x => this.Connect());
+                    }, this.scheduler);
+        }
+
+        public IObservable<Unit> Close()
+        {
+            return Observable
+                    .Start(() =>
+                    {
+                        if (this.reconnectSubscription != null)
+                            this.reconnectSubscription.Dispose();
+                        this.reconnectSubscription = null;
+
+                        this.Reset();
+                    }, this.scheduler);
         }
 
         public void Dispose()
         {
-            if (this.reconnectSubscription != null)
-                this.reconnectSubscription.Dispose();
-            this.reconnectSubscription = null;
-
-            Observable
-                .Start(() => this.Reset(), this.scheduler)
+            this.Close()
                 .ObserveOn(Scheduler.ThreadPool)
                 .Subscribe(x => this.scheduler.Dispose());
         }
