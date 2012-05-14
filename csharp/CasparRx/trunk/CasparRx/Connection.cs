@@ -44,7 +44,7 @@ namespace CasparRx
         private BehaviorSubject<bool>       connectedSubject = new BehaviorSubject<bool>(false);
         private volatile TcpClient          client = null;
         private EventLoopScheduler          scheduler = new EventLoopScheduler(ts => new Thread(ts));
-        private IDisposable                 reconnectSubscription = null;
+        private volatile IDisposable        reconnectSubscription = null;
 
         public class Version
         {
@@ -135,26 +135,20 @@ namespace CasparRx
 
         public void Close()
         {
-            this.AsyncClose()
-                .First();
+            this.Dispose();
         }
-
-        public IObservable<Unit> AsyncClose()
-        {
-            return Observable
-                    .Start(() =>
-                    {
-                        if (this.reconnectSubscription != null)
-                            this.reconnectSubscription.Dispose();
-                        this.reconnectSubscription = null;
-
-                        this.Reset();
-                    }, this.scheduler);
-        }
-
+        
         public void Dispose()
         {
-            this.AsyncClose()
+            Observable
+                .Start(() =>
+                {
+                    if (this.reconnectSubscription != null)
+                        this.reconnectSubscription.Dispose();
+                    this.reconnectSubscription = null;
+
+                    this.Reset();
+                }, this.scheduler)
                 .ObserveOn(Scheduler.ThreadPool)
                 .Subscribe(x => this.scheduler.Dispose());
         }
