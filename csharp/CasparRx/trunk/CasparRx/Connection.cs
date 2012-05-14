@@ -217,8 +217,8 @@ namespace CasparRx
                 }
                 catch (SocketException e)
                 {
-                    // 10035 == WSAEWOULDBLOCK
-                    if (e.NativeErrorCode.Equals(10035))
+                    const int WSAEWOULDBLOCK = 10035;
+                    if (e.NativeErrorCode.Equals(WSAEWOULDBLOCK))
                     {
                         this.connectedSubject.OnNext(true);
                         return true;
