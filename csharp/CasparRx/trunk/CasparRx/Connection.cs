@@ -41,10 +41,11 @@ namespace CasparRx
         private string host;
         private int port;
 
-        private BehaviorSubject<bool>       connectedSubject = new BehaviorSubject<bool>(false);
-        private volatile TcpClient          client = null;
-        private EventLoopScheduler          scheduler = new EventLoopScheduler(ts => new Thread(ts));
-        private volatile IDisposable        reconnectSubscription = null;
+        private BehaviorSubject<bool>   connectedSubject = new BehaviorSubject<bool>(false);
+        private ReplaySubject<Version>  versionSubject = new ReplaySubject<Version>(1);
+        private TcpClient               client = null;
+        private EventLoopScheduler      scheduler = null;
+        private IDisposable             reconnectSubscription = null;
 
         public class Version
         {
@@ -83,21 +84,8 @@ namespace CasparRx
         {
             get
             {
-                return this.AsyncSend("VERSION")
-                            .Select(x =>
-                            {
-                                var exp = new Regex(@"(\d+)\.(\d+)\.(\d+)\.(\d+)\s+(.*)");
-
-                                var match = exp.Match(x);
-                                if (!match.Success)
-                                    throw new Exception("Invalid VERSION response.");
-
-                                return new Version(int.Parse(match.Groups[1].Value),
-                                                   int.Parse(match.Groups[2].Value),
-                                                   int.Parse(match.Groups[3].Value),
-                                                   int.Parse(match.Groups[4].Value),
-                                                   match.Groups[5].Value);
-                            });
+                return this.versionSubject
+                           .DistinctUntilChanged();
             }
         }
 
@@ -117,7 +105,12 @@ namespace CasparRx
         }
 
         public IObservable<Unit> AsyncConnect(string host, int port = 5250)
-        {            
+        {
+            if (this.scheduler != null)
+                throw new Exception("Already connected.");
+
+            this.scheduler = new EventLoopScheduler(ts => new Thread(ts));
+
             return Observable
                     .Start(() =>
                     {
@@ -140,6 +133,9 @@ namespace CasparRx
         
         public void Dispose()
         {
+            if (this.scheduler == null)
+                return;
+
             Observable
                 .Start(() =>
                 {
@@ -149,8 +145,10 @@ namespace CasparRx
 
                     this.Reset();
                 }, this.scheduler)
-                .ObserveOn(Scheduler.ThreadPool)
-                .Subscribe(x => this.scheduler.Dispose());
+                .First();
+
+            this.scheduler.Dispose();
+            this.scheduler = null;
         }
 
         public IEnumerable<string> Send(string cmd)
@@ -182,13 +180,33 @@ namespace CasparRx
 
         private bool Connect()
         {
+            if (this.scheduler == null)
+                throw new Exception("Connection closed.");
+
             try
             {
                 if (this.IsConnected)
                     return true;
 
                 this.Reset();
-                this.client = new TcpClient(this.host, this.port) { ReceiveTimeout = 5000 };               
+                this.client = new TcpClient(this.host, this.port) { ReceiveTimeout = 5000 };
+
+                this.AsyncSend("VERSION")
+                    .Select(x =>
+                    {
+                        var exp = new Regex(@"(\d+)\.(\d+)\.(\d+)\.(\d+)\s+(.*)");
+
+                        var match = exp.Match(x);
+                        if (!match.Success)
+                            throw new Exception("Invalid VERSION response.");
+
+                        return new Version(int.Parse(match.Groups[1].Value),
+                                            int.Parse(match.Groups[2].Value),
+                                            int.Parse(match.Groups[3].Value),
+                                            int.Parse(match.Groups[4].Value),
+                                            match.Groups[5].Value);
+                    })
+                    .Subscribe(this.versionSubject);
             }
             catch
             {
@@ -255,7 +273,10 @@ namespace CasparRx
         }
 
         private IObservable<string> DoAsyncSend(string cmd)
-        { 
+        {
+            if (this.scheduler == null)
+                throw new Exception("Connection closed.");
+
             var subject = new ReplaySubject<string>();
 
             this.scheduler.Schedule(() =>
