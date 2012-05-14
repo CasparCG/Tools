@@ -287,35 +287,35 @@ namespace CasparRx
                     var reader = new StreamReader(client.GetStream());
 
                     writer.WriteLine(cmd);
-                    var reply = ReadLine(reader);
+                    var response = ReadLine(reader);
 
-                    subject.OnNext(reply);
+                    subject.OnNext(response);
                     
-                    if (Regex.IsMatch(reply, "201.*"))
+                    if (Regex.IsMatch(response, "201.*"))
                         subject.OnNext(ReadLine(reader));
-                    else if (Regex.IsMatch(reply, "200.*"))
+                    else if (Regex.IsMatch(response, "200.*"))
                     {
-                        while (reply != string.Empty)
+                        while (response != string.Empty)
                         {
-                            reply = ReadLine(reader);
-                            subject.OnNext(reply);
+                            response = ReadLine(reader);
+                            subject.OnNext(response);
                         }
                     }
-                    else if (Regex.IsMatch(reply, "400.*"))
+                    else if (Regex.IsMatch(response, "400.*"))
                         throw new Exception("Command not understood.");
-                    else if (Regex.IsMatch(reply, "401.*"))
+                    else if (Regex.IsMatch(response, "401.*"))
                         throw new Exception("Illegal Command.");
-                    else if (Regex.IsMatch(reply, "402.*"))
+                    else if (Regex.IsMatch(response, "402.*"))
                         throw new Exception("Parameter missing.");
-                    else if (Regex.IsMatch(reply, "403.*"))
+                    else if (Regex.IsMatch(response, "403.*"))
                         throw new Exception("Illegal parameter.");
-                    else if (Regex.IsMatch(reply, "404.*"))
+                    else if (Regex.IsMatch(response, "404.*"))
                         throw new Exception("Media file not found.");
-                    else if (Regex.IsMatch(reply, "500.*"))
+                    else if (Regex.IsMatch(response, "500.*"))
                         throw new Exception("Internal server error.");
-                    else if (Regex.IsMatch(reply, "501.*"))
+                    else if (Regex.IsMatch(response, "501.*"))
                         throw new Exception("Internal server error.");
-                    else if (Regex.IsMatch(reply, "502.*"))
+                    else if (Regex.IsMatch(response, "502.*"))
                         throw new Exception("Media file unreadable.");
                 }
                 catch (IOException ex)
