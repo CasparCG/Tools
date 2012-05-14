@@ -106,7 +106,13 @@ namespace CasparRx
             this.Connect(host, port);
         }
 
-        public IObservable<Unit> Connect(string host, int port = 5250)
+        public void Connect(string host, int port = 5250)
+        {
+            this.AsyncConnect(host, port)
+                .First();
+        }
+
+        public IObservable<Unit> AsyncConnect(string host, int port = 5250)
         {            
             return Observable
                     .Start(() =>
@@ -123,7 +129,13 @@ namespace CasparRx
                     }, this.scheduler);
         }
 
-        public IObservable<Unit> Close()
+        public void Close()
+        {
+            this.AsyncClose()
+                .First();
+        }
+
+        public IObservable<Unit> AsyncClose()
         {
             return Observable
                     .Start(() =>
@@ -138,7 +150,7 @@ namespace CasparRx
 
         public void Dispose()
         {
-            this.Close()
+            this.AsyncClose()
                 .ObserveOn(Scheduler.ThreadPool)
                 .Subscribe(x => this.scheduler.Dispose());
         }
