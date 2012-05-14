@@ -41,14 +41,65 @@ namespace CasparRx
         private string host;
         private int port;
 
-        private BehaviorSubject<bool>   connectedSubject = new BehaviorSubject<bool>(false);
-        private volatile TcpClient      client = null;
-        private EventLoopScheduler      scheduler = new EventLoopScheduler(ts => new Thread(ts));
-        private IDisposable             reconnectSubscription = null;
+        private BehaviorSubject<bool>       connectedSubject = new BehaviorSubject<bool>(false);
+        private BehaviorSubject<Version>    versionSubject = new BehaviorSubject<Version>(null);
+        private volatile TcpClient          client = null;
+        private EventLoopScheduler          scheduler = new EventLoopScheduler(ts => new Thread(ts));
+        private IDisposable                 reconnectSubscription = null;
+
+        public class Version
+        {
+            public Version(int gen, int maj, int min, int rev, String tag)
+            {
+                this.Generation = gen;
+                this.Major = maj;
+                this.Minor = min;
+                this.Revision = rev;
+                this.Tag = tag;
+            }
+
+            public int Generation { get; private set; }
+            public int Major { get; private set; }
+            public int Minor { get; private set; }
+            public int Revision { get; private set; }
+            public String Tag { get; private set; }
+
+            public override string ToString()
+            {
+                return this.Generation.ToString() + "." +
+                       this.Major.ToString()      + "." +
+                       this.Minor.ToString()      + "." +
+                       this.Revision.ToString()   + " " +
+                       this.Tag.ToString();
+            }
+        };
 
         public IObservable<bool> OnConnected
         {
-            get { return this.connectedSubject.DistinctUntilChanged(); }
+            get { return this.connectedSubject
+                             .DistinctUntilChanged(); }
+        }
+        
+        public IObservable<Version> OnVersion
+        {
+            get
+            {
+                return this.AsyncSend("VERSION")
+                            .Select(x =>
+                            {
+                                var exp = new Regex(@"(\d+)\.(\d+)\.(\d+)\.(\d+)\s+(.*)");
+
+                                var match = exp.Match(x);
+                                if (!match.Success)
+                                    throw new Exception("Invalid VERSION response");
+
+                                return new Version(int.Parse(match.Groups[1].Value),
+                                                   int.Parse(match.Groups[2].Value),
+                                                   int.Parse(match.Groups[3].Value),
+                                                   int.Parse(match.Groups[4].Value),
+                                                   match.Groups[5].Value);
+                            });
+            }
         }
 
         public Connection(string host, int port = 5250)
@@ -111,7 +162,7 @@ namespace CasparRx
                     return true;
 
                 this.Reset();
-                this.client = new TcpClient(this.host, this.port) { ReceiveTimeout = 5000 };
+                this.client = new TcpClient(this.host, this.port) { ReceiveTimeout = 5000 };               
             }
             catch
             {
