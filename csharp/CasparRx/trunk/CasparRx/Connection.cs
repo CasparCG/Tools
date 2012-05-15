@@ -41,11 +41,11 @@ namespace CasparRx
         private string host;
         private int port;
 
-        private BehaviorSubject<bool>   connectedSubject = new BehaviorSubject<bool>(false);
-        private ReplaySubject<Version>  versionSubject = new ReplaySubject<Version>(1);
-        private TcpClient               client = null;
-        private EventLoopScheduler      scheduler = null;
-        private IDisposable             reconnectSubscription = null;
+        private BehaviorSubject<bool>    connectedSubject = new BehaviorSubject<bool>(false);
+        private BehaviorSubject<Version> versionSubject = new BehaviorSubject<Version>(null);
+        private TcpClient                client = null;
+        private EventLoopScheduler       scheduler = null;
+        private IDisposable              reconnectSubscription = null;
 
         public class Version
         {
@@ -167,6 +167,7 @@ namespace CasparRx
                 client.Close();
             this.client = null;
             this.connectedSubject.OnNext(false);
+            this.versionSubject.OnNext(null);
         }
 
         private bool Connect()
