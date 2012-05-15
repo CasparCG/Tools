@@ -95,13 +95,7 @@ namespace CasparRx
             this.Connect(host, port);
         }
 
-        public void Connect(string host, int port = 5250)
-        {
-            this.AsyncConnect(host, port)
-                .First();
-        }
-
-        public IObservable<Unit> AsyncConnect(string host, int port = 5250)
+        public IObservable<Unit> Connect(string host, int port = 5250)
         {
             if (this.scheduler != null)
                 throw new Exception("Already connected.");
