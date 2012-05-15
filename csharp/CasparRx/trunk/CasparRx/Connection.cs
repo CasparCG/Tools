@@ -182,6 +182,7 @@ namespace CasparRx
 
                 this.Reset();
                 this.client = new TcpClient(this.host, this.port) { ReceiveTimeout = 5000 };
+                this.connectedSubject.OnNext(true);
 
                 this.AsyncSend("VERSION")
                     .Select(x =>
@@ -212,31 +213,23 @@ namespace CasparRx
         {
             get
             {
-                if (this.client == null || this.client.Client == null || !this.client.Connected)
-                    return false;
+                if (this.client == null || this.client.Client == null || !this.client.Connected)                
+                    return false;                
 
                 bool blockingState = this.client.Client.Blocking;
                 try
                 {
                     this.client.Client.Blocking = false;
                     this.client.Client.Send(new byte[1], 0, 0);
-                    this.connectedSubject.OnNext(true);
                     return true;
                 }
                 catch (SocketException e)
                 {
                     const int WSAEWOULDBLOCK = 10035;
                     if (e.NativeErrorCode.Equals(WSAEWOULDBLOCK))
-                    {
-                        this.connectedSubject.OnNext(true);
-                        return true;
-                    }
-                    else
-                    {
-                        this.Reset();
-                        this.connectedSubject.OnNext(false);
-                        return false;
-                    }
+                        return true;                    
+                    else                    
+                        return false;                    
                 }
                 finally
                 {
