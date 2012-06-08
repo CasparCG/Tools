@@ -181,7 +181,7 @@ namespace CasparRx
                     return true;
 
                 this.Reset();
-                this.client = new TcpClient(this.host, this.port) { ReceiveTimeout = 5000 };
+                this.client = new TcpClient(this.host, this.port) { ReceiveTimeout = 3000, SendTimeout = 3000  };
                 this.connectedSubject.OnNext(true);
 
                 this.AsyncSend("VERSION")
