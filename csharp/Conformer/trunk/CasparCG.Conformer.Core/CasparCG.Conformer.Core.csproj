@@ -47,7 +47,7 @@
     <Compile Include="Validation.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Spec.xml">
+    <Content Include="Specification.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
