@@ -51,10 +51,20 @@ class simple_listener
 {
   Stream& stream_;
   const GpoMapper& gpo_mapper_;
+  int num_gpi_;
+  const char* device_name_;
+  bool sent_greeting_;
 public:
-  simple_listener(Stream& stream, const GpoMapper& gpo_mapper)
+  simple_listener(
+      Stream& stream,
+      const GpoMapper& gpo_mapper,
+      int num_gpi,
+      const char* device_name)
     : stream_(stream)
     , gpo_mapper_(gpo_mapper)
+    , num_gpi_(num_gpi)
+    , device_name_(device_name)
+    , sent_greeting_(false)
   {
     for (int i = 0; i < GpoMapper::NUM_PORTS; ++i)
       pinMode(gpo_mapper_.to_hardware_port(i), OUTPUT);
@@ -62,12 +72,29 @@ public:
 
   void tick()
   {
+    if (!sent_greeting_)
+    {
+      send_greeting();
+
+      sent_greeting_ = true;
+    }
+
     int num_bytes;
     
     while ((num_bytes = stream_.available()) >= 2)
     {
-      int port = stream_.read() - '0';
-      bool state = stream_.read() - '0' == 1;
+      int byte1 = stream_.read();
+      int byte2 = stream_.read();
+      
+      if (byte1 == 'h' && byte2 == 'i')
+      {
+        send_greeting();
+
+        continue;
+      }
+      
+      int port = byte1 - '0';
+      bool state = byte2 - '0' == 1;
       int hardware_port = gpo_mapper_.to_hardware_port(port);
       
       if (hardware_port == -1)
@@ -75,6 +102,19 @@ public:
       
       digitalWrite(hardware_port, state ? HIGH : LOW);
     }
+  }
+  
+  void send_greeting()
+  {
+    stream_.write('0' + num_gpi_);
+    stream_.write('0' + GpoMapper::NUM_PORTS);
+
+    const char* iter = device_name_;
+    
+    while (*iter)
+      stream_.write((*iter++));
+    
+    stream_.write(static_cast<uint8_t>(0));
   }
 };
 
@@ -114,6 +154,7 @@ public:
     
     stream_.write(logical_port + '0');
     stream_.write(current ? '1' : '0');
+    stream_.write('\n');
   }
 private:
   bool read_state(int logical_port)
