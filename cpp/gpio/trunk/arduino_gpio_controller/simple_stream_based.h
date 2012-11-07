@@ -81,10 +81,14 @@ public:
 
     int num_bytes;
     
-    while ((num_bytes = stream_.available()) >= 2)
+    while ((num_bytes = stream_.available()) >= 4)
     {
       int byte1 = stream_.read();
       int byte2 = stream_.read();
+      
+      // consume \r\n
+      stream_.read();
+      stream_.read();
       
       if (byte1 == 'h' && byte2 == 'i')
       {
@@ -114,7 +118,8 @@ public:
     while (*iter)
       stream_.write((*iter++));
     
-    stream_.write(static_cast<uint8_t>(0));
+    stream_.write('\r');
+    stream_.write('\n');
   }
 };
 
@@ -154,6 +159,7 @@ public:
     
     stream_.write(logical_port + '0');
     stream_.write(current ? '1' : '0');
+    stream_.write('\r');
     stream_.write('\n');
   }
 private:
