@@ -3,14 +3,14 @@
 #include <boost/bind.hpp>
 #include <boost/thread/future.hpp>
 
-#include "include/gpio/serial_port_device.h"
+#include <gpio/serial_port_device.h>
 
 int main()
 {
     try
     {
         gpio::gpio_device::ptr device =
-                gpio::serial_port_device::create("COM3", 9600, false);
+                gpio::serial_port_device::create("COM1", 115200, false);
 
         std::cout
                 << device->get_description() << " with "
@@ -24,7 +24,7 @@ int main()
                 &gpio::gpo_switch::set, tally_switch, _1));
         boost::promise<void> quit_promise;
         boost::unique_future<void> quit = quit_promise.get_future();
-        device->setup_gpi_pulse(1, gpio::HIGH, 500,
+        device->setup_gpi_pulse(1, gpio::HIGH,
                 boost::bind(&boost::promise<void>::set_value, &quit_promise));
 
         /*auto tally_1 = device->setup_gpo_tally(1, gpio::LOW);
@@ -35,7 +35,7 @@ int main()
         });
 
         auto trigger_0 = device->setup_gpo_pulse(0, gpio::LOW, 50);
-        device->setup_gpi_pulse(0, gpio::HIGH, 10, [&]
+        device->setup_gpi_pulse(0, gpio::HIGH, [&]
         {
             std::cout << "Pulse" << std::endl;
             trigger_0->fire();

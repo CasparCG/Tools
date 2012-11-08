@@ -1,4 +1,4 @@
-#include "../include/gpio/serial_port_device.h"
+#include <gpio/serial_port_device.h>
 
 #include <iostream>
 #include <string>
@@ -29,17 +29,13 @@ struct gpi_port_handler
 class gpi_port_pulse_handler : public gpi_port_handler
 {
     voltage silent_state_;
-    chrono::milliseconds duration_;
     bool last_port_state_;
-    chrono::high_resolution_clock::time_point begin_pulse_;
     gpi_trigger_handler handler_;
 public:
     gpi_port_pulse_handler(
             voltage silent_state,
-            int duration_milliseconds,
             const gpi_trigger_handler& handler)
         : silent_state_(silent_state)
-        , duration_(duration_milliseconds)
         , last_port_state_(false)
         , handler_(handler)
     {
@@ -47,36 +43,12 @@ public:
 
     virtual void handle(bool port_state)
     {
-        if (silent_state_ == LOW)
-        {
-            if (!last_port_state_ && port_state) // RISING
-            {
-                begin_pulse_ = chrono::high_resolution_clock::now();
-            }
-            else if (last_port_state_ && !port_state) // FALLING
-            {
-                chrono::high_resolution_clock::time_point now =
-                        chrono::high_resolution_clock::now();
-
-                if (now - begin_pulse_ >= duration_)
-                    handler_();
-            }
-        }
-        else if (silent_state_ == HIGH)
-        {
-            if (last_port_state_ && !port_state) // FALLING
-            {
-                begin_pulse_ = chrono::high_resolution_clock::now();
-            }
-            else if (!last_port_state_ && port_state) // RISING
-            {
-                chrono::high_resolution_clock::time_point now =
-                        chrono::high_resolution_clock::now();
-
-                if (now - begin_pulse_ >= duration_)
-                    handler_();
-            }
-        }
+        if (silent_state_ == LOW
+                && !last_port_state_ && port_state) // RISING
+            handler_();
+        else if (silent_state_ == HIGH
+                && last_port_state_ && !port_state) // FALLING
+            handler_();
 
         last_port_state_ = port_state;
     }
@@ -388,7 +360,7 @@ struct serial_port_device::impl
 
     void run(bool spontaneous_greeting)
     {
-        if (!spontaneous_greeting)
+        if (spontaneous_greeting)
             delay(500, bind(&impl::read_num_gpio, this));
         else
             delay(500, bind(&impl::say_hi, this));
@@ -583,24 +555,21 @@ struct serial_port_device::impl
     void setup_gpi_pulse(
             int gpi_port,
             voltage silent_state,
-            int duration_milliseconds,
             const gpi_trigger_handler& handler)
     {
         verify_gpi(gpi_port);
         service.post(bind(&impl::do_setup_gpi_pulse, this,
-                gpi_port, silent_state, duration_milliseconds, handler));
+                gpi_port, silent_state, handler));
     }
 
     void do_setup_gpi_pulse(
             int gpi_port,
             voltage silent_state,
-            int duration_milliseconds,
             const gpi_trigger_handler& handler)
     {
         gpi_handlers.insert(
                 gpi_port,
-                new gpi_port_pulse_handler(
-                        silent_state, duration_milliseconds, handler));
+                new gpi_port_pulse_handler(silent_state, handler));
     }
 
     void setup_gpi_tally(
@@ -705,11 +674,9 @@ int serial_port_device::get_num_gpo_ports() const
 void serial_port_device::setup_gpi_pulse(
         int gpi_port,
         voltage silent_state,
-        int duration_milliseconds,
         const gpi_trigger_handler& handler)
 {
-    impl_->setup_gpi_pulse(
-            gpi_port, silent_state, duration_milliseconds, handler);
+    impl_->setup_gpi_pulse(gpi_port, silent_state, handler);
 }
 
 void serial_port_device::setup_gpi_tally(

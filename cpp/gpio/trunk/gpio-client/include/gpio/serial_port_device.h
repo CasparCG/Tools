@@ -36,7 +36,7 @@ public:
      *
      * @return A reference counted pointer to the new instance.
      */
-    static ptr create(
+    __stdcall static ptr create(
             const std::string& serial_port,
             int baud_rate,
             bool spontaneous_greeting);
@@ -62,7 +62,6 @@ public:
     virtual void setup_gpi_pulse(
             int gpi_port,
             voltage silent_state,
-            int duration_milliseconds,
             const gpi_trigger_handler& handler);
 
     /** @{inheritDoc} */

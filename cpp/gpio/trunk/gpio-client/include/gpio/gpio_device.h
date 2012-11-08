@@ -174,17 +174,12 @@ public:
      * @param gpi_port              The GPI port on the device to setup.
      * @param silent_state          The voltage to expect when the port is not
      *                              triggered.
-     * @param duration_milliseconds The pulse duration in milliseconds to expect
-     *                              on the port. Shorter pulses will be ignored
-     *                              as line noice (or not even detected if lower
-     *                              than #get_minimum_supported_duration()).
      * @param handler               The handler to call every time a valid GPI
      *                              pulse is detected.
      */
     virtual void setup_gpi_pulse(
             int gpi_port,
             voltage silent_state,
-            int duration_milliseconds,
             const gpi_trigger_handler& handler) = 0;
 
     /**
