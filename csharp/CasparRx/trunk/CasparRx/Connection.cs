@@ -199,7 +199,7 @@ namespace CasparRx
                                             int.Parse(match.Groups[4].Value),
                                             match.Groups[5].Value);
                     })
-                    .Subscribe(this.versionSubject);
+                    .Subscribe(x => this.versionSubject.OnNext(x));
             }
             catch
             {
