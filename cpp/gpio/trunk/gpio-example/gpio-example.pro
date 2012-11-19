@@ -3,7 +3,7 @@ CONFIG += console
 CONFIG -= qt
 CONFIG += rtti
 CONFIG += exceptions
-#CONFIG += static
+#CONFIG += shared
 
 SOURCES += main.cpp
 

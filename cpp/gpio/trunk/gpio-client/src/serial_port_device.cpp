@@ -316,22 +316,31 @@ struct serial_port_device::impl
     std::map<int, shared_ptr<writer> > writers;
     std::queue<write_package> outgoing;
     bool writing;
-    int num_gpi;
-    int num_gpo;
+    promise<int> gpi_fetched;
+    promise<int> gpo_fetched;
+    boost::shared_future<int> num_gpi;
+    boost::shared_future<int> num_gpo;
     int min_supported_duration;
-    basic_streambuf<> description_buffer;
     std::string description;
-    promise<void> greeting_promise;
     thread io_thread;
     boost::exception_ptr io_failure;
 
     impl(const std::string& serial_port_name,
-         int baud,
-         bool spontaneous_greeting)
-        : serial_port(service, serial_port_name)
+         int baud)
+        : serial_port(service)
         , timer(service)
         , writing(false)
+        , description("Serial Port GPIO device on " + serial_port_name)
     {
+        try
+        {
+            serial_port.open(serial_port_name);
+        }
+        catch (const std::exception& e)
+        {
+            throw gpio_device_down(e.what());
+        }
+
         serial_port.set_option(serial_port_base::baud_rate(baud));
         serial_port.set_option(serial_port_base::character_size(8));
         serial_port.set_option(serial_port_base::flow_control(
@@ -341,29 +350,20 @@ struct serial_port_device::impl
         serial_port.set_option(serial_port_base::stop_bits(
                 serial_port_base::stop_bits::one));
 
-        //serial_port.open(serial_port_name);
+        num_gpi = gpi_fetched.get_future();
+        num_gpo = gpo_fetched.get_future();
 
-        io_thread = thread(bind(&impl::run, this, spontaneous_greeting));
+        io_thread = thread(bind(&impl::run, this));
 
-        unique_future<void> greeting_received = greeting_promise.get_future();
-
-        if (!greeting_received.timed_wait(posix_time::milliseconds(5000)))
-            throw std::runtime_error(
-                    "Device did not answer with greeting in time");
-
-        description += " on " + serial_port_name;
         min_supported_duration = std::ceil(1000.0 / (baud / 16.0));
 
         if (min_supported_duration == 0)
             min_supported_duration = 1;
     }
 
-    void run(bool spontaneous_greeting)
+    void run()
     {
-        if (spontaneous_greeting)
-            delay(500, bind(&impl::read_num_gpio, this));
-        else
-            delay(500, bind(&impl::say_hi, this));
+        read_next();
 
         try
         {
@@ -389,67 +389,24 @@ struct serial_port_device::impl
         timer.async_wait(delayed_task<Func>(command));
     }
 
-    void say_hi()
+    void request_gpi()
     {
         write_package package;
-        package.payload[0] = 'h';
-        package.payload[1] = 'i';
-        package.completion_handler = bind(&impl::read_num_gpio, this);
+        package.payload[0] = 'i';
+        package.payload[1] = '?';
 
         outgoing.push(package);
         write_pending();
-        std::cout << "say_hi" << std::endl;
     }
 
-    void read_num_gpio()
+    void request_gpo()
     {
-        std::cout << "begin read_num_gpio" << std::endl;
-        async_read(
-                serial_port,
-                buffer(read_buffer),
-                transfer_exactly(2),
-                bind(&impl::on_read_num_gpio, this, _1, _2));
-    }
+        write_package package;
+        package.payload[0] = 'o';
+        package.payload[1] = '?';
 
-    void on_read_num_gpio(
-        const system::error_code& e, std::size_t bytes_transferred)
-    {
-        if (e)
-            throw system::system_error(e);
-
-        if (bytes_transferred == 2)
-        {
-            std::cout << "on_read_num_gpio" << std::endl;
-            num_gpi = read_buffer[0] - '0';
-            num_gpo = read_buffer[1] - '0';
-
-            async_read_until(
-                    serial_port,
-                    description_buffer,
-                    std::string("\r\n", 2),
-                    bind(&impl::on_read_description, this, _1, _2));
-        }
-    }
-
-    void on_read_description(
-            const system::error_code& e, std::size_t bytes_transferred)
-    {
-        if (e)
-            throw system::system_error(e);
-
-        if (bytes_transferred == 0)
-            return;
-
-        std::cout << "on_read_description" << std::endl;
-
-        std::stringstream descr;
-        std::istream buff_stream(&description_buffer);
-        descr << buff_stream.rdbuf();
-        description = descr.str();
-        description.resize(description.size() - 2); // Remove \r\n
-
-        greeting_promise.set_value();
-        read_next();
+        outgoing.push(package);
+        write_pending();
     }
 
     void read_next()
@@ -468,19 +425,36 @@ struct serial_port_device::impl
 
         if (bytes_transferred == read_buffer.size())
         {
-            char port = read_buffer[0];
-            int gpi_port = port - '0';
+            char byte1 = read_buffer[0];
+            char byte2 = read_buffer[1];
 
-            verify_gpi(gpi_port);
+            switch (byte1)
+            {
+            case 'i':
+                if (!num_gpi.is_ready())
+                    gpi_fetched.set_value(byte2 - '0');
 
-            ptr_unordered_map<int, gpi_port_handler>::iterator iter =
-                    gpi_handlers.find(gpi_port);
+                break;
+            case 'o':
+                if (!num_gpo.is_ready())
+                    gpo_fetched.set_value(byte2 - '0');
 
-            if (iter != gpi_handlers.end())
-                iter->second->handle(read_buffer[1] == '1');
-            else
-                std::cout << "Unsubsribed GPI event on port " << gpi_port
-                          << std::endl;
+                break;
+            default:
+                char port = byte1;
+                int gpi_port = port - '0';
+
+                ptr_unordered_map<int, gpi_port_handler>::iterator iter =
+                        gpi_handlers.find(gpi_port);
+
+                if (iter != gpi_handlers.end())
+                    iter->second->handle(byte2 == '1');
+                else
+                    std::cout << "Unsubsribed GPI event on port " << gpi_port
+                              << std::endl;
+                break;
+            }
+
         }
 
         read_next();
@@ -523,6 +497,39 @@ struct serial_port_device::impl
         write_pending();
     }
 
+    int get_num_gpi_ports()
+    {
+        if (!num_gpi.is_ready())
+        {
+            request_gpi();
+
+            if (!num_gpi.timed_wait(posix_time::milliseconds(1000)))
+                throw std::runtime_error(
+                        "Device did not answer with num GPI in time");
+        }
+
+        return num_gpi.get();
+    }
+
+    int get_num_gpo_ports()
+    {
+        if (!num_gpo.is_ready())
+        {
+            request_gpo();
+
+            if (!num_gpo.timed_wait(posix_time::milliseconds(1000)))
+                throw std::runtime_error(
+                        "Device did not answer with num GPO in time");
+        }
+
+        return num_gpo.get();
+    }
+
+    std::string get_description() const
+    {
+        return description;
+    }
+
     shared_ptr<writer> new_writer(int gpo_port)
     {
         shared_ptr<writer> result(new writer(
@@ -542,13 +549,13 @@ struct serial_port_device::impl
 
     void verify_gpi(int gpi_port)
     {
-        if (gpi_port < 0 || gpi_port > num_gpi - 1)
+        if (gpi_port < 0 || gpi_port > get_num_gpi_ports() - 1)
             throw std::out_of_range("GPI port out of range");
     }
 
     void verify_gpo(int gpo_port)
     {
-        if (gpo_port < 0 || gpo_port > num_gpo - 1)
+        if (gpo_port < 0 || gpo_port > get_num_gpo_ports() - 1)
             throw std::out_of_range("GPO port out of range");
     }
 
@@ -632,19 +639,15 @@ struct serial_port_device::impl
 
 serial_port_device::serial_port_device(
         const std::string& serial_port,
-        int baud_rate,
-        bool spontaneous_greeting)
-    : impl_(new impl(serial_port, baud_rate, spontaneous_greeting))
+        int baud_rate)
+    : impl_(new impl(serial_port, baud_rate))
 {
 }
 
 gpio_device::ptr serial_port_device::create(
-        const std::string& serial_port,
-        int baud_rate,
-        bool spontaneous_greeting)
+        const std::string& serial_port, int baud_rate)
 {
-    return gpio_device::ptr(
-        new serial_port_device(serial_port, baud_rate, spontaneous_greeting));
+    return gpio_device::ptr(new serial_port_device(serial_port, baud_rate));
 }
 
 serial_port_device::~serial_port_device()
@@ -653,7 +656,7 @@ serial_port_device::~serial_port_device()
 
 std::string serial_port_device::get_description() const
 {
-    return impl_->description;
+    return impl_->get_description();
 }
 
 int serial_port_device::get_minimum_supported_duration() const
@@ -663,12 +666,12 @@ int serial_port_device::get_minimum_supported_duration() const
 
 int serial_port_device::get_num_gpi_ports() const
 {
-    return impl_->num_gpi;
+    return impl_->get_num_gpi_ports();
 }
 
 int serial_port_device::get_num_gpo_ports() const
 {
-    return impl_->num_gpo;
+    return impl_->get_num_gpo_ports();
 }
 
 void serial_port_device::setup_gpi_pulse(

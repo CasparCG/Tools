@@ -10,7 +10,7 @@ int main()
     try
     {
         gpio::gpio_device::ptr device =
-                gpio::serial_port_device::create("COM1", 115200, false);
+                gpio::serial_port_device::create("COM1", 115200);
 
         std::cout
                 << device->get_description() << " with "
@@ -24,7 +24,7 @@ int main()
                 &gpio::gpo_switch::set, tally_switch, _1));
         boost::promise<void> quit_promise;
         boost::unique_future<void> quit = quit_promise.get_future();
-        device->setup_gpi_pulse(1, gpio::HIGH,
+        device->setup_gpi_pulse(1, gpio::LOW,
                 boost::bind(&boost::promise<void>::set_value, &quit_promise));
 
         /*auto tally_1 = device->setup_gpo_tally(1, gpio::LOW);
@@ -54,8 +54,6 @@ int main()
         device->setup_gpi_tally(0, gpio::LOW, tally_handler);*/
 
         quit.get();
-        /*int i;
-        std::cin >> i;*/
     }
     catch (const std::exception& e)
     {

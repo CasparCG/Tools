@@ -20,26 +20,17 @@ namespace gpio {
  */
 class serial_port_device : public gpio_device
 {
-    serial_port_device(
-            const std::string& serial_port,
-            int baud_rate,
-            bool spontaneous_greeting);
+    serial_port_device(const std::string& serial_port, int baud_rate);
 public:
     /**
      * Create a serial port GPIO device.
      *
-     * @param serial_port          The serial port to use.
-     * @param baud_rate            The baud rate to use.
-     * @param spontaneous_greeting Whether the device will automatically send a
-     *                             greeting or if "hi" needs to be sent to it
-     *                             first.
+     * @param serial_port The serial port to use.
+     * @param baud_rate   The baud rate to use.
      *
      * @return A reference counted pointer to the new instance.
      */
-    __stdcall static ptr create(
-            const std::string& serial_port,
-            int baud_rate,
-            bool spontaneous_greeting);
+    static ptr create(const std::string& serial_port, int baud_rate);
 
     /**
      * Closes the serial port.

@@ -30,6 +30,18 @@ public:
 };
 
 /**
+ * Thrown if a GPIO device cannot be contacted.
+ */
+class gpio_device_down : public std::runtime_error
+{
+public:
+    gpio_device_down(const std::string& message)
+        : std::runtime_error(message)
+    {
+    }
+};
+
+/**
  * A handle to GPO port provided by gpio_device::setup_gpo_pulse(). The handle
  * allows for triggering the GPO.
  */
