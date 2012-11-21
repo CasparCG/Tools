@@ -20,28 +20,32 @@ namespace gpio {
  */
 class serial_port_device : public gpio_device
 {
-    serial_port_device(const std::string& serial_port, int baud_rate);
+    serial_port_device(
+            const std::string& serial_port,
+            int baud_rate,
+            const error_handler& error_handler,
+            const connection_listener& connection_listener);
 public:
     /**
      * Create a serial port GPIO device.
      *
-     * @param serial_port The serial port to use.
-     * @param baud_rate   The baud rate to use.
+     * @param serial_port         The serial port to use.
+     * @param baud_rate           The baud rate to use.
+     * @param error_handler       The error handler to use.
+     * @param connection_listener The connection listener to use.
      *
      * @return A reference counted pointer to the new instance.
      */
-    static ptr create(const std::string& serial_port, int baud_rate);
+    static ptr create(
+            const std::string& serial_port,
+            int baud_rate,
+            const error_handler& error_handler,
+            const connection_listener& connection_listener);
 
     /**
      * Closes the serial port.
      */
     virtual ~serial_port_device();
-
-    /** @{inheritDoc} */
-    virtual std::string get_description() const;
-
-    /** @{inheritDoc} */
-    virtual int get_minimum_supported_duration() const;
 
     /** @{inheritDoc} */
     virtual int get_num_gpi_ports() const;

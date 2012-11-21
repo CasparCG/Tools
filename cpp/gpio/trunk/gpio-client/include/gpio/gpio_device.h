@@ -113,6 +113,17 @@ typedef boost::function<void ()> gpi_trigger_handler;
 typedef boost::function<void (bool)> gpi_switch_handler;
 
 /**
+ * A listener that will get notified when a GPIO device is connected or
+ * disconnected.
+ */
+typedef boost::function<void (bool)> connection_listener;
+
+/**
+ * A handler or errors that may prevent continued GPI input to be suppressed.
+ */
+typedef boost::function<void (const std::exception&)> error_handler;
+
+/**
  * gpi_switch_handler implementation that delegates to two separate handlers for
  * on and off.
  */
@@ -156,17 +167,6 @@ public:
      * Will shutdown any IO threads and stop listening for GPI.
      */
     virtual ~gpio_device() { }
-
-    /**
-     * @return english description of the GPIO device.
-     */
-    virtual std::string get_description() const = 0;
-
-    /**
-     * @return the minimum supported pulse duration in milliseconds that this
-     *         device can emmit (GPO ) and can detect (GPI).
-     */
-    virtual int get_minimum_supported_duration() const = 0;
 
     /**
      * @return the number of GPI ports available on this device.
