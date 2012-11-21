@@ -376,7 +376,7 @@ struct serial_port_device::impl
         }
         catch (const std::exception& e)
         {
-            throw gpio_device_down(e.what());
+            return;
         }
 
         conn.serial_port.set_option(
@@ -550,8 +550,9 @@ struct serial_port_device::impl
             request_gpi();
 
             if (!num_gpi.timed_wait(posix_time::milliseconds(1000)))
-                throw std::runtime_error(
-                        "Device did not answer with num GPI in time");
+                return -1;
+                /*throw std::runtime_error(
+                        "Device did not answer with num GPI in time");*/
         }
 
         return num_gpi.get();
@@ -564,8 +565,9 @@ struct serial_port_device::impl
             request_gpo();
 
             if (!num_gpo.timed_wait(posix_time::milliseconds(1000)))
-                throw std::runtime_error(
-                        "Device did not answer with num GPO in time");
+                return -1;
+                /*throw std::runtime_error(
+                        "Device did not answer with num GPO in time");*/
         }
 
         return num_gpo.get();
