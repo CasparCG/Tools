@@ -674,7 +674,7 @@ struct serial_port_device::impl
 
     ~impl()
     {
-        shutdown++;
+        ++shutdown;
         conn.service.stop();
         io_thread.join();
     }
