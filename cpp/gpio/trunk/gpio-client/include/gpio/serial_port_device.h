@@ -23,7 +23,6 @@ class serial_port_device : public gpio_device
     serial_port_device(
             const std::string& serial_port,
             int baud_rate,
-            const error_handler& error_handler,
             const connection_listener& connection_listener);
 public:
     /**
@@ -31,7 +30,6 @@ public:
      *
      * @param serial_port         The serial port to use.
      * @param baud_rate           The baud rate to use.
-     * @param error_handler       The error handler to use.
      * @param connection_listener The connection listener to use.
      *
      * @return A reference counted pointer to the new instance.
@@ -39,7 +37,6 @@ public:
     static ptr create(
             const std::string& serial_port,
             int baud_rate,
-            const error_handler& error_handler,
             const connection_listener& connection_listener);
 
     /**

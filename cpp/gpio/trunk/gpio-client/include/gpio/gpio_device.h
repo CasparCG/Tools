@@ -30,18 +30,6 @@ public:
 };
 
 /**
- * Thrown if a GPIO device cannot be contacted.
- */
-class gpio_device_down : public std::runtime_error
-{
-public:
-    gpio_device_down(const std::string& message)
-        : std::runtime_error(message)
-    {
-    }
-};
-
-/**
  * A handle to GPO port provided by gpio_device::setup_gpo_pulse(). The handle
  * allows for triggering the GPO.
  */
@@ -117,11 +105,6 @@ typedef boost::function<void (bool)> gpi_switch_handler;
  * disconnected.
  */
 typedef boost::function<void (bool)> connection_listener;
-
-/**
- * A handler or errors that may prevent continued GPI input to be suppressed.
- */
-typedef boost::function<void (const std::exception&)> error_handler;
 
 /**
  * gpi_switch_handler implementation that delegates to two separate handlers for

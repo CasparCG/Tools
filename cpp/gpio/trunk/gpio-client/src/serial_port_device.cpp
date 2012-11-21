@@ -124,39 +124,33 @@ class writer
     io_service& service;
     std::queue<write_package>& outgoing;
     function<void ()> write_pending;
-    function<void ()> check_failed;
     deadline_timer timer;
 public:
     writer(
             io_service& service,
             std::queue<write_package>& outgoing,
-            const function<void ()>& write_pending,
-            const function<void ()>& check_failed)
+            const function<void ()>& write_pending)
         : service(service)
         , outgoing(outgoing)
         , write_pending(write_pending)
-        , check_failed(check_failed)
         , timer(service)
     {
     }
 
     void write(const write_package& package)
     {
-        check_failed();
         service.post(bind(&writer::do_write, this, package));
     }
 
     template<class Func>
     void post(const Func& task)
     {
-        check_failed();
         service.post(task);
     }
 
     template<class Func>
     void post_delayed(long millis_delayed, const Func& task)
     {
-        check_failed();
         timer.expires_from_now(
                 posix_time::milliseconds(millis_delayed));
         timer.async_wait(delayed_task<Func>(task, true));
@@ -335,38 +329,46 @@ struct serial_port_device::impl
     std::queue<write_package> outgoing;
     bool writing;
     bool connected;
-    error_handler err_handler;
     connection_listener conn_listener;
     promise<int> gpi_fetched;
     promise<int> gpo_fetched;
     boost::shared_future<int> num_gpi;
     boost::shared_future<int> num_gpo;
     thread io_thread;
-    boost::exception_ptr io_failure;
     boost::detail::atomic_count shutdown;
 
     impl(const std::string& serial_port_name,
          int baud_rate,
-         const error_handler& error_handler,
          const connection_listener& connection_listener)
         : conn(serial_port_name, baud_rate)
         , connected(false)
-        , err_handler(error_handler)
         , conn_listener(connection_listener)
         , shutdown(0)
     {
-        connect();
+        attempt_connect();
+        io_thread = thread(bind(&impl::run, this));
     }
 
     void disconnect()
     {
+        connected = false;
+        conn_listener(connected);
+
         gpi_fetched = promise<int>();
         gpo_fetched = promise<int>();
         num_gpi = gpi_fetched.get_future();
         num_gpo = gpo_fetched.get_future();
     }
 
-    void connect()
+    bool try_to_be_connected()
+    {
+        if (connected)
+            return true;
+        else
+            return attempt_connect();
+    }
+
+    bool attempt_connect()
     {
         writing = false;
 
@@ -376,7 +378,7 @@ struct serial_port_device::impl
         }
         catch (const std::exception& e)
         {
-            return;
+            return false;
         }
 
         conn.serial_port.set_option(
@@ -394,8 +396,9 @@ struct serial_port_device::impl
         num_gpi = gpi_fetched.get_future();
         num_gpo = gpo_fetched.get_future();
 
-        io_thread = thread(bind(&impl::run, this));
         connected = true;
+
+        return true;
     }
 
     void run()
@@ -403,29 +406,16 @@ struct serial_port_device::impl
         while (shutdown == 0)
         {
             read_next();
+            write_pending();
 
             try
             {
                 conn.service.run();
             }
-            catch (const std::exception& e)
-            {
-                io_failure = current_exception();
-
-                err_handler(e);
-            }
             catch (...)
             {
-                io_failure = current_exception();
-                err_handler(std::runtime_error("Unknown error in io_thread"));
             }
         }
-    }
-
-    void throw_if_failed()
-    {
-        if (!(io_failure == 0))
-            rethrow_exception(io_failure);
     }
 
     template<class Func>
@@ -467,7 +457,10 @@ struct serial_port_device::impl
     void on_read(const system::error_code& e, std::size_t bytes_transferred)
     {
         if (e)
-            throw system::system_error(e);
+        {
+            disconnect();
+            return;
+        }
 
         if (bytes_transferred == read_buffer.size())
         {
@@ -525,7 +518,10 @@ struct serial_port_device::impl
             const system::error_code& e, std::size_t bytes_transferred)
     {
         if (e)
-            throw system::system_error(e);
+        {
+            disconnect();
+            return;
+        }
 
         write_package& package = outgoing.back();
 
@@ -545,14 +541,15 @@ struct serial_port_device::impl
 
     int get_num_gpi_ports()
     {
+        if (!try_to_be_connected())
+            return -1;
+
         if (!num_gpi.is_ready())
         {
             request_gpi();
 
             if (!num_gpi.timed_wait(posix_time::milliseconds(1000)))
                 return -1;
-                /*throw std::runtime_error(
-                        "Device did not answer with num GPI in time");*/
         }
 
         return num_gpi.get();
@@ -560,14 +557,15 @@ struct serial_port_device::impl
 
     int get_num_gpo_ports()
     {
+        if (!try_to_be_connected())
+            return -1;
+
         if (!num_gpo.is_ready())
         {
             request_gpo();
 
             if (!num_gpo.timed_wait(posix_time::milliseconds(1000)))
                 return -1;
-                /*throw std::runtime_error(
-                        "Device did not answer with num GPO in time");*/
         }
 
         return num_gpo.get();
@@ -578,8 +576,7 @@ struct serial_port_device::impl
         shared_ptr<writer> result(new writer(
                 conn.service,
                 outgoing,
-                bind(&impl::write_pending, this),
-                bind(&impl::throw_if_failed, this)));
+                bind(&impl::write_pending, this)));
         conn.service.post(
                 bind(&impl::do_insert_writer, this, gpo_port, result));
 
@@ -591,24 +588,11 @@ struct serial_port_device::impl
         writers.insert(std::make_pair(gpo_port, writer));
     }
 
-    void verify_gpi(int gpi_port)
-    {
-        if (gpi_port < 0 || gpi_port > get_num_gpi_ports() - 1)
-            throw std::out_of_range("GPI port out of range");
-    }
-
-    void verify_gpo(int gpo_port)
-    {
-        if (gpo_port < 0 || gpo_port > get_num_gpo_ports() - 1)
-            throw std::out_of_range("GPO port out of range");
-    }
-
     void setup_gpi_pulse(
             int gpi_port,
             voltage silent_state,
             const gpi_trigger_handler& handler)
     {
-        verify_gpi(gpi_port);
         conn.service.post(bind(&impl::do_setup_gpi_pulse, this,
                 gpi_port, silent_state, handler));
     }
@@ -628,7 +612,6 @@ struct serial_port_device::impl
             voltage off_state,
             const gpi_switch_handler& handler)
     {
-        verify_gpi(gpi_port);
         conn.service.post(bind(&impl::do_setup_gpi_tally, this,
                 gpi_port, off_state, handler));
     }
@@ -645,7 +628,6 @@ struct serial_port_device::impl
 
     void stop_gpi(int gpi_port)
     {
-        verify_gpi(gpi_port);
         conn.service.post(bind(&impl::do_stop_gpi, this, gpi_port));
     }
 
@@ -657,8 +639,6 @@ struct serial_port_device::impl
     gpo_trigger::ptr setup_gpo_pulse(
             int gpo_port, voltage silent_state, int duration_milliseconds)
     {
-        verify_gpo(gpo_port);
-
         return gpo_trigger::ptr(new gpo_trigger_impl(
                 gpo_port,
                 silent_state,
@@ -668,8 +648,6 @@ struct serial_port_device::impl
 
     gpo_switch::ptr setup_gpo_tally(int gpo_port, voltage off_state)
     {
-        verify_gpo(gpo_port);
-
         return gpo_switch::ptr(new gpo_switch_impl(
                 gpo_port, off_state, new_writer(gpo_port)));
     }
@@ -685,21 +663,18 @@ struct serial_port_device::impl
 serial_port_device::serial_port_device(
         const std::string& serial_port,
         int baud_rate,
-        const error_handler& error_handler,
         const connection_listener& connection_listener)
-    : impl_(new impl(
-            serial_port, baud_rate, error_handler, connection_listener))
+    : impl_(new impl(serial_port, baud_rate, connection_listener))
 {
 }
 
 gpio_device::ptr serial_port_device::create(
         const std::string& serial_port,
         int baud_rate,
-        const error_handler& error_handler,
         const connection_listener& connection_listener)
 {
     return gpio_device::ptr(new serial_port_device(
-            serial_port, baud_rate, error_handler, connection_listener));
+            serial_port, baud_rate, connection_listener));
 }
 
 serial_port_device::~serial_port_device()
