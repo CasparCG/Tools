@@ -14,6 +14,7 @@
 #include <boost/thread/future.hpp>
 #include <boost/ptr_container/ptr_unordered_map.hpp>
 #include <boost/detail/atomic_count.hpp>
+#include <boost/enable_shared_from_this.hpp>
 
 using namespace boost;
 using namespace boost::asio;
@@ -119,7 +120,7 @@ public:
     }
 };
 
-class writer
+class writer : public boost::enable_shared_from_this<writer>
 {
     io_service& service;
     std::queue<write_package>& outgoing;
@@ -135,11 +136,20 @@ public:
         , write_pending(write_pending)
         , timer(service)
     {
+        std::cout << "writer() outgoing address " << &outgoing << std::endl;
+    }
+
+    void write_silence(int gpo, voltage silent_state)
+    {
+        write_package package;
+        package.payload[0] = '0' + gpo;
+        package.payload[1] = silent_state == LOW ? '0' : '1';
+        write(package);
     }
 
     void write(const write_package& package)
     {
-        service.post(bind(&writer::do_write, this, package));
+        service.post(bind(&writer::do_write, shared_from_this(), package));
     }
 
     template<class Func>
@@ -158,6 +168,7 @@ public:
 private:
     void do_write(const write_package& package)
     {
+        std::cout << "do_write() outgoing address " << &outgoing << std::endl;
         outgoing.push(package);
         write_pending();
     }
@@ -230,6 +241,7 @@ public:
         , pending(0)
         , triggering(false)
     {
+        writer->write_silence(port, silent_state);
     }
 
     virtual void fire()
@@ -345,6 +357,7 @@ struct serial_port_device::impl
         , conn_listener(connection_listener)
         , shutdown(0)
     {
+        std::cout << "impl() outgoing address " << &outgoing << std::endl;
         attempt_connect();
         io_thread = thread(bind(&impl::run, this));
     }
@@ -411,9 +424,12 @@ struct serial_port_device::impl
             try
             {
                 conn.service.run();
+                conn.service.reset();
             }
-            catch (...)
+            catch (const std::exception& e)
             {
+                std::cerr << "Exception: " << e.what() << std::endl;
+                throw;
             }
         }
     }
@@ -458,8 +474,9 @@ struct serial_port_device::impl
     {
         if (e)
         {
-            disconnect();
-            return;
+            throw system::system_error(e);
+            /*disconnect();
+            return;*/
         }
 
         if (bytes_transferred == read_buffer.size())
@@ -504,7 +521,7 @@ struct serial_port_device::impl
         if (outgoing.empty() || writing)
             return;
 
-        write_package& package = outgoing.back();
+        write_package& package = outgoing.front();
 
         writing = true;
         async_write(
@@ -519,11 +536,12 @@ struct serial_port_device::impl
     {
         if (e)
         {
-            disconnect();
-            return;
+            throw system::system_error(e);
+            /*disconnect();
+            return;*/
         }
 
-        write_package& package = outgoing.back();
+        write_package& package = outgoing.front();
 
         if (bytes_transferred != package.payload.size())
             return;
@@ -532,6 +550,8 @@ struct serial_port_device::impl
         {
             package.completion_handler();
         }
+
+        std::cout << "Wrote " << package.payload[0] << package.payload[1] << std::endl;
 
         outgoing.pop();
 
@@ -657,6 +677,7 @@ struct serial_port_device::impl
         ++shutdown;
         conn.service.stop();
         io_thread.join();
+        std::cout << "~impl() outgoing address " << &outgoing << std::endl;
     }
 };
 
@@ -679,6 +700,9 @@ gpio_device::ptr serial_port_device::create(
 
 serial_port_device::~serial_port_device()
 {
+    impl_.reset();
+    // Cannot reopen otherwise
+    this_thread::sleep(posix_time::milliseconds(100));
 }
 
 int serial_port_device::get_num_gpi_ports() const
