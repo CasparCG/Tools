@@ -332,6 +332,13 @@ struct connection_details
     }
 };
 
+enum serial_port_state
+{
+    DISCONNECTED,
+    HANDSHAKE,
+    CONNECTED
+};
+
 struct serial_port_device::impl
 {
     connection_details conn;
@@ -340,7 +347,8 @@ struct serial_port_device::impl
     std::map<int, shared_ptr<writer> > writers;
     std::queue<write_package> outgoing;
     bool writing;
-    bool connected;
+    bool got_keep_alive;
+    serial_port_state state;
     connection_listener conn_listener;
     promise<int> gpi_fetched;
     promise<int> gpo_fetched;
@@ -353,45 +361,57 @@ struct serial_port_device::impl
          int baud_rate,
          const connection_listener& connection_listener)
         : conn(serial_port_name, baud_rate)
-        , connected(false)
+        , state(DISCONNECTED)
         , conn_listener(connection_listener)
         , shutdown(0)
     {
-        std::cout << "impl() outgoing address " << &outgoing << std::endl;
-        attempt_connect();
+        conn.service.post(bind(&impl::connect, this));
         io_thread = thread(bind(&impl::run, this));
+    }
+
+    void disconnected()
+    {
+        if (state == DISCONNECTED)
+            return;
+
+        gpi_fetched.set_value(-1);
+        gpo_fetched.set_value(-1);
+
+        if (state == CONNECTED)
+            conn_listener(false);
+
+        state = DISCONNECTED;
+
+        schedule_connect();
     }
 
     void disconnect()
     {
-        connected = false;
-        conn_listener(connected);
+        if (state == DISCONNECTED)
+            return;
 
-        gpi_fetched = promise<int>();
-        gpo_fetched = promise<int>();
-        num_gpi = gpi_fetched.get_future();
-        num_gpo = gpo_fetched.get_future();
+        conn.timer.cancel();
+        conn.serial_port.cancel();
+        conn.serial_port.close();
+
+        disconnected();
     }
 
-    bool try_to_be_connected()
+    void schedule_connect()
     {
-        if (connected)
-            return true;
-        else
-            return attempt_connect();
+        delay(300, bind(&impl::connect, this));
     }
 
-    bool attempt_connect()
+    void connect()
     {
-        writing = false;
-
         try
         {
             conn.serial_port.open(conn.serial_port_name);
         }
         catch (const std::exception& e)
         {
-            return false;
+            schedule_connect();
+            return;
         }
 
         conn.serial_port.set_option(
@@ -408,19 +428,66 @@ struct serial_port_device::impl
         gpo_fetched = promise<int>();
         num_gpi = gpi_fetched.get_future();
         num_gpo = gpo_fetched.get_future();
+        writing = false;
 
-        connected = true;
+        read_next();
+        send_keep_alive();
+    }
 
-        return true;
+    void connected()
+    {
+        state = CONNECTED;
+        conn_listener(true);
+    }
+
+    void schedule_keep_alive()
+    {
+        delay(2000, bind(&impl::send_keep_alive, this));
+    }
+
+    void send_keep_alive()
+    {
+        write_package package;
+        package.payload[0] = 'a';
+        package.payload[1] = '?';
+        package.completion_handler =
+                bind(&impl::schedule_keepalive_timeout, this);
+        got_keep_alive = false;
+        outgoing.push(package);
+        write_pending();
+    }
+
+    void schedule_keepalive_timeout()
+    {
+        delay(500, bind(&impl::verify_keepalive_timeout, this));
+    }
+
+    void verify_keepalive_timeout()
+    {
+        if (got_keep_alive)
+        {
+            if (state == DISCONNECTED || state == HANDSHAKE)
+                connected();
+
+            schedule_keep_alive();
+        }
+        else if (state == DISCONNECTED)
+        {
+            state = HANDSHAKE;
+            schedule_keep_alive();
+        }
+        else
+        {
+            disconnect();
+        }
     }
 
     void run()
     {
+        conn_listener(false);
+
         while (shutdown == 0)
         {
-            read_next();
-            write_pending();
-
             try
             {
                 conn.service.run();
@@ -437,6 +504,7 @@ struct serial_port_device::impl
     template<class Func>
     void delay(long delay_millis, const Func& command)
     {
+        //conn.timer.cancel();
         conn.timer.expires_from_now(posix_time::milliseconds(delay_millis));
         conn.timer.async_wait(delayed_task<Func>(command));
     }
@@ -474,9 +542,8 @@ struct serial_port_device::impl
     {
         if (e)
         {
-            throw system::system_error(e);
-            /*disconnect();
-            return;*/
+            disconnect();
+            return;
         }
 
         if (bytes_transferred == read_buffer.size())
@@ -494,6 +561,14 @@ struct serial_port_device::impl
             case 'o':
                 if (!num_gpo.is_ready())
                     gpo_fetched.set_value(byte2 - '0');
+
+                break;
+            case 'a':
+                if (byte2 == '!')
+                {
+                    got_keep_alive = true;
+                    //verify_keepalive_timeout();
+                }
 
                 break;
             default:
@@ -536,9 +611,8 @@ struct serial_port_device::impl
     {
         if (e)
         {
-            throw system::system_error(e);
-            /*disconnect();
-            return;*/
+            disconnect();
+            return;
         }
 
         write_package& package = outgoing.front();
@@ -561,7 +635,7 @@ struct serial_port_device::impl
 
     int get_num_gpi_ports()
     {
-        if (!try_to_be_connected())
+        if (state != CONNECTED)
             return -1;
 
         if (!num_gpi.is_ready())
@@ -577,7 +651,7 @@ struct serial_port_device::impl
 
     int get_num_gpo_ports()
     {
-        if (!try_to_be_connected())
+        if (state != CONNECTED)
             return -1;
 
         if (!num_gpo.is_ready())
