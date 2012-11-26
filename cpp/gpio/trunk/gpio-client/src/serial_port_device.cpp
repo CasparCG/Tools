@@ -15,6 +15,7 @@
 #include <boost/ptr_container/ptr_unordered_map.hpp>
 #include <boost/detail/atomic_count.hpp>
 #include <boost/enable_shared_from_this.hpp>
+#include <boost/foreach.hpp>
 
 using namespace boost;
 using namespace boost::asio;
@@ -111,7 +112,6 @@ public:
         if (e)
         {
             system::system_error ex(e);
-            std::cerr << ex.what() << std::endl;
             throw ex;
         }
 
@@ -136,7 +136,6 @@ public:
         , write_pending(write_pending)
         , timer(service)
     {
-        std::cout << "writer() outgoing address " << &outgoing << std::endl;
     }
 
     void write_silence(int gpo, voltage silent_state)
@@ -168,13 +167,20 @@ public:
 private:
     void do_write(const write_package& package)
     {
-        std::cout << "do_write() outgoing address " << &outgoing << std::endl;
         outgoing.push(package);
         write_pending();
     }
 };
 
-class gpo_switch_impl : public gpo_switch
+class gpo_port_handler
+{
+public:
+    virtual ~gpo_port_handler() { }
+
+    virtual void device_connected() = 0;
+};
+
+class gpo_switch_impl : public gpo_switch, public gpo_port_handler
 {
     int port_;
     voltage off_state_;
@@ -187,6 +193,11 @@ public:
         , writer_(writer)
     {
         set(false);
+    }
+
+    virtual void device_connected()
+    {
+        set(get());
     }
 
     virtual void set(bool state)
@@ -220,7 +231,7 @@ public:
     }
 };
 
-class gpo_trigger_impl : public gpo_trigger
+class gpo_trigger_impl : public gpo_trigger, public gpo_port_handler
 {
     int port_;
     voltage silent_state_;
@@ -242,6 +253,17 @@ public:
         , triggering(false)
     {
         writer->write_silence(port, silent_state);
+    }
+
+    virtual void device_connected()
+    {
+        if (pending == 0 && !triggering)
+        {
+            shared_ptr<writer> strong = writer_.lock();
+
+            if (strong)
+                strong->write_silence(port_, silent_state_);
+        }
     }
 
     virtual void fire()
@@ -344,6 +366,7 @@ struct serial_port_device::impl
     connection_details conn;
     array<char, 4> read_buffer;
     ptr_unordered_map<int, gpi_port_handler> gpi_handlers;
+    std::map<int, weak_ptr<gpo_port_handler> > gpo_handlers;
     std::map<int, shared_ptr<writer> > writers;
     std::queue<write_package> outgoing;
     bool writing;
@@ -438,6 +461,16 @@ struct serial_port_device::impl
     {
         state = CONNECTED;
         conn_listener(true);
+
+        typedef std::pair<const int, weak_ptr<gpo_port_handler> > entry;
+
+        BOOST_FOREACH(entry& pair, gpo_handlers)
+        {
+            shared_ptr<gpo_port_handler> strong = pair.second.lock();
+
+            if (strong)
+                strong->device_connected();
+        }
     }
 
     void schedule_keep_alive()
@@ -504,7 +537,6 @@ struct serial_port_device::impl
     template<class Func>
     void delay(long delay_millis, const Func& command)
     {
-        //conn.timer.cancel();
         conn.timer.expires_from_now(posix_time::milliseconds(delay_millis));
         conn.timer.async_wait(delayed_task<Func>(command));
     }
@@ -625,8 +657,6 @@ struct serial_port_device::impl
             package.completion_handler();
         }
 
-        std::cout << "Wrote " << package.payload[0] << package.payload[1] << std::endl;
-
         outgoing.pop();
 
         writing = false;
@@ -696,6 +726,7 @@ struct serial_port_device::impl
             voltage silent_state,
             const gpi_trigger_handler& handler)
     {
+        gpi_handlers.erase(gpi_port);
         gpi_handlers.insert(
                 gpi_port,
                 new gpi_port_pulse_handler(silent_state, handler));
@@ -715,6 +746,7 @@ struct serial_port_device::impl
         voltage off_state,
         const gpi_switch_handler& handler)
     {
+        gpi_handlers.erase(gpi_port);
         gpi_handlers.insert(
                 gpi_port,
                 new gpi_port_tally_handler(off_state, handler));
@@ -733,17 +765,34 @@ struct serial_port_device::impl
     gpo_trigger::ptr setup_gpo_pulse(
             int gpo_port, voltage silent_state, int duration_milliseconds)
     {
-        return gpo_trigger::ptr(new gpo_trigger_impl(
+        shared_ptr<gpo_trigger_impl> trigger(new gpo_trigger_impl(
                 gpo_port,
                 silent_state,
                 duration_milliseconds,
                 new_writer(gpo_port)));
+
+        conn.service.post(
+                bind(&impl::do_insert_gpo_handler, this, gpo_port, trigger));
+
+        return trigger;
+    }
+
+    void do_insert_gpo_handler(
+            int gpo_port, const shared_ptr<gpo_port_handler>& handler)
+    {
+        gpo_handlers.erase(gpo_port);
+        gpo_handlers.insert(std::make_pair(gpo_port, handler));
     }
 
     gpo_switch::ptr setup_gpo_tally(int gpo_port, voltage off_state)
     {
-        return gpo_switch::ptr(new gpo_switch_impl(
+        shared_ptr<gpo_switch_impl> tally(new gpo_switch_impl(
                 gpo_port, off_state, new_writer(gpo_port)));
+
+        conn.service.post(
+                bind(&impl::do_insert_gpo_handler, this, gpo_port, tally));
+
+        return tally;
     }
 
     ~impl()
@@ -751,7 +800,6 @@ struct serial_port_device::impl
         ++shutdown;
         conn.service.stop();
         io_thread.join();
-        std::cout << "~impl() outgoing address " << &outgoing << std::endl;
     }
 };
 

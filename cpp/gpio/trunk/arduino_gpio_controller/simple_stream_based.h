@@ -52,19 +52,12 @@ class simple_listener
   Stream& stream_;
   const GpoMapper& gpo_mapper_;
   int num_gpi_;
-  const char* device_name_;
-  bool sent_greeting_;
 public:
   simple_listener(
-      Stream& stream,
-      const GpoMapper& gpo_mapper,
-      int num_gpi,
-      const char* device_name)
+      Stream& stream, const GpoMapper& gpo_mapper, int num_gpi)
     : stream_(stream)
     , gpo_mapper_(gpo_mapper)
     , num_gpi_(num_gpi)
-    , device_name_(device_name)
-    , sent_greeting_(false)
   {
     for (int i = 0; i < GpoMapper::NUM_PORTS; ++i)
       pinMode(gpo_mapper_.to_hardware_port(i), OUTPUT);
@@ -72,13 +65,6 @@ public:
 
   void tick()
   {
-    if (!sent_greeting_)
-    {
-      send_greeting();
-
-      sent_greeting_ = true;
-    }
-
     int num_bytes;
     
     while ((num_bytes = stream_.available()) >= 4)
@@ -90,9 +76,21 @@ public:
       stream_.read();
       stream_.read();
       
-      if (byte1 == 'h' && byte2 == 'i')
+      if (byte1 == 'i' && byte2 == '?')
       {
-        send_greeting();
+        send_num_inputs();
+
+        continue;
+      }
+      else if (byte1 == 'o' && byte2 == '?')
+      {
+        send_num_outputs();
+
+        continue;
+      }
+      else if (byte1 == 'a' && byte2 == '?')
+      {
+        send_alive();
 
         continue;
       }
@@ -108,16 +106,26 @@ public:
     }
   }
   
-  void send_greeting()
+  void send_num_inputs()
   {
+    stream_.write('i');
     stream_.write('0' + num_gpi_);
+    stream_.write('\r');
+    stream_.write('\n');
+  }
+  
+  void send_num_outputs()
+  {
+    stream_.write('o');
     stream_.write('0' + GpoMapper::NUM_PORTS);
-
-    const char* iter = device_name_;
-    
-    while (*iter)
-      stream_.write((*iter++));
-    
+    stream_.write('\r');
+    stream_.write('\n');
+  }
+  
+  void send_alive()
+  {
+    stream_.write('a');
+    stream_.write('!');
     stream_.write('\r');
     stream_.write('\n');
   }
