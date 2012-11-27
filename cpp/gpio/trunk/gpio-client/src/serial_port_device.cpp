@@ -96,26 +96,15 @@ template<class Func>
 class delayed_task
 {
     Func task_;
-    bool throw_after_;
 public:
-    delayed_task(const Func& task, bool throw_after = false)
+    delayed_task(const Func& task)
         : task_(task)
-        , throw_after_(throw_after)
     {
     }
 
     void operator()(const system::error_code& e)
     {
-        if (throw_after_)
-            task_();
-
-        if (e)
-        {
-            system::system_error ex(e);
-            throw ex;
-        }
-
-        if (!throw_after_)
+        if (!e)
             task_();
     }
 };
@@ -162,7 +151,7 @@ public:
     {
         timer.expires_from_now(
                 posix_time::milliseconds(millis_delayed));
-        timer.async_wait(delayed_task<Func>(task, true));
+        timer.async_wait(delayed_task<Func>(task));
     }
 private:
     void do_write(const write_package& package)

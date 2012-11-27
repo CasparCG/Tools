@@ -1,0 +1,328 @@
+<?xml version="1.0" ?>
+<core device="IoCore" version_pcb="1.02" version_firmware="1.05" pcb_serial="201221014" mac_address="00:50:C2:DE:90:10">
+    <settings>
+        <ip>192.168.1.10</ip>
+        <subnet>255.255.255.0</subnet>
+        <router>192.168.1.1</router>
+        <label>GPIO IoCore Device</label>
+        <udp_port>50080</udp_port>
+        <osc_port>8000</osc_port>
+        <osc_out0>0.0.0.0:0</osc_out0>
+        <osc_out1>0.0.0.0:0</osc_out1>
+        <osc_out2>0.0.0.0:0</osc_out2>
+        <osc_out3>0.0.0.0:0</osc_out3>
+        <artnet_subnet_in_a>2</artnet_subnet_in_a>
+        <artnet_subnet_out_a>0</artnet_subnet_out_a>
+        <dmx_direction>Input</dmx_direction>
+        <gpi index="1">Digital</gpi>
+        <gpi index="2">Digital</gpi>
+        <gpi index="3">Digital</gpi>
+        <gpi index="4">Digital</gpi>
+        <gpi index="5">Digital</gpi>
+        <gpi index="6">Digital</gpi>
+        <gpi index="7">Digital</gpi>
+        <gpi index="8">Digital</gpi>
+    </settings>
+    <show_control route_to_dmx="false" route_to_artnet="false">
+        <actionlist enabled="true" source="GPI">
+            <action label="serial_send_00">
+                <trigger type="Channel" value="1" flank="Up" />
+                <tasks>
+                    <task type="RS-232" feature="Send" function="Set">
+                        <parameter index="1" type="String">00</parameter>
+                    </task>
+                </tasks>
+            </action>
+            <action label="serial_send_01">
+                <trigger type="Channel" value="1" flank="Down" />
+                <tasks>
+                    <task type="RS-232" feature="Send" function="Set">
+                        <parameter index="1" type="String">01</parameter>
+                    </task>
+                </tasks>
+            </action>
+            <action label="serial_send_10">
+                <trigger type="Channel" value="2" flank="Up" />
+                <tasks>
+                    <task type="RS-232" feature="Send" function="Set">
+                        <parameter index="1" type="String">10</parameter>
+                    </task>
+                </tasks>
+            </action>
+            <action label="serial_send_11">
+                <trigger type="Channel" value="2" flank="Down" />
+                <tasks>
+                    <task type="RS-232" feature="Send" function="Set">
+                        <parameter index="1" type="String">11</parameter>
+                    </task>
+                </tasks>
+            </action>
+            <action label="serial_send_20">
+                <trigger type="Channel" value="3" flank="Up" />
+                <tasks>
+                    <task type="RS-232" feature="Send" function="Set">
+                        <parameter index="1" type="String">20</parameter>
+                    </task>
+                </tasks>
+            </action>
+            <action label="serial_send_21">
+                <trigger type="Channel" value="3" flank="Down" />
+                <tasks>
+                    <task type="RS-232" feature="Send" function="Set">
+                        <parameter index="1" type="String">21</parameter>
+                    </task>
+                </tasks>
+            </action>
+            <action label="serial_send_30">
+                <trigger type="Channel" value="4" flank="Up" />
+                <tasks>
+                    <task type="RS-232" feature="Send" function="Set">
+                        <parameter index="1" type="String">30</parameter>
+                    </task>
+                </tasks>
+            </action>
+            <action label="serial_send_31">
+                <trigger type="Channel" value="4" flank="Down" />
+                <tasks>
+                    <task type="RS-232" feature="Send" function="Set">
+                        <parameter index="1" type="String">31</parameter>
+                    </task>
+                </tasks>
+            </action>
+            <action label="serial_send_40">
+                <trigger type="Channel" value="5" flank="Up" />
+                <tasks>
+                    <task type="RS-232" feature="Send" function="Set">
+                        <parameter index="1" type="String">40</parameter>
+                    </task>
+                </tasks>
+            </action>
+            <action label="serial_send_41">
+                <trigger type="Channel" value="5" flank="Down" />
+                <tasks>
+                    <task type="RS-232" feature="Send" function="Set">
+                        <parameter index="1" type="String">41</parameter>
+                    </task>
+                </tasks>
+            </action>
+            <action label="serial_send_50">
+                <trigger type="Channel" value="6" flank="Up" />
+                <tasks>
+                    <task type="RS-232" feature="Send" function="Set">
+                        <parameter index="1" type="String">50</parameter>
+                    </task>
+                </tasks>
+            </action>
+            <action label="serial_send_51">
+                <trigger type="Channel" value="6" flank="Down" />
+                <tasks>
+                    <task type="RS-232" feature="Send" function="Set">
+                        <parameter index="1" type="String">51</parameter>
+                    </task>
+                </tasks>
+            </action>
+            <action label="serial_send_60">
+                <trigger type="Channel" value="7" flank="Up" />
+                <tasks>
+                    <task type="RS-232" feature="Send" function="Set">
+                        <parameter index="1" type="String">60</parameter>
+                    </task>
+                </tasks>
+            </action>
+            <action label="serial_send_61">
+                <trigger type="Channel" value="7" flank="Down" />
+                <tasks>
+                    <task type="RS-232" feature="Send" function="Set">
+                        <parameter index="1" type="String">61</parameter>
+                    </task>
+                </tasks>
+            </action>
+            <action label="serial_send_70">
+                <trigger type="Channel" value="8" flank="Up" />
+                <tasks>
+                    <task type="RS-232" feature="Send" function="Set">
+                        <parameter index="1" type="String">70</parameter>
+                    </task>
+                </tasks>
+            </action>
+            <action label="serial_send_71">
+                <trigger type="Channel" value="8" flank="Down" />
+                <tasks>
+                    <task type="RS-232" feature="Send" function="Set">
+                        <parameter index="1" type="String">71</parameter>
+                    </task>
+                </tasks>
+            </action>
+        </actionlist>
+        <actionlist enabled="true" source="RS-232">
+            <action label="answer_num_gpi">
+                <trigger type="Message" value="i?" flank="Change" />
+                <tasks>
+                    <task type="RS-232" feature="Send" function="Set">
+                        <parameter index="1" type="String">i8</parameter>
+                    </task>
+                </tasks>
+            </action>
+            <action label="answer_num_gpo">
+                <trigger type="Message" value="o?" flank="Change" />
+                <tasks>
+                    <task type="RS-232" feature="Send" function="Set">
+                        <parameter index="1" type="String">o8</parameter>
+                    </task>
+                </tasks>
+            </action>
+            <action label="keep_alive">
+                <trigger type="Message" value="a?" flank="Change" />
+                <tasks>
+                    <task type="RS-232" feature="Send" function="Set">
+                        <parameter index="1" type="String">a!</parameter>
+                    </task>
+                </tasks>
+            </action>
+            <action label="receive_00">
+                <trigger type="Message" value="00" flank="Change" />
+                <tasks>
+                    <task type="GPO" feature="Set Value" function="Set">
+                        <parameter index="1" type="Unsigned">1</parameter>
+                        <parameter index="2" type="Bool">Off</parameter>
+                    </task>
+                </tasks>
+            </action>
+            <action label="receive_01">
+                <trigger type="Message" value="01" flank="Change" />
+                <tasks>
+                    <task type="GPO" feature="Set Value" function="Set">
+                        <parameter index="1" type="Unsigned">1</parameter>
+                        <parameter index="2" type="Bool">On</parameter>
+                    </task>
+                </tasks>
+            </action>
+            <action label="receive_10">
+                <trigger type="Message" value="10" flank="Change" />
+                <tasks>
+                    <task type="GPO" feature="Set Value" function="Set">
+                        <parameter index="1" type="Unsigned">2</parameter>
+                        <parameter index="2" type="Bool">Off</parameter>
+                    </task>
+                </tasks>
+            </action>
+            <action label="receive_11">
+                <trigger type="Message" value="11" flank="Change" />
+                <tasks>
+                    <task type="GPO" feature="Set Value" function="Set">
+                        <parameter index="1" type="Unsigned">2</parameter>
+                        <parameter index="2" type="Bool">On</parameter>
+                    </task>
+                </tasks>
+            </action>
+            <action label="receive_20">
+                <trigger type="Message" value="20" flank="Change" />
+                <tasks>
+                    <task type="GPO" feature="Set Value" function="Set">
+                        <parameter index="1" type="Unsigned">3</parameter>
+                        <parameter index="2" type="Bool">Off</parameter>
+                    </task>
+                </tasks>
+            </action>
+            <action label="receive_21">
+                <trigger type="Message" value="21" flank="Change" />
+                <tasks>
+                    <task type="GPO" feature="Set Value" function="Set">
+                        <parameter index="1" type="Unsigned">3</parameter>
+                        <parameter index="2" type="Bool">On</parameter>
+                    </task>
+                </tasks>
+            </action>
+            <action label="receive_30">
+                <trigger type="Message" value="30" flank="Change" />
+                <tasks>
+                    <task type="GPO" feature="Set Value" function="Set">
+                        <parameter index="1" type="Unsigned">4</parameter>
+                        <parameter index="2" type="Bool">Off</parameter>
+                    </task>
+                </tasks>
+            </action>
+            <action label="receive_31">
+                <trigger type="Message" value="31" flank="Change" />
+                <tasks>
+                    <task type="GPO" feature="Set Value" function="Set">
+                        <parameter index="1" type="Unsigned">4</parameter>
+                        <parameter index="2" type="Bool">On</parameter>
+                    </task>
+                </tasks>
+            </action>
+            <action label="receive_40">
+                <trigger type="Message" value="40" flank="Change" />
+                <tasks>
+                    <task type="GPO" feature="Set Value" function="Set">
+                        <parameter index="1" type="Unsigned">5</parameter>
+                        <parameter index="2" type="Bool">Off</parameter>
+                    </task>
+                </tasks>
+            </action>
+            <action label="receive_41">
+                <trigger type="Message" value="41" flank="Change" />
+                <tasks>
+                    <task type="GPO" feature="Set Value" function="Set">
+                        <parameter index="1" type="Unsigned">5</parameter>
+                        <parameter index="2" type="Bool">On</parameter>
+                    </task>
+                </tasks>
+            </action>
+            <action label="receive_50">
+                <trigger type="Message" value="50" flank="Change" />
+                <tasks>
+                    <task type="GPO" feature="Set Value" function="Set">
+                        <parameter index="1" type="Unsigned">6</parameter>
+                        <parameter index="2" type="Bool">Off</parameter>
+                    </task>
+                </tasks>
+            </action>
+            <action label="receive_51">
+                <trigger type="Message" value="51" flank="Change" />
+                <tasks>
+                    <task type="GPO" feature="Set Value" function="Set">
+                        <parameter index="1" type="Unsigned">6</parameter>
+                        <parameter index="2" type="Bool">On</parameter>
+                    </task>
+                </tasks>
+            </action>
+            <action label="receive_60">
+                <trigger type="Message" value="60" flank="Change" />
+                <tasks>
+                    <task type="GPO" feature="Set Value" function="Set">
+                        <parameter index="1" type="Unsigned">7</parameter>
+                        <parameter index="2" type="Bool">Off</parameter>
+                    </task>
+                </tasks>
+            </action>
+            <action label="receive_61">
+                <trigger type="Message" value="61" flank="Change" />
+                <tasks>
+                    <task type="GPO" feature="Set Value" function="Set">
+                        <parameter index="1" type="Unsigned">7</parameter>
+                        <parameter index="2" type="Bool">On</parameter>
+                    </task>
+                </tasks>
+            </action>
+            <action label="receive_70">
+                <trigger type="Message" value="70" flank="Change" />
+                <tasks>
+                    <task type="GPO" feature="Set Value" function="Set">
+                        <parameter index="1" type="Unsigned">8</parameter>
+                        <parameter index="2" type="Bool">Off</parameter>
+                    </task>
+                </tasks>
+            </action>
+            <action label="receive_71">
+                <trigger type="Message" value="71" flank="Change" />
+                <tasks>
+                    <task type="GPO" feature="Set Value" function="Set">
+                        <parameter index="1" type="Unsigned">8</parameter>
+                        <parameter index="2" type="Bool">On</parameter>
+                    </task>
+                </tasks>
+            </action>
+        </actionlist>
+    </show_control>
+</core>
