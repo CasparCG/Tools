@@ -11,7 +11,7 @@ namespace CasparCG.Conformer.Shell
 {
     public class Program
     {
-        private static bool KeepRunning = true;
+        private static ManualResetEvent Quit = new ManualResetEvent(false);
 
         /// <summary>
         /// Mains the specified args.
@@ -34,7 +34,7 @@ namespace CasparCG.Conformer.Shell
             {
                 transcoder.Start(Settings.Default.LogPath, Settings.Default.InputPath, Settings.Default.OutputPath, Settings.Default.DeleteInputWhenFinished, Settings.Default.ClearOutputOnStartup, Settings.Default.LookForNewFilesOnStartup);
 
-                while (Program.KeepRunning) { }
+                Program.Quit.WaitOne();
             }
         }
 
@@ -46,7 +46,7 @@ namespace CasparCG.Conformer.Shell
         private static void ConsoleClosingHandler(object sender, ConsoleCancelEventArgs e)
         {
             e.Cancel = true;
-            Program.KeepRunning = false;
+            Program.Quit.Set();
         }
 
         /// <summary>
