@@ -1,3 +1,4 @@
+TARGET = gpio-client
 TEMPLATE = lib
 CONFIG += console
 CONFIG -= qt
