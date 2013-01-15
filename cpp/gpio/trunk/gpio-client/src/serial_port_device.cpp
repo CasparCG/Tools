@@ -698,6 +698,7 @@ struct serial_port_device::impl
 
     void do_insert_writer(int gpo_port, const shared_ptr<writer>& writer)
     {
+        writers.erase(gpo_port);
         writers.insert(std::make_pair(gpo_port, writer));
     }
 

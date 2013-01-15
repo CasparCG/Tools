@@ -5,18 +5,21 @@
 
 #include <gpio/serial_port_device.h>
 
+void connected(bool connected)
+{
+    std::cout << (connected ? "Connected" : "Disconnected") << std::endl;
+}
+
 int main()
 {
     try
     {
         gpio::gpio_device::ptr device =
-                gpio::serial_port_device::create("COM1", 115200);
+                gpio::serial_port_device::create("COM6", 115200, &connected);
 
         std::cout
-                << device->get_description() << " with "
                 << device->get_num_gpi_ports() << " GPI and "
-                << device->get_num_gpo_ports() << " GPO and min_duration "
-                << device->get_minimum_supported_duration() << std::endl;
+                << device->get_num_gpo_ports() << " GPO" << std::endl;
 
         gpio::gpo_switch::ptr tally_switch =
                 device->setup_gpo_tally(0, gpio::LOW);
