@@ -10,7 +10,8 @@ namespace Client
 	{
 		static void Main(string[] args)
 		{
-            sOscServer = new OscServer(TransportType.Tcp, IPAddress.Loopback, 5253);
+            OscPacket.LittleEndianByteOrder = true;
+            sOscServer = new OscServer(TransportType.Udp, IPAddress.Parse("127.0.0.1"), 6250);
             sOscServer.BundleReceived += new OscBundleReceivedHandler(sOscServer_BundleReceived);
 			sOscServer.MessageReceived += new OscMessageReceivedHandler(sOscServer_MessageReceived);
             sOscServer.FilterRegisteredMethods = false;
