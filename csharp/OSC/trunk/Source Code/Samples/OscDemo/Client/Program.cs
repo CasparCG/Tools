@@ -3,6 +3,7 @@ using System.Net;
 using System.IO;
 using System.Drawing;
 using Bespoke.Common.Osc;
+using System.Linq;
 
 namespace Client
 {
@@ -10,7 +11,7 @@ namespace Client
 	{
 		static void Main(string[] args)
 		{
-            OscPacket.LittleEndianByteOrder = true;
+            OscPacket.LittleEndianByteOrder = false;
             sOscServer = new OscServer(TransportType.Udp, IPAddress.Parse("127.0.0.1"), 6250);
             sOscServer.BundleReceived += new OscBundleReceivedHandler(sOscServer_BundleReceived);
 			sOscServer.MessageReceived += new OscMessageReceivedHandler(sOscServer_MessageReceived);
@@ -31,7 +32,9 @@ namespace Client
 
 		static void sOscServer_MessageReceived(object sender, OscMessageReceivedEventArgs e)
 		{
-            Console.WriteLine(string.Format("Message Received [{0}]: {1}", e.Message.SourceEndPoint.Address, e.Message.Address));            
+            Console.Write(string.Format("Message Received [{0}]: {1} ", e.Message.SourceEndPoint.Address, e.Message.Address));
+            e.Message.Data.ToList().ForEach(i => Console.Write("{0} ", i));
+            Console.WriteLine();
 		}
 
 		private static OscServer sOscServer;
