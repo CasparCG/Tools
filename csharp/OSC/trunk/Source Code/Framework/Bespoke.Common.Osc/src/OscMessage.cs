@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Collections.Generic;
 using System.Net;
 using System.Text;
+using System.Linq;
 
 namespace Bespoke.Common.Osc
 {
@@ -122,6 +123,14 @@ namespace Bespoke.Common.Osc
 						value = OscPacket.ValueFromByteArray<double>(data, ref start);
 						break;
 
+                    case TrueTag:
+                        value = true;
+                        break;
+
+                    case FalseTag:
+                        value = false;
+                        break;
+
 					case StringTag:
 					case SymbolTag:
 						value = OscPacket.ValueFromByteArray<string>(data, ref start);
@@ -169,6 +178,10 @@ namespace Bespoke.Common.Osc
 				case "Double":
 					typeTag = DoubleTag;
 					break;
+
+                case "Boolean":
+                    typeTag = Convert.ToBoolean(value) ? TrueTag : FalseTag;
+                    break;
 
 				case "String":
 					typeTag = StringTag;
@@ -256,6 +269,16 @@ namespace Bespoke.Common.Osc
 		/// The type tag for a string.
 		/// </summary>
 		protected const char StringTag = 's';
+
+        /// <summary>
+        /// The type tag for a true.
+        /// </summary>
+        protected const char TrueTag = 'T';
+
+        /// <summary>
+        /// The type tag for a false.
+        /// </summary>
+        protected const char FalseTag = 'F';
 
 		/// <summary>
 		/// The type tag for a symbol.
