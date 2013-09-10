@@ -3,7 +3,6 @@ package caspar.tools.pages
 	import caspar.network.data.CasparInfoPaths;
 	import caspar.network.ServerConnection;
 	import caspar.network.ServerConnectionEvent;
-	import caspar.tools.TemplateGenerator;
 	import caspar.tools.utils.ServerItem;
 	import caspar.tools.utils.Servers;
 	import caurina.transitions.Tweener;

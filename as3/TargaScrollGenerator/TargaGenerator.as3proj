@@ -4,7 +4,7 @@
   <output>
     <movie outputType="Application" />
     <movie input="" />
-    <movie path="build\CasparTargaGenerator\Caspar Targa Generator.swf" />
+    <movie path="build\TargaGenerator\Targa Generator.swf" />
     <movie fps="30" />
     <movie width="800" />
     <movie height="600" />
