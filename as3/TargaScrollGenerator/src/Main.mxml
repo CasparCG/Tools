@@ -1,0 +1,909 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" creationComplete="init()" width="220" height="700" minWidth="220" minHeight="700" horizontalScrollPolicy="off" verticalScrollPolicy="off">
+	
+	<mx:Script>
+		<![CDATA[
+		
+			import adobe.utils.CustomActions;
+			import caspar.tools.utils.PSDocument;
+			import com.adobe.csxs.core.CSXSInterface;
+			import com.adobe.csxs.external.RequestResult;
+			import com.adobe.csxs.types.SyncRequestResult;
+			import com.adobe.csxs.types.SystemPath;
+			import flash.geom.Point;
+			import mx.controls.SWFLoader;
+			import caspar.network.ServerConnectionEvent;
+			import caspar.tools.pages.Playout;
+			import caspar.tools.pages.Settings;
+			import caspar.tools.pages.Template;
+			import caspar.tools.utils.CasparConnection;
+			import caspar.tools.utils.ServerItem;
+			import caspar.tools.utils.Servers;
+			import caurina.transitions.Equations;
+			import caurina.transitions.Tweener;
+			import fl.controls.ComboBox;
+			import flash.display.InteractiveObject;
+			import flash.display.MovieClip;
+			import flash.display.Sprite;
+			import flash.display.StageAlign;
+			import flash.events.*;
+			import flash.net.URLLoader;
+			import flash.net.URLRequest;
+			import flash.system.Capabilities;
+			import flash.text.TextField;
+			import flash.utils.Timer;
+			
+			//[ Embed (source = "TargaScrollGenerator.jsx" , mimeType = "application/octet-stream" )] 
+			
+			//pages
+			private var _pageTemplate:Template;
+			private var _pagePlayout:Playout;
+			private var _pageSettings:Settings;
+			
+			private var _currentServer:String;
+			private var _hasConnection:Boolean = false;
+			
+			private var remoteTemplatePath:String;
+			private var remoteMediaPath:String;
+			private var templateData:XML;
+			private var _view:TemplateGeneratorView;
+			
+			private var _timer:Timer;
+			private var _currentDoc:String;
+			private var _defaultSettings:XML;
+			
+			private var _servers:Servers;
+		
+			private var _casparConnection:CasparConnection;
+			private var _currentSelectedItem:ServerItem;
+			private var _copiedToFolder:String;
+			private var _currentSelectedIndex:int = 0;
+			
+			public static var settingsPath:String = "";
+			
+			private static var _traceTextField:TextField;
+			private var _generatedMediaToPlay:Boolean;
+			
+			private var _psDocuments:Vector.<PSDocument> = new Vector.<PSDocument>();
+			private var _activeDocumentIndex:uint;
+			
+			//[ Embed (source= "js/TargaScrollGenerator.jsx" , mimeType= "application/octet-stream" )]
+			//private static var myScriptClass:Class;
+			
+			private function init():void
+			{
+				//tracer("Application init");
+				_view = new TemplateGeneratorView();
+				
+				_traceTextField = _view.tfTracer;
+				
+				_view.addEventListener(Event.ADDED_TO_STAGE, onViewLoaded);
+				swfLoader.source = _view;
+				_generatedMediaToPlay = false;
+			}
+			
+			private function initSettings():void
+			{
+				var reqResult:SyncRequestResult;
+				
+				_servers = new Servers();
+				_servers.addEventListener(Event.CHANGE, onServersChange);
+				
+				reqResult = CSXSInterface.getInstance().getSystemPath(SystemPath.USER_DATA);
+				var appData:String;
+				if((SyncRequestResult.COMPLETE == reqResult.status) && reqResult.data)
+				{
+				   appData = reqResult.data;
+				}
+				
+				//tracer(appData);
+				
+				if (appData != null)
+				{
+					var index:int = appData.indexOf("file:///");
+					if (index != -1)
+					{
+						appData = appData.substr(index + 8);
+					}
+					
+					reqResult = CSXSInterface.instance.evalScript("createFolder", appData, "PS_TargaScrollGenerator");
+					//tracer("folder: " + SyncRequestResult.COMPLETE + " == " + reqResult.status, true);
+					if((SyncRequestResult.COMPLETE == reqResult.status) && reqResult.data)
+					{
+						//tracer("folder response: " + reqResult.data.response, true);
+					}
+					
+					settingsPath = appData + "/PS_TargaScrollGenerator";
+				}
+				
+				/*reqResult = CSXSInterface.getInstance().getSystemPath(SystemPath.APPLICATION);
+				var appPath:String;
+				if((SyncRequestResult.COMPLETE == reqResult.status) && reqResult.data)
+				{
+				   appPath = reqResult.data;
+				}
+				
+				tracer("APP PATH: " + appPath, true);*/
+				
+				
+				reqResult = CSXSInterface.instance.evalScript("fileExists", settingsPath + "/" + "TemplateGeneratorServers.settings");
+						
+				//tracer("file: " + SyncRequestResult.COMPLETE + " == " + reqResult.status, true);
+				if ((SyncRequestResult.COMPLETE == reqResult.status) && reqResult.data)
+				{
+					//tracer("file response: " + reqResult.data.response, true);
+					if (reqResult.data.response == "false")
+					{
+						//tracer("file save servers");
+						_servers.save();
+					}
+					
+				}
+				
+				
+			}
+			
+			public static function saveServers(content:String):void
+			{
+				//tracer(content, true);
+				
+				content = content.split("\n").join("");
+				
+				//content = '<servers><server name="Home" host="localhost" channel="1" port="5250" path="C:\Program Files\CasparCG 2.0 Beta 3\server\templates\"/><server name="test:1" host="test" channel="1" port="5250" path="test/"/></servers>';
+				
+				var reqResult:SyncRequestResult = CSXSInterface.instance.evalScript("saveFile", content, settingsPath + "/" + "TemplateGeneratorServers.settings");
+						
+				//tracer("save: " + SyncRequestResult.COMPLETE + " == " + reqResult.status, true);
+				if ((SyncRequestResult.COMPLETE == reqResult.status) && reqResult.data)
+				{
+					//tracer("save response: " + reqResult.data.response, true);
+				}
+			}
+			
+			public static function loadServers():*
+			{
+				var reqResult:SyncRequestResult = CSXSInterface.instance.evalScript("loadFile", settingsPath + "/" + "TemplateGeneratorServers.settings");
+						
+				//tracer("load: " + SyncRequestResult.COMPLETE + " == " + reqResult.status, true);
+				if ((SyncRequestResult.COMPLETE == reqResult.status) && reqResult.data)
+				{
+					//tracer("load response: " + reqResult.data.response, true);
+					
+					return reqResult.data.response;
+				}
+				
+				return null;
+			}
+			
+			private function onViewLoaded(e:Event):void 
+			{
+				_view.removeEventListener(Event.ADDED_TO_STAGE, onViewLoaded);
+				trace("Main >> onViewLoaded >> View loaded");
+				
+				initSettings();
+				initCasparConnection();
+				initView();
+				
+			}
+			
+			private function initView():void
+			{
+				
+				for (var i:int = 0; i < _view.numChildren; i++) 
+				{
+					if (_view.getChildAt(i) as InteractiveObject != null)
+					{
+						InteractiveObject(_view.getChildAt(i)).tabEnabled = false;
+						InteractiveObject(_view.getChildAt(i)).tabIndex = -1;
+					}
+				}
+				
+				_view.btnGenerate.hl.alpha = 0;
+				//_view.out.visible = false;
+				
+				_pageTemplate = new Template(_view.pages.template);
+				_pagePlayout = new Playout(_view.pages.playout, _casparConnection, null);
+				_pageSettings = new Settings(_view.pages.settings, _servers, null);
+				
+				
+				
+				//stage.align = StageAlign.TOP_LEFT;
+				//stage.scaleMode = "noScale";
+				//stage.showDefaultContextMenu = false;
+				
+				_view.btnGenerate.buttonMode = true;
+				
+				_view.btnGenerate.addEventListener(MouseEvent.MOUSE_OVER, onMouseOverGenerate);
+				_view.btnGenerate.addEventListener(MouseEvent.MOUSE_OUT, onMouseOutGenerate);
+				_view.btnGenerate.addEventListener(MouseEvent.CLICK, generate);
+				_pageTemplate.addEventListener("focusOnFileName", focusOnFileName);
+				_pageTemplate.addEventListener("focusOutFileName", focusOutFileName);
+				
+				readCache();
+				
+				_view.Servers.addEventListener(Event.CHANGE, onServerChange);
+				
+				_currentServer = _view.Servers.text;
+				
+				_view.connected.green.visible = false;
+				_view.connected.red.visible = true;
+				_view.connected.buttonMode = true;
+				
+				_defaultSettings = new XML(<ctSettings optimizeImages="true" optimizeTextFields="true" optimizeVideos="true" textThickness="20" textSharpness="-168">
+											  <templateInfo/>
+											  <dataFields>
+												<dataField id="0" name="f0" value="Test f0"/>
+												<dataField id="1" name="f1" value="Test f1"/>
+												<dataField id="2" name="f2" value="Test f2"/>
+												<dataField id="3" name="f3" value="Test f3"/>
+											  </dataFields>
+											</ctSettings>
+											);
+				
+				_view.tabHit1.buttonMode = true;
+				_view.tabHit1.addEventListener(MouseEvent.CLICK, onClickTab1);
+				_view.tabHit2.buttonMode = true;
+				_view.tabHit2.addEventListener(MouseEvent.CLICK, onClickTab2);
+				_view.tabHit3.buttonMode = true;
+				_view.tabHit3.addEventListener(MouseEvent.CLICK, onClickTab3);
+				
+				_timer = new Timer(1000, 1);
+				_timer.addEventListener(TimerEvent.TIMER, onCheckDocument);
+				
+				onCheckDocument(null);
+				
+				_pageTemplate.addEventListener("getFileName", onGetFileName);
+				
+				//TODO: Find where in the chain to load the servers XML so the view doesn't fuck up.
+				Tweener.addTween(this, {delay: 0.01, onComplete: _servers.load, onCompleteParams: ["TemplateGeneratorServers.settings"]});
+				//_servers.load("TemplateGeneratorServers.settings");
+				
+			}
+			
+			private function focusOutFileName(e:Event = null):void 
+			{
+				if (!isNaN(_activeDocumentIndex))
+				{
+					if (_pageTemplate.getFileName() != "")
+					{
+						_psDocuments[_activeDocumentIndex].fileNameOnCaspar = _pageTemplate.getFileName();
+					}
+					else
+					{
+						tracer("Main >> focusOutFileName: File name empty");
+					}
+				}
+				else
+				{
+					tracer("Main >> focusOutFileName: There is no psdDoc in list?");
+				}
+				
+				
+				/*
+				tracer("focus out1: " + _pageTemplate.getFileName());
+				var psDocument:PSDocument 	= getPSDocumentPath(null);
+				var existsInList:Boolean 	= false;
+				
+				if (psDocument == null)
+				{
+					if (!isNaN(_activeDocumentIndex))
+					{
+						if (_pageTemplate.getFileName() != "")
+							_psDocuments[_activeDocumentIndex].fileNameOnCaspar = _pageTemplate.getFileName();
+						_activeDocumentIndex = undefined;
+					}
+					_pageTemplate.setFileName("");
+					tracer("not found document");
+					return;
+				}
+				
+				tracer("focus out2: " + psDocument.fileNameOnCaspar);
+				
+				for (var i:int = 0; i < _psDocuments.length; i++ )
+				{
+					if (_psDocuments[i].id == psDocument.id)
+					{
+						tracer(" ++ match: " + _psDocuments[i].fileNameOnCaspar + " :: " + _activeDocumentIndex);
+						existsInList = true;
+						if (!isNaN(_activeDocumentIndex) && _activeDocumentIndex == i)
+						{
+							
+							if (_pageTemplate.getFileName() != "")
+							{
+								_psDocuments[i].fileNameOnCaspar = _pageTemplate.getFileName();
+								tracer("1. _pageTemplate.getFileName: " + _pageTemplate.getFileName() + " :: " + _psDocuments[i].fileNameOnCaspar);
+							}
+							else
+							{
+								_psDocuments[i].fileNameOnCaspar = psDocument.fileNameOnCaspar;
+								_pageTemplate.setFileName(_psDocuments[i].fileNameOnCaspar);
+							}
+						}
+						else
+						{
+							tracer("2. _pageTemplate.getFileName: " + _pageTemplate.getFileName());
+							if (_pageTemplate.getFileName() != "")
+								_psDocuments[_activeDocumentIndex].fileNameOnCaspar = _pageTemplate.getFileName();
+							else
+							{
+								//
+							}
+							_pageTemplate.setFileName(_psDocuments[i].fileNameOnCaspar);
+						}
+						
+						
+						
+						
+						_activeDocumentIndex = i;
+						break;
+					}
+				}
+				if (!existsInList)
+				{
+					//tracer(" ++ add to list" + psDocument.fileNameOnCaspar );
+					_psDocuments.push(psDocument);
+					_pageTemplate.setFileName(psDocument.fileNameOnCaspar);
+					_activeDocumentIndex = _psDocuments.length - 1;
+				}
+				*/
+			}
+			
+			private function focusOnFileName(e:Event):void 
+			{
+				var psDocument:PSDocument 	= getPSDocumentPath(null);
+				if (psDocument == null)
+				{
+					_pageTemplate.setFileName("");
+					//tracer("not found document", true);
+					_activeDocumentIndex = undefined;
+					return;
+				}
+				//tracer("focus on: " + psDocument.fileNameOnCaspar , true);
+				
+				var existsInList:Boolean 	= false;
+				for (var i:int = 0; i < _psDocuments.length; i++ )
+				{
+					if (_psDocuments[i].id == psDocument.id)
+					{
+						_activeDocumentIndex = i;
+						//tracer(" ++ match: " + _psDocuments[i].fileNameOnCaspar);
+						existsInList = true;
+						
+						_pageTemplate.setFileName(_psDocuments[i].fileNameOnCaspar);
+						
+						break;
+					}
+				}
+				if (!existsInList)
+				{
+					//tracer(" ++ add to list" + psDocument.fileNameOnCaspar );
+					_psDocuments.push(psDocument);
+					_pageTemplate.setFileName(psDocument.fileNameOnCaspar);
+					_activeDocumentIndex = _psDocuments.length - 1;
+				}
+			}
+			
+			private function onGetFileName(e:Event):void 
+			{
+				var reqResult:SyncRequestResult = CSXSInterface.instance.evalScript("getFileName");
+				
+				if (SyncRequestResult.COMPLETE == reqResult.status) {
+					_pageTemplate.setFileName("" + reqResult.data.fileName);
+				}
+			}
+			
+			public static function getPSDocumentPath(e:Event = null):PSDocument 
+			{
+				var psDocument:PSDocument;
+				
+				var reqResult:SyncRequestResult = CSXSInterface.instance.evalScript("getPSDocumentParams");
+				
+				if (SyncRequestResult.COMPLETE == reqResult.status)
+				{
+					psDocument 						= new PSDocument();
+					psDocument.originalPath 		= String(reqResult.data.documentPath);
+					psDocument.fileNameOnCaspar 	= String(reqResult.data.fileName);
+					psDocument.id					= psDocument.originalPath + "-" + psDocument.fileNameOnCaspar;
+				}
+				return psDocument;
+			}
+			
+			private function initCasparConnection():void
+			{
+				_casparConnection = new CasparConnection();
+				_casparConnection.addEventListener(ServerConnectionEvent.ON_CONNECT, onSocketConnect);
+				_casparConnection.addEventListener(ServerConnectionEvent.ON_DISCONNECT, onSocketDisconnect);
+			}
+			
+			private function onSocketDisconnect(e:ServerConnectionEvent):void 
+			{
+				_view.Servers.getItemAt(0).label = "-Select server-";
+				_view.Servers.getItemAt(0).data =  "select";
+				_hasConnection = false;
+				_pageTemplate.disconnected();
+				if (_view.Servers.selectedIndex == 0)
+				{
+					indicateDisconnected();
+				}
+				else
+				{
+					indicateConnecting();
+				}
+			}
+			
+			private function onSocketConnect(e:ServerConnectionEvent):void 
+			{
+				_casparConnection.connection.removeEventListener(ServerConnectionEvent.ON_CONNECT, onSocketConnect);
+				indicateConnected();
+				_pageTemplate.connected();
+				getMediaFiles();
+				getTemplates();
+			}
+			
+			public function getMediaFiles():void
+			{
+				_casparConnection.connection.addEventListener(ServerConnectionEvent.ON_GET_MEDIAFILES, onGetMediaFiles);
+				_casparConnection.connection.GetMediaFiles();
+			}
+			
+			public function getTemplates():void 
+			{
+				_casparConnection.connection.addEventListener(ServerConnectionEvent.ON_GET_TEMPLATES, onGetTemplates);
+				_casparConnection.connection.GetTemplates();
+			}
+			
+			private function onGetTemplates(e:ServerConnectionEvent):void 
+			{
+				//tracer("onGet templates");
+				_casparConnection.connection.removeEventListener(ServerConnectionEvent.ON_GET_TEMPLATES, onGetTemplates);
+				_pagePlayout.onGetTemplates(e);
+				_pageTemplate.onGetTemplates(e);
+			}
+			
+			private function onGetMediaFiles(e:ServerConnectionEvent):void
+			{
+				//tracer("get media files: " + _copiedToFolder, true );
+				_casparConnection.connection.removeEventListener(ServerConnectionEvent.ON_GET_MEDIAFILES, onGetMediaFiles);
+				//_pagePlayout.on(e);
+				
+				_pageTemplate.onGetMediaFiles(e);
+				_pagePlayout.onGetMediaFiles(e);
+				
+				if (_generatedMediaToPlay)
+				{
+					_generatedMediaToPlay = false;
+					//Main.tracer("media g3nerated: " + _copiedToFolder, true);
+					//tracer("onGetMediaFiles Generate :: _pageTemplate.autoPlay: " + _pageTemplate.autoPlay);
+					_pagePlayout.selectMediaFile(_copiedToFolder, _pageTemplate.getFileName(), _pageTemplate.autoPlay);
+					//Main.tracer("media g3nerated: " + _copiedToFolder, true);
+					
+				}
+				
+			}
+			
+			private function indicateConnected():void 
+			{
+				_view.connected.green.visible = true;
+				_view.connected.red.visible = false;
+			}
+			
+			private function indicateConnecting():void 
+			{
+				_view.connected.green.visible = false;
+				_view.connected.red.visible = false;
+			}
+			
+			private function indicateDisconnected():void 
+			{
+				_view.connected.green.visible = false;
+				_view.connected.red.visible = true;
+			}
+			
+			private function generate(event:MouseEvent):void
+			{
+				focusOutFileName(null);
+				_generatedMediaToPlay = false;
+				
+				try
+				{
+					var psDocument:PSDocument 	= getPSDocumentPath(null);
+					if (psDocument == null)
+					{
+						//tracer("Generate: reset filename");
+						_pageTemplate.setFileName("");
+					}
+					else
+					{
+						var existsInList:Boolean 	= false;
+						for (var i:int = 0; i < _psDocuments.length; i++ )
+						{
+							if (_psDocuments[i].id == psDocument.id)
+							{
+								_activeDocumentIndex = i;
+								existsInList = true;
+								//tracer("Generate: found psdDoc: " + _psDocuments[i].fileNameOnCaspar);
+								_pageTemplate.setFileName(_psDocuments[i].fileNameOnCaspar);
+								
+								break;
+							}
+						}
+						if (!existsInList)
+						{
+							_psDocuments.push(psDocument);
+							_pageTemplate.setFileName(psDocument.fileNameOnCaspar);
+							_activeDocumentIndex = _psDocuments.length - 1;
+						}
+					}
+					
+					
+					var reqResult:SyncRequestResult = generateTGA(_pageTemplate.getFileName());
+					var generated:Boolean 			= false;
+					var generatedFile:String;
+					
+					if (SyncRequestResult.COMPLETE == reqResult.status)
+					{
+						generated 					= String(reqResult.data.success).toLocaleLowerCase() == "true" ? true : false;
+						generatedFile 				= String(reqResult.data.generatedFile);
+					}
+					
+					if (generated && _pageTemplate.remoteCopy)
+					{
+						_copiedToFolder 			= _pageTemplate.selectedFolder;
+						var success:Boolean			= uploadToServer(_casparConnection.currentServer, generatedFile);
+						
+						
+						if (success && _casparConnection.connection != null)
+						{
+							_generatedMediaToPlay 	= true;
+							Tweener.addTween(this , { delay: 0, onComplete: generationDone } );
+						}
+						
+						var serverItems:Vector.<ServerItem> = _pageTemplate.getAdditionalServers();
+						for (i = 0; i < serverItems.length; i++ )
+						{
+							if (serverItems[i] != _casparConnection.currentServer)
+							{
+								uploadToServer(serverItems[i], generatedFile);
+							}
+						}
+					}
+					
+					
+					
+				}
+				catch (e:Error)
+				{
+					//tracer("6");
+					//tracer(e.message);
+				}
+			}
+			
+			private function generateTGA(fileName:String):SyncRequestResult
+			{
+				var reqResult:SyncRequestResult;
+				var success:Boolean = false;
+				
+				try
+				{
+					reqResult = CSXSInterface.instance.evalScript("generateTGA", fileName);
+				}
+				catch (e:Error)
+				{
+					tracer("ERROR: Could not generate TGA file: " + e.message);
+				}
+				
+				return reqResult;
+			}
+			
+			private function uploadToServer(server:ServerItem, generatedFile:String):Boolean
+			{
+				try
+				{
+					var reqResult:SyncRequestResult;
+					var success:Boolean = false;
+					if (server != null)
+					{
+						if (server.uploadType == ServerItem.UPLOAD_TYPE_FTP)
+						{
+							reqResult = CSXSInterface.instance.evalScript("uploadFileToFTP", generatedFile, server.host , server.ftpUsername , server.ftpPassword, server.ftpMediaPath + _copiedToFolder);
+						}
+						else if (server.uploadType == ServerItem.UPLOAD_TYPE_COPY)
+						{
+							var path:String = String(server.copyMediaPath + "/" + _copiedToFolder).replace(/\\/g, "\\\\");
+							
+							reqResult = CSXSInterface.instance.evalScript("copyFile", generatedFile, path);
+						}
+						else
+						{
+							//no selected or invalid upload type
+						}
+					}
+					
+					if (SyncRequestResult.COMPLETE == reqResult.status)
+					{
+						success = String(reqResult.data.success).toLocaleLowerCase() == "true" ? true : false;
+						
+					}
+				}
+				catch (e:Error)
+				{
+					tracer("ERROR: " + e.message);
+				}
+				
+				return success;
+			}
+			
+			private function generationDone():void
+			{
+				_casparConnection.connection.addEventListener(ServerConnectionEvent.ON_GET_MEDIAFILES, onGetMediaFilesAfterGeneration, false, -2);
+				getMediaFiles();
+				
+			}
+			
+			private function onGetMediaFilesAfterGeneration(e:ServerConnectionEvent):void
+			{
+				_casparConnection.connection.removeEventListener(ServerConnectionEvent.ON_GET_MEDIAFILES, onGetMediaFilesAfterGeneration);
+				//tracer(_copiedToFolder + " :: " + _pageTemplate.getFileName() + " :: " + _pageTemplate.autoPlay);
+				//tracer("onGetMediaFilesAfterGeneration Generate :: _pageTemplate.autoPlay: " + _pageTemplate.autoPlay);
+				if(_pageTemplate.autoPlay)
+					onClickTab2(null);
+				
+				_pageTemplate.selectFolder(_copiedToFolder);
+			}
+			
+			private function onServersChange(e:Event):void 
+			{
+				//tracer("uppdaterat server lista");
+				
+				_casparConnection.disconnect();
+				
+				if(_view.Servers.selectedItem != null && (_view.Servers.selectedItem.data as ServerItem) != null) _currentSelectedItem = _view.Servers.selectedItem.data;
+				
+				_view.Servers.removeAll();
+				
+				_view.Servers.addItem( { label: "-Select server-", data: "select" } );
+				
+				//var i:int = 0;
+				
+				for each(var item:ServerItem in _servers.items)
+				{
+					_view.Servers.addItem( { label: item.displayName, data: item } );
+					//i++;
+				}
+				
+				_view.Servers.addItem( { label: "->Add new server", data: "{newServer}" } );
+				
+				_view.Servers.selectedIndex = 0;
+				
+				_pageTemplate.updateServers(_servers);
+				
+				//for (var i:int = 0; i < _ftGeneratorView.Servers.dataProvider.length; i++)
+				//{
+					//if (_ftGeneratorView.Servers.getItemAt(i).data == _currentSelectedItem)
+					//{
+						//_ftGeneratorView.Servers.selectedIndex = i;
+						//break;
+					//}
+				//}
+			}
+			
+			private function onClickTab1(e:MouseEvent):void 
+			{
+				_view.tabSelector.x = _view.tabHit1.x;
+				Tweener.addTween(_view.pages, { x: 0, time: .3, transition: Equations.easeOutCirc });
+			}
+			
+			private function onClickTab2(e:MouseEvent):void 
+			{
+				_view.tabSelector.x = _view.tabHit2.x;
+				Tweener.addTween(_view.pages, { x: -225, time: .3, transition: Equations.easeOutCirc });
+			}
+			
+			private function onClickTab3(e:MouseEvent):void 
+			{
+				_view.tabSelector.x = _view.tabHit3.x;
+				Tweener.addTween(_view.pages, { x: -450, time: .3, transition: Equations.easeOutCirc });
+			}
+			
+			private function onCheckDocument(e:TimerEvent):void 
+			{
+				/*var hasDocumentOpen:Boolean = MMExecuter('fl.getDocumentDOM()') != "null";
+				
+				if (hasDocumentOpen)
+				{
+
+					var currentDoc:String = MMExecuter('fl.getDocumentDOM().name');
+					//var currentDoc:String = "";
+					//tracer("Läckan??"+ currentDoc);
+					
+					if (_currentDoc != currentDoc)
+					{
+						//
+						var metadata:String = MMExecuter('fl.runScript(fl.configURI+"WindowSWF/brew2_0.jsfl", "readMetadata");');
+						//var metadata:String = "";
+						tracer("Läcker??" + metadata);
+						if (metadata != "0" && metadata != "" && metadata != null)
+						{
+							try
+							{
+								parseSettingsData(new XML(metadata));
+							}
+							catch (e:Error)
+							{
+							}
+						}
+						else
+						{
+							try
+							{
+								parseSettingsData(_defaultSettings);
+							}
+							catch (e:Error)
+							{
+							}
+						}
+					}
+					
+					_currentDoc = currentDoc;
+				}
+				_timer.reset();
+					
+				_timer.start();*/
+			}
+			
+			private function parseSettingsData(settings:XML):void
+			{
+				_pageTemplate.optimizeImages = toboolean(settings.@optimizeImages);
+				_pageTemplate.optimizeTextfields = toboolean(settings.@optimizeTextFields);
+				_pageTemplate.optimizeVideos = toboolean(settings.@optimizeVideos);
+				_pageTemplate.thickness = settings.@textThickness;
+				_pageTemplate.sharpness = settings.@textSharpness;
+				_pageTemplate.info = settings.templateInfo;
+			}
+			
+			public static function toboolean(val:String):Boolean
+			{
+				if (val == "true") { return true; } else { return false; }
+			}
+			
+			private function buildSettingsXML():String
+			{
+				//<dataFields>
+					//<dataField id="0" name={_ftGeneratorView.name0.text} value={_ftGeneratorView.value0.text} />
+					//<dataField id="1" name={_ftGeneratorView.name1.text} value={_ftGeneratorView.value1.text} />
+					//<dataField id="2" name={_ftGeneratorView.name2.text} value={_ftGeneratorView.value2.text} />
+					//<dataField id="3" name={_ftGeneratorView.name3.text} value={_ftGeneratorView.value3.text} />
+				//</dataFields>
+				
+				//tracer("bygger settings-xml");
+				var settings:XML = new XML(
+					<ctSettings optimizeImages={this._pageTemplate.optimizeImages} optimizeTextFields={this._pageTemplate.optimizeTextfields} optimizeVideos={this._pageTemplate.optimizeVideos} textThickness={this._pageTemplate.thickness} textSharpness={this._pageTemplate.sharpness}>
+						<templateInfo>
+							{this._pageTemplate.info}
+						</templateInfo>
+					</ctSettings>
+				);
+				//tracer(settings);
+				return settings.toString();
+			}
+			
+			private function saveSettings():void
+			{
+				//tracer("sparar settings");
+				var metadata:String = buildSettingsXML();
+				//tracertracer("har byggt settings");
+				//MMExecuter('fl.runScript(fl.configURI+"WindowSWF/brew2_0.jsfl", "writeMetadata", ' +metadata + ');');
+				//tracer("har skickat metadata: " + metadata);
+			}
+			
+			private function disconnect():void 
+			{
+				_casparConnection.connection.disconnect();
+			}
+			
+			private function onServerChange(e:Event):void 
+			{
+				if (_view.Servers.selectedItem.data as ServerItem)
+				{
+					indicateConnecting();
+					_casparConnection.connect(ServerItem(_view.Servers.selectedItem.data));
+					_view.Servers.getItemAt(0).label = "->Disconnect";
+					_view.Servers.getItemAt(0).data = "disconnect";
+				}
+				else
+				{
+					if (_view.Servers.selectedItem.data == "{newServer}")
+					{
+						onClickTab3(null);
+						_pageSettings.addNewServer();
+						_view.Servers.selectedIndex = _currentSelectedIndex;
+					}
+					else
+					{
+						_casparConnection.disconnect();
+						indicateDisconnected();
+					}
+				}
+				
+				_currentSelectedIndex = _view.Servers.selectedIndex;
+			}
+			
+			
+			
+			/*protected function button1_clickHandler(event:MouseEvent):void
+			{
+				
+				
+				btn.label = "grr";
+				
+				CSXSInterface.instance.evalScript("saveDocument");
+				
+				var reqResult:SyncRequestResult = CSXSInterface.instance.evalScript("fileExists", "C:/Lokala Filer/photo-1.JPG");
+				
+				
+				if (SyncRequestResult.COMPLETE == reqResult.status)
+				{
+					txt.text = "DONE: ";
+					txt.text += String(reqResult.data);
+					txt.text += String(String(reqResult.data));
+					txt.text += String(reqResult.data.exists);
+					
+				}
+				else
+				{
+					txt.text = "FAIL: " + reqResult.status;
+				}
+				
+			}*/
+			
+			private function readCache():void
+			{
+				var url:String = "TemplateGenerator.settings";
+				var loader:URLLoader = new URLLoader();
+				loader.addEventListener(Event.COMPLETE, onFileRead);
+				loader.addEventListener(IOErrorEvent.IO_ERROR, onError);
+				loader.load(new URLRequest(url));
+			}
+			
+			private function onFileRead(event:Event):void
+			{
+				var settings:XML = new XML(event.target.data);
+				
+				_pageTemplate.name = settings.@author;
+				_pageTemplate.email = settings.@email;
+				//_pageSettings.verboseOutput = toboolean(settings.@verbose);
+			}
+
+			private function onError(error:IOErrorEvent):void
+			{
+				//tracer(error.text);
+			}
+			
+			private function onMouseOverGenerate(event:MouseEvent):void
+			{
+			_view.btnGenerate.hl.alpha = 1;
+			}
+
+			private function onMouseOutGenerate(event:MouseEvent):void
+			{
+				_view.btnGenerate.hl.alpha = 0;
+			}
+			
+			public static function tracer(str:String, clear:Boolean = false):void
+			{
+				return;
+				if (_traceTextField == null)
+					return;
+				if(clear)
+					_traceTextField.text = "";
+				if(str && str != "")
+					_traceTextField.appendText("* " + str + "\n");
+			}
+			
+			
+		]]>
+	</mx:Script>
+	
+	<mx:SWFLoader id="swfLoader" />
+	
+</mx:Application>
