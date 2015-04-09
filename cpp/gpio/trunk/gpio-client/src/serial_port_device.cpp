@@ -179,7 +179,7 @@ public:
     gpo_switch_impl(int port, voltage off_state, weak_ptr<writer> writer)
         : port_(port)
         , off_state_(off_state)
-        , writer_(writer)
+        , writer_(std::move(writer))
     {
         set(false);
     }
@@ -814,7 +814,7 @@ serial_port_device::~serial_port_device()
 {
     impl_.reset();
     // Cannot reopen otherwise
-    this_thread::sleep(posix_time::milliseconds(100));
+    this_thread::sleep_for(boost::chrono::milliseconds(100));
 }
 
 int serial_port_device::get_num_gpi_ports() const
