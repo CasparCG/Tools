@@ -1,0 +1,101 @@
+<?xml version="1.0" ?>
+
+<!DOCTYPE module PUBLIC
+  "-//Puppy Crawl//DTD Check Configuration 1.2//EN"
+  "http://www.puppycrawl.com/dtds/configuration_1_2.dtd">
+
+<module name="Checker">
+    <module name="NewlineAtEndOfFile" />
+    <module name="FileTabCharacter" />
+    <module name="TreeWalker">
+        <module name="AvoidStarImport" />
+        <module name="ArrayTrailingComma" />
+        <module name="EqualsAvoidNull" />
+        <module name="NoFinalizer" />
+        <module name="EqualsHashCode" />
+        <module name="HiddenField" />
+        <module name="MissingSwitchDefault" />
+        <module name="ModifiedControlVariable" />
+        <module name="SimplifyBooleanExpression" />
+        <module name="SimplifyBooleanReturn" />
+        <module name="StringLiteralEquality" />
+        <module name="PackageDeclaration" />
+        <module name="DeclarationOrder" />
+        <module name="ParameterAssignment" />
+        <module name="ExplicitInitialization" />
+        <module name="DefaultComesLast" />
+        <module name="FallThrough" />
+        <module name="MultipleVariableDeclarations" />
+        <module name="UnnecessaryParentheses" />
+        <module name="OneStatementPerLine" />
+        <module name="VisibilityModifier" />
+        <module name="FinalClass" />
+        <module name="InterfaceIsType" />
+        <module name="HideUtilityClassConstructor" />
+        <!-- module name="DesignForExtension" / -->
+        <module name="MutableException" />
+        <module name="ThrowsCount" />
+        <module name="InnerTypeLast" />
+        <module name="AnnotationUseStyle" />
+        <module name="MissingDeprecated" />
+        <module name="MissingOverride" />
+        <module name="PackageAnnotation" />
+        <module name="EmptyBlock" />
+        <module name="LeftCurly" />
+        <module name="NeedBraces" />
+        <module name="RightCurly" />
+        <module name="AvoidNestedBlocks">
+            <property name="allowInSwitchCase" value="true" />
+        </module>
+        <module name="IllegalImport" />
+        <module name="RedundantImport" />
+        <module name="UnusedImports" />
+        <module name="ImportOrder">
+            <property name="groups" value="/^javax?\./" />
+        </module>
+        <module name="JavadocType">
+            <property name="scope" value="private" />
+            <property name="authorFormat" value="\S" />
+        </module>
+        <module name="JavadocMethod"> <property name="scope" value="protected" 
+            /> <property name="allowUndeclaredRTE" value="true" /> </module>
+        <module name="JavadocStyle" />
+        <module name="ClassFanOutComplexity">
+            <property name="max" value="21" />
+        </module>
+        <module name="JavaNCSS">
+            <property name="methodMaximum" value="30" />
+            <property name="classMaximum" value="500" />
+            <property name="fileMaximum" value="700" />
+        </module>
+        <module name="TodoComment" />
+        <module name="UncommentedMain">
+            <property name="excludedClasses" value="\.Main$" />
+        </module>
+        <module name="UpperEll" />
+        <module name="ArrayTypeStyle" />
+        <module name="TrailingComment" />
+        <module name="OuterTypeFilename" />
+        <module name="ModifierOrder" />
+        <module name="RedundantModifier" />
+        <module name="MemberName">
+            <property name="format" value="^m[a-zA-Z0-9]*$" />
+        </module>
+        <module name="StaticVariableName">
+            <property name="format" value="^s[a-zA-Z0-9]*$" />
+        </module>
+        <module name="ConstantName" />
+        <module name="LineLength">
+            <property name="ignorePattern" value="^ *\* *[^ ]+$|^import" />
+        </module>
+        <module name="ParameterNumber" />
+        <module name="OuterTypeNumber" />
+        <module name="GenericWhitespace" />
+        <module name="MethodParamPad" />
+        <module name="OperatorWrap" />
+        <module name="ParenPad" />
+        <module name="TypecastParenPad" />
+        <module name="WhitespaceAfter" />
+        <module name="WhitespaceAround" />
+    </module>
+</module>
