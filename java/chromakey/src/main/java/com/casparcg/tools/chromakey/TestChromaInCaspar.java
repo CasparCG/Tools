@@ -76,8 +76,8 @@ public class TestChromaInCaspar extends Application {
         Slider brightnessSlider = new Slider(0, 1, 0);
 
         Slider softnessSlider = new Slider(0, 1, 0.1);
-        Slider spillSlider = new Slider(0, 1, 1);
-        Slider spillDarkenSlider = new Slider(0, 5, 2);
+        Slider spillSuppressionSlider = new Slider(0, 180.0, 0);
+        Slider spillSuppressionSaturationSlider = new Slider(0, 1, 1);
         CheckBox showMaskCheckBox = new CheckBox("Show mask");
 
         Button rundownToClipboard = new Button("Rundown to clipboard");
@@ -107,8 +107,8 @@ public class TestChromaInCaspar extends Application {
         addSeperator();
 
         add("Softness:", grow.apply(softnessSlider));
-        add("Spill:", grow.apply(spillSlider));
-        add("Spill Darken:", grow.apply(spillDarkenSlider));
+        add("Spill Suppression:", grow.apply(spillSuppressionSlider));
+        add("Spill Suppression Saturation:", grow.apply(spillSuppressionSaturationSlider));
         add("", grow.apply(showMaskCheckBox));
 
         addSeperator();
@@ -131,8 +131,8 @@ public class TestChromaInCaspar extends Application {
                 old.minSaturation().unbind();
                 old.minBrightness().unbind();
                 old.softness().unbind();
-                old.spill().unbind();
-                old.spillDarken().unbind();
+                old.spillSuppress().unbind();
+                old.spillSuppressSaturation().unbind();
                 old.showMask().unbind();
             }
 
@@ -141,8 +141,8 @@ public class TestChromaInCaspar extends Application {
             c.minSaturation().bind(saturationSlider.valueProperty());
             c.minBrightness().bind(brightnessSlider.valueProperty());
             c.softness().bind(softnessSlider.valueProperty());
-            c.spill().bind(spillSlider.valueProperty());
-            c.spillDarken().bind(spillDarkenSlider.valueProperty());
+            c.spillSuppress().bind(spillSuppressionSlider.valueProperty());
+            c.spillSuppressSaturation().bind(spillSuppressionSaturationSlider.valueProperty());
             c.showMask().bind(showMaskCheckBox.selectedProperty());
             c.enable().set(true);
         });
@@ -179,8 +179,8 @@ public class TestChromaInCaspar extends Application {
                             + " " + saturationSlider.getValue()
                             + " " + brightnessSlider.getValue()
                             + " " + softnessSlider.getValue()
-                            + " " + spillSlider.getValue()
-                            + " " + spillDarkenSlider.getValue()
+                            + " " + spillSuppressionSlider.getValue()
+                            + " " + spillSuppressionSaturationSlider.getValue()
                             + " " + (showMaskCheckBox.isSelected() ? "1" : "0")));
 
             ClipboardContent content = new ClipboardContent();
