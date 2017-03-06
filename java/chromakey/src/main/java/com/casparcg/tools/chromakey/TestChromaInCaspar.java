@@ -95,6 +95,7 @@ public class TestChromaInCaspar extends Application {
         add("CasparCG Server Name in Client:", casparName);
         add("CasparCG Server Host:", casparHost);
         add("CasparCG Server Port:", casparPort);
+        add("Layer:", casparLayer);
         add("", connect);
 
         addSeperator();
@@ -118,7 +119,7 @@ public class TestChromaInCaspar extends Application {
         Scene scene = new Scene(mRoot);
         primaryStage.setTitle("Chroma Key");
         primaryStage.setWidth(600);
-        primaryStage.setHeight(440);
+        primaryStage.setHeight(460);
         primaryStage.setScene(scene);
         primaryStage.show();
 
