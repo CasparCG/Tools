@@ -186,7 +186,7 @@ public class SwitcherServer implements Closeable {
                 out.println("casparport = 5250");
                 out.println("programchannel = 1");
                 out.println("multiviewchannel = 2");
-                out.println("# It is up to the user to play the content to be considered as input 1 up to $numinputs.");
+                out.println("# It is up to the user to play the content to be considered as input 1 up to [numinputs].");
                 out.println("# The layer starts at 10 and goes up to 10 + [numinputs] - 1 on the [programchannel].");
                 out.println("numinputs = 6");
                 out.println("osclistenport = 7250");
