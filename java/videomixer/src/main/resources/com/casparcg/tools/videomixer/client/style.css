@@ -1,0 +1,23 @@
+.root{
+    -fx-border-width: 0;
+    -fx-base: rgba(55, 55, 55, 255);
+    -fx-background: rgba(64, 64, 64, 255);
+    -fx-border-color: rgba(42, 42, 42, 255);
+    -fx-focus-color: rgba(255, 140, 0, 255);
+    -fx-control-inner-background: rgba(64, 64, 64, 255);
+    -fx-padding: 10;
+}
+
+.slider:vertical .track {
+    -fx-pref-width:20;
+}
+
+.slider .thumb {
+    -fx-pref-height: 20;
+    -fx-pref-width: 80;
+}
+
+.button {
+    -fx-pref-height: 50;
+    -fx-pref-width: 50;
+}
