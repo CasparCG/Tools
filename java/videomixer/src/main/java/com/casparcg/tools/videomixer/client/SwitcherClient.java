@@ -85,8 +85,9 @@ public class SwitcherClient extends Application {
 
         InetAddress mixerHost = InetAddress.getByName(require.apply("mixerhost"));
         int mixerOscPort = Integer.parseInt(require.apply("mixeroscport"));
+        int numInputs = Integer.parseInt(require.apply("numinputs"));
 
-        VideoSwitcher gui = new VideoSwitcher(6);
+        VideoSwitcher gui = new VideoSwitcher(numInputs);
         int udpListenPort = 10000;
         OSCPortIn in = null;
 
