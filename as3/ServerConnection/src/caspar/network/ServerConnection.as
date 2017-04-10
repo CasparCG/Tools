@@ -1155,7 +1155,7 @@ class CustomSocket extends Socket
 				case ServerConnectionEvent.ON_GET_DATA:
 					try
 					{
-						data = new DataItem(currentDataInfoItem, new XML(responseArray[0]));
+						data = new DataItem(currentDataInfoItem, new XML(responseArray[1]));
 					}
 					catch(e:Error)
 					{
